@@ -9,14 +9,19 @@
       <Form @submit="handleRegister" :validation-schema="schema">
         <div v-if="!successful">
           <div class="form-group">
+            <label for="firstname">firstname</label>
+            <Field name="firstname" type="firstname" class="form-control" />
+            <ErrorMessage name="firstname" class="error-feedback" />
+          </div>
+          <div class="form-group">
             <label for="username">Username</label>
             <Field name="username" type="text" class="form-control" />
             <ErrorMessage name="username" class="error-feedback" />
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
-            <Field name="email" type="email" class="form-control" />
-            <ErrorMessage name="email" class="error-feedback" />
+            <label for="roleType">roleType</label>
+            <Field name="roleType" type="roleType" class="form-control" />
+            <ErrorMessage name="roleType" class="error-feedback" />
           </div>
           <div class="form-group">
             <label for="password">Password</label>
@@ -65,16 +70,17 @@ export default {
         .required("Username is required!")
         .min(3, "Must be at least 3 characters!")
         .max(20, "Must be maximum 20 characters!"),
-      email: yup
-        .string()
-        .required("Email is required!")
-        .email("Email is invalid!")
-        .max(50, "Must be maximum 50 characters!"),
       password: yup
         .string()
         .required("Password is required!")
         .min(6, "Must be at least 6 characters!")
         .max(40, "Must be maximum 40 characters!"),
+      firstname: yup
+        .string()
+        .required("Firstname is required!"),
+      roleType: yup
+        .string()
+        .required("roleType is required!")
     });
 
     return {

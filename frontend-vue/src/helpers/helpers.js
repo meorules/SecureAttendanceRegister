@@ -11,7 +11,7 @@ Vue.use(VueFlashMessage, {
 });
 
 const vm = new Vue();
-const baseURL = 'http://localhost:3050/petshop/animals/';
+const baseURL = 'http://localhost:3050/Attendance/animals/';
 
 const handleError = fn => (...params) =>
     fn(...params).catch(error => {

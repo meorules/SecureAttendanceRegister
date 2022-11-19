@@ -10,8 +10,8 @@ module.exports = function(app) {
     next();
   });
 
-  app.get("/petshop/security/public", controller.publicContent);
+  app.get("/Attendance/security/public", controller.publicContent);
 
-  app.get("/petshop/security/protected", [authjwt.verifyToken], controller.protectedContent);
+  app.get("/Attendance/security/protected", [authjwt.verifyToken], controller.protectedContent);
 
 };

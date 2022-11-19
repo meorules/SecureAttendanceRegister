@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3050/petshop/auth/';
+const API_URL = 'http://localhost:3050/Attendance/auth/';
 
 class AuthService {
   login(user) {
@@ -13,7 +13,7 @@ class AuthService {
         if (response.data.accessToken) {
           localStorage.setItem('user', JSON.stringify(response.data));
         }
-
+        console.log(response.data)
         return response.data;
       });
   }

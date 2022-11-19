@@ -11,28 +11,28 @@ const User = db.users;
 chai.use(chaiHttp);
  
 //the parent block
-describe('Testing the /petshop path', () => {
-    //Testing GET /petshop
-    describe('GET /petshop', () => {
+describe('Testing the /Attendance path', () => {
+    //Testing GET /Attendance
+    describe('GET /Attendance', () => {
         it('it should return a welcome message', (done) => {
             chai.request(server)
-            .get('/petshop')
+            .get('/Attendance')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('message');
-                res.body.should.have.property('message').eql('Welcome to the petshop api.');
+                res.body.should.have.property('message').eql('Welcome to the Attendance api.');
                 done();
             });
         });
     });
-    // Finished GET /petshop
+    // Finished GET /Attendance
     
-    //Testing GET /petshop/animals
-    describe('GET /petshop/animals', () => {
+    //Testing GET /Attendance/animals
+    describe('GET /Attendance/animals', () => {
         it('it should GET all the animals', (done) => {
             chai.request(server)
-            .get('/petshop/animals')
+            .get('/Attendance/animals')
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('array');
@@ -41,10 +41,10 @@ describe('Testing the /petshop path', () => {
             });
         });
     });
-    //Finished GET /petshop/animals
+    //Finished GET /Attendance/animals
 
-    //Testing POST /petshop/animals - negative test
-    describe('POST /petshop/animals - negative', () => {
+    //Testing POST /Attendance/animals - negative test
+    describe('POST /Attendance/animals - negative', () => {
         it('it should not POST an animal without name field', (done) => {
             let animal = {
                 species: "dog",
@@ -53,7 +53,7 @@ describe('Testing the /petshop path', () => {
                 colour: "yellow"
             };
             chai.request(server)
-                .post('/petshop/animals')
+                .post('/Attendance/animals')
                 .send(animal)
                 .end((err, res) => {
                     res.should.have.status(400);
@@ -64,10 +64,10 @@ describe('Testing the /petshop path', () => {
                 });
         });
     });
-    //Finished POST /petshop/pets - negative test
+    //Finished POST /Attendance/pets - negative test
 
-    //Testing POST /petshop/animals - positive test
-    describe('POST /petshop/animals', () => {
+    //Testing POST /Attendance/animals - positive test
+    describe('POST /Attendance/animals', () => {
         let animal;
 
         before(function(done) {
@@ -91,7 +91,7 @@ describe('Testing the /petshop path', () => {
         
         it('it should POST an animal ', (done) => {        
             chai.request(server)
-                .post('/petshop/animals')
+                .post('/Attendance/animals')
                 .send(animal)
                 .end((err, res) => {
                     res.should.have.status(200);
@@ -106,5 +106,5 @@ describe('Testing the /petshop path', () => {
                 });
         });
     });
-    //Finished POST /petshop/pets
+    //Finished POST /Attendance/pets
 });

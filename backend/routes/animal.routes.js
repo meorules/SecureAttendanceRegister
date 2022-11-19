@@ -6,7 +6,7 @@ var animalController = require('../controllers/animal.controller');
 
 // GET at the root returns a welcome message in json
 router.get('/', function(req, res, next) {
- res.json({message: "Welcome to the petshop api."});
+ res.json({message: "Welcome to the Attendance api."});
 });
  
 // Create a new animal
