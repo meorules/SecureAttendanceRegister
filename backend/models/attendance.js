@@ -10,6 +10,7 @@ module.exports = mongoose => {
             },
             student: {
                 type: mongoose.Schema.Types.ObjectId,
+                required: true,
                 ref: "Student"
             }
         })

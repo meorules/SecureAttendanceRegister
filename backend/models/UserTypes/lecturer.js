@@ -1,17 +1,30 @@
-const user = require('../user');
 //Mongoose ver.
 module.exports = mongoose => {
-    var Lecturer = user
-        .discriminator('Lecturer',
-            new mongoose.Schema({
-                //Unique attributes that Lecturers have
-                roleType: {
-                    type: Number,
-                    required: true,
-                    default: 1 //0 for students, 1 for lecturers
-                }
-            })
-        )
-
+    var Lecturer = mongoose.model(
+        "Lecturer",
+        mongoose.Schema({
+            username: {
+                type: String,
+                required: true,
+                lowercase: true,
+                unique: true
+            },
+            firstName: {
+                type: String,
+                required: true
+            },
+            lastName: {
+                type: String
+            },
+            modules: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Module"
+            }],
+            students: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Student"
+            }]
+        })
+    );
     return Lecturer;
 };

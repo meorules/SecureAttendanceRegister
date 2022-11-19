@@ -8,11 +8,10 @@ module.exports = mongoose => {
                 type: Date,
                 required: true
             },
-            attendance: {
+            attendance: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Attendance"
-            }
-        })
-    );
+            }]
+        }));
     return Lesson;
 };
