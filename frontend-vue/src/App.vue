@@ -7,6 +7,9 @@
           <router-link to="/animals" class="nav-link">Animals</router-link>
         </li>
         <li class="nav-item">
+          <router-link to="/modules" class="nav-link">Modules</router-link>
+        </li>
+        <li class="nav-item">
           <router-link to="/add-animal" class="nav-link">Add</router-link>
         </li>
         <li class="nav-item">

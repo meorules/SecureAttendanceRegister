@@ -8,6 +8,12 @@ const routes = [
         component: () => import("./components/AnimalsList")
     },
     {
+        path: "/modules",
+        alias: "/modules",
+        name: "modules",
+        component: () => import("./components/ModuleList")
+    },
+    {
         path: "/animals/:id",
         name: "animal-details",
         component: () => import("./components/AnimalDetails")
