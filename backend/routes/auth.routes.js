@@ -11,12 +11,12 @@ module.exports = function(app) {
   });
 
   app.post(
-    "/petshop/auth/signup",
+    "/Attendance/auth/signup",
     [
       verifySignUp.checkDuplicateUsername
     ],
     controller.signup
   );
 
-  app.post("/petshop/auth/signin", controller.signin);
+  app.post("/Attendance/auth/signin", controller.signin);
 };

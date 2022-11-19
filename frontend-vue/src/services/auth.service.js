@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3050/petshop/auth/';
+const API_URL = 'http://localhost:3050/Attendance/auth/';
 
 class AuthService {
   login(user) {

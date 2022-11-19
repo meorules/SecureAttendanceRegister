@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <router-link to="/" class="navbar-brand">petshop</router-link>
+      <router-link to="/" class="navbar-brand">Attendance</router-link>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/animals" class="nav-link">Animals</router-link>
@@ -53,7 +53,7 @@
     </nav>
 
     <div class="container mt-3">
-      <h2>Petshop Vue 3 example</h2>
+      <h2>Attendance Vue 3 example</h2>
       <router-view />
     </div>
   </div>

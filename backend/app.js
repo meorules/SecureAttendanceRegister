@@ -31,8 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/petshop', animalsRouter);
-app.use('/petshop', userRouter);
+app.use('/Attendance', animalsRouter);
+app.use('/Attendance', userRouter);
 // new routes for authentication
 require('./routes/auth.routes')(app);
 require('./routes/security.routes')(app);
