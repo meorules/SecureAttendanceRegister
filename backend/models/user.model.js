@@ -1,7 +1,7 @@
 //Mongoose ver.
 module.exports = mongoose => {
     var User = mongoose.model(
-        "user",
+        "User",
         mongoose.Schema({
             firstName: {
                 type: String,
@@ -23,7 +23,7 @@ module.exports = mongoose => {
             roleType: {
                 type: Number,
                 required: true,
-                default: 0
+                default: 0 //0 for students, 1 for lecturers
             }
         })
     );
