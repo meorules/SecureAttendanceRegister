@@ -14,6 +14,18 @@ const routes = [
         component: () => import("./components/ModuleList")
     },
     {
+        path: "/groups",
+        alias: "/groups",
+        name: "groups",
+        component: () => import("./components/GroupList")
+    },
+    {
+        path: "/lessons",
+        alias: "/lessons",
+        name: "groups",
+        component: () => import("./components/LessonList")
+    },
+    {
         path: "/animals/:id",
         name: "animal-details",
         component: () => import("./components/AnimalDetails")

@@ -9,24 +9,24 @@
       <Form @submit="handleRegister" :validation-schema="schema">
         <div v-if="!successful">
           <div class="form-group">
-            <label for="firstname">firstname</label>
-            <Field name="firstname" type="firstname" class="form-control" />
-            <ErrorMessage name="firstname" class="error-feedback" />
-          </div>
-          <div class="form-group">
             <label for="username">Username</label>
             <Field name="username" type="text" class="form-control" />
             <ErrorMessage name="username" class="error-feedback" />
           </div>
           <div class="form-group">
-            <label for="roleType">roleType</label>
-            <Field name="roleType" type="roleType" class="form-control" />
-            <ErrorMessage name="roleType" class="error-feedback" />
-          </div>
-          <div class="form-group">
             <label for="password">Password</label>
             <Field name="password" type="password" class="form-control" />
             <ErrorMessage name="password" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="firstName">firstName</label>
+            <Field name="firstName" type="firstName" class="form-control" />
+            <ErrorMessage name="firstName" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="roleType">roleType</label>
+            <Field name="roleType" type="roleType" class="form-control" />
+            <ErrorMessage name="roleType" class="error-feedback" />
           </div>
 
           <div class="form-group">
@@ -65,6 +65,8 @@ export default {
   },
   data() {
     const schema = yup.object().shape({
+      firstName: yup
+        .string(),
       username: yup
         .string()
         .required("Username is required!")
@@ -75,12 +77,9 @@ export default {
         .required("Password is required!")
         .min(6, "Must be at least 6 characters!")
         .max(40, "Must be maximum 40 characters!"),
-      firstname: yup
-        .string()
-        .required("Firstname is required!"),
+      
       roleType: yup
         .string()
-        .required("roleType is required!")
     });
 
     return {
