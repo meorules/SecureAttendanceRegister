@@ -1,7 +1,15 @@
+//Mongoose ver.
 module.exports = mongoose => {
     var User = mongoose.model(
         "user",
         mongoose.Schema({
+            firstName: {
+                type: String,
+                required: true
+            },
+            lastName: {
+                type: String
+            },
             username: {
                 type: String,
                 required: true,
@@ -9,19 +17,15 @@ module.exports = mongoose => {
                 unique: true
             },
             password: {
-                type: String
+                type: String,
+                required: true
             },
-            animals: [{
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Animal"
-            }],
-            dateCreated:{
-                type: Date,
+            roleType: {
+                type: Number,
                 required: true,
-                default: Date.now  }
-        
+                default: 0
+            }
         })
-
     );
     return User;
 };
