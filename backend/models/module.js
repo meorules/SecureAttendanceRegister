@@ -15,6 +15,10 @@ module.exports = mongoose => {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Lecturer"
             },
+            teachingLecturers: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Lecturer"
+            }],
             groups: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Group"
