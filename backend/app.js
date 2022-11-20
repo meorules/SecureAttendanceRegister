@@ -13,6 +13,7 @@ var usersRouter = require('./routes/users');
 // The router for animals
 var animalsRouter = require('./routes/animal.routes');
 var userRouter = require('./routes/user.routes');
+var moduleRouter = require('./routes/module.routes');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/Attendance', animalsRouter);
 app.use('/Attendance', userRouter);
+app.use('/Attendance', moduleRouter)
 // new routes for authentication
 require('./routes/auth.routes')(app);
 require('./routes/security.routes')(app);

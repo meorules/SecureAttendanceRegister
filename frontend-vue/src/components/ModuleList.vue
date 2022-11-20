@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <h4>modules List</h4>
+        <h4>Modules List</h4>
         <ul class="list-group">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
@@ -22,7 +22,7 @@
             :key="index"
             @click="setActiveModule(module, index)"
           >
-            {{ module.name }}
+            {{ module.moduleName }}
           </li>
         </ul>
   
@@ -34,19 +34,19 @@
         <div v-if="currentModule">
           <h4>Module</h4>
           <div>
-            <label><strong>Name:</strong></label> {{ currentModule.name }}
+            <div>
+            <label><strong>Module Code:</strong></label> {{ currentModule.moduleCode }}
+          </div>
+            <label><strong>Module Name:</strong></label> {{ currentModule.moduleName }}
           </div>
           <div>
-            <label><strong>Species:</strong></label> {{ currentModule.species }}
+            <label><strong>Module Leader:</strong></label> {{ currentModule.moduleLeader }}
           </div>
           <div>
-            <label><strong>Breed:</strong></label> {{ currentModule.breed }}
+            <label><strong>Module Teachers:</strong></label> {{ currentModule.teachingLecturers }}
           </div>
           <div>
-            <label><strong>Age:</strong></label> {{ currentModule.age }}
-          </div>
-          <div>
-            <label><strong>Colour:</strong></label> {{ currentModule.colour }}
+            <label><strong>Module Groups:</strong></label> {{ currentModule.groups }}
           </div>
           <router-link :to="'/modules/' + currentModule._id" class="badge badge-danger">Edit</router-link>
         </div>

@@ -47,7 +47,7 @@ exports.findAll = (req, res) => {
         });
 };
 
-// Find a single USer with an id
+// Find a single User with an id
 exports.findOne = (req, res) => {
  
 };

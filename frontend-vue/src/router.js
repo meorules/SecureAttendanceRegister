@@ -8,10 +8,16 @@ const routes = [
         component: () => import("./components/AnimalsList")
     },
     {
-        path: "/modules",
+        path: "/",
         alias: "/modules",
         name: "modules",
         component: () => import("./components/ModuleList")
+    },
+    {
+        // Change
+        path: "/modules/:id",
+        name: "module-details",
+        component: () => import("./components/AnimalDetails")
     },
     {
         path: "/groups",
