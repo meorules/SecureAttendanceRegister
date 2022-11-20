@@ -20,7 +20,7 @@ module.exports = mongoose => {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Module"
             }],
-            students: [{
+            advisees: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Student"
             }]
