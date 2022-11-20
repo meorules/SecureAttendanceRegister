@@ -1,7 +1,7 @@
 //Mongoose ver.
 module.exports = mongoose => {
     var Course = mongoose.model(
-        "course",
+        "Course",
         mongoose.Schema({
             courseName: {
                 type: String,
@@ -10,7 +10,19 @@ module.exports = mongoose => {
             courseCode: {
                 type: String,
                 required: true
-            }
+            },
+            modules: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Module"
+            }],
+            courseLeader: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Lecturer"
+            },
+            students: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Student"
+            }]
         })
     );
     return Course;

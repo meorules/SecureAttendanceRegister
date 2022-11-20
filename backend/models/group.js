@@ -1,13 +1,29 @@
 //Mongoose ver.
 module.exports = mongoose => {
     var Group = mongoose.model(
-        "group",
+        "Group",
         mongoose.Schema({
+            groupName: {
+                type: String,
+                required: true
+            },
             groupType: {
                 type: Boolean,
-                default: false,     //False is Lecture, True is Tutorial
+                default: false, //False is Lecture, True is Tutorial
                 required: true
-            }
+            },
+            module: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Module"
+            },
+            lessons: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Lesson"
+            }],
+            students: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Student"
+            }]
         })
     );
     return Group;

@@ -1,15 +1,9 @@
 //Mongoose ver.
 module.exports = mongoose => {
+    //    console.log(mongoose.model("Kachow", mongoose.Schema({ first: { type: String, required: true } })));
     var User = mongoose.model(
-        "user",
+        "User",
         mongoose.Schema({
-            firstName: {
-                type: String,
-                required: true
-            },
-            lastName: {
-                type: String
-            },
             username: {
                 type: String,
                 required: true,
@@ -23,7 +17,7 @@ module.exports = mongoose => {
             roleType: {
                 type: Number,
                 required: true,
-                default: 0
+                default: 0 //0 for students, 1 for lecturers
             }
         })
     );

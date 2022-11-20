@@ -1,7 +1,7 @@
 //Mongoose ver.
 module.exports = mongoose => {
     var Module = mongoose.model(
-        "module",
+        "Module",
         mongoose.Schema({
             moduleCode: {
                 type: String,
@@ -14,7 +14,15 @@ module.exports = mongoose => {
             moduleLeader: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Lecturer"
-            }
+            },
+            teachingLecturers: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Lecturer"
+            }],
+            groups: [{
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Group"
+            }]
         })
     );
     return Module;
