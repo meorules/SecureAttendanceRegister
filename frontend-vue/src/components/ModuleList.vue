@@ -48,11 +48,11 @@
           <div>
             <label><strong>Module Groups:</strong></label> {{ currentModule.groups }}
           </div>
-          <router-link :to="'/modules/' + currentModule._id" class="badge badge-danger">Edit</router-link>
+          <router-link :to="'/modules/' + currentModule.moduleCode" class="badge badge-danger">Edit</router-link>
         </div>
         <div v-else>
           <br />
-          <p>Please click on an Module...</p>
+          <p>Please click on a Module.</p>
         </div>
       </div>
     </div>

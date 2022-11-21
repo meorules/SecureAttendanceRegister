@@ -3,9 +3,9 @@ const Module = db.modules;
 
 // Find all Modules.
 exports.findAll = (req, res) => {
-    const name = req.query.name;
+    const moduleName = req.query.name;
     //We use req.query.name to get query string from the Request and consider it as condition for findAll() method.
-    var condition = moduleName ? { name: { $regex: new RegExp(name), $options: "i" } } : {};
+    var condition = moduleName ? { name: { $regex: new RegExp(moduleName), $options: "i" } } : {};
      Module
       .find(condition)
       .then(data => {
@@ -26,7 +26,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   res.status(500).send({
     message:
-      err.message || "Some error occurred while retrieving one Module."
+      err.message || "Some error occurred while retrieving a Module."
   });
 
 };

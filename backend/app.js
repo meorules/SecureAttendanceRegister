@@ -14,6 +14,7 @@ var usersRouter = require('./routes/users');
 var animalsRouter = require('./routes/animal.routes');
 var userRouter = require('./routes/user.routes');
 var moduleRouter = require('./routes/module.routes');
+var groupRouter = require('./routes/group.routes');
 
 var app = express();
 
@@ -34,7 +35,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/Attendance', animalsRouter);
 app.use('/Attendance', userRouter);
-app.use('/Attendance', moduleRouter)
+app.use('/Attendance', moduleRouter);
+app.use('/Attendance/modules/:id', groupRouter);
 // new routes for authentication
 require('./routes/auth.routes')(app);
 require('./routes/security.routes')(app);

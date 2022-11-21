@@ -13,14 +13,9 @@ const routes = [
         name: "modules",
         component: () => import("./components/ModuleList")
     },
+    
     {
-        // Change
-        path: "/modules/:id",
-        name: "module-details",
-        component: () => import("./components/AnimalDetails")
-    },
-    {
-        path: "/groups",
+        path: "/modules/:id/groups",
         alias: "/groups",
         name: "groups",
         component: () => import("./components/GroupList")
@@ -28,8 +23,13 @@ const routes = [
     {
         path: "/lessons",
         alias: "/lessons",
-        name: "groups",
+        name: "lessons",
         component: () => import("./components/LessonList")
+    },
+    {
+        path: "/modules/:id",
+        name: "module-details",
+        component: () => import("./components/ModuleDetails")
     },
     {
         path: "/animals/:id",

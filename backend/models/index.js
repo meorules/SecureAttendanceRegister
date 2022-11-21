@@ -23,12 +23,12 @@ db.students = require("./UserTypes/student.js")(mongoose);
 //db.academicadvisors = require("./UserTypes/academicadvisor.js")(mongoose);
 //db.courseleaders = require("./UserTypes/courseleader.js")(mongoose);
 
-let dummyData = require("../populatedummydb")(db);
+//let dummyData = require("../populatedummydb")(db);
 
-if (db.users != undefined) {
-    if (db.users.count() == 0) {
-        dummyData();
-    }
-}
+// if (db.users != undefined) {
+//     if (db.users.count() == 0) {
+//         dummyData();
+//     }
+// }
 
 module.exports = db;

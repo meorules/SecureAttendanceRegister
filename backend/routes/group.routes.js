@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
  
-//Require controller
-var moduleController = require('../controllers/module.controller');
+// Require controller.
+var groupController = require('../controllers/group.controller');
 
 // GET at the root returns a welcome message in json
 router.get('/', function(req, res, next) {
@@ -10,10 +10,10 @@ router.get('/', function(req, res, next) {
 });
  
 
-// Retrieve all animals.
-router.get("/modules/", moduleController.findAll);
+// Retrieve all groups.
+router.get("/groups/", groupController.findAll);
 
-// Retrieve one animal.
-router.get('/modules/:id', moduleController.findOne);
+// Retrieve one group.
+router.post("/groups/:id", groupController.findOne);
  
 module.exports = router;
