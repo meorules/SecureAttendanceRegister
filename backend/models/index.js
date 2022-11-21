@@ -4,12 +4,12 @@ const db = {};
 
 mongoose.Promise = global.Promise;
 
-mongoose.set('setDefaultsOnInsert', false);
+mongoose.set('setDefaultsOnInsert', true);
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 
 
-//db.animals = require("./animal.model.js")(mongoose);
+db.animals = require("./animal.model.js")(mongoose);
 db.users = require("./user.js")(mongoose);
 
 db.attendances = require("./attendance.js")(mongoose);
@@ -24,11 +24,13 @@ db.students = require("./UserTypes/student.js")(mongoose);
 // db.courseleaders = require("./UserTypes/courseleader.js")(mongoose);
 
 let dummyData = require("../populatedummydb")(db);
+console.log(dummyData);
+//dummyData();
 
-if (db.users != undefined) {
-    if (db.users.count() == 0) {
-        dummyData();
-    }
-}
+// if (db.users != undefined) {
+//     if (db.users.count() == 0) {
+//         dummyData();
+//     }
+// }
 
 module.exports = db;
