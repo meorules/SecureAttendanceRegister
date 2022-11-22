@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import ModuleDataService from "../services/ModuleDataService";
+import GroupDataService from "../services/GroupDataService";
 
 export default {
   name: "groups-list",
@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     retrieveGroups(id) {
-      ModuleDataService.get(id)
+      GroupDataService.get(id)
         .then(response => {
           this.groups = response.data;
           console.log(response.data);
@@ -78,7 +78,7 @@ export default {
     },
     
     searchName() {
-      ModuleDataService.findByName(this.name)
+      GroupDataService.findByName(this.name)
         .then(response => {
           this.modules = response.data;
           this.setActiveModule(null);

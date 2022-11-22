@@ -24,7 +24,7 @@ db.students = require("./UserTypes/student.js")(mongoose);
 //db.academicadvisors = require("./UserTypes/academicadvisor.js")(mongoose);
 //db.courseleaders = require("./UserTypes/courseleader.js")(mongoose);
 
-let dummyData = require("../populatedummydb")(db);
+//let dummyData = require("../populatedummydb")(db);
 //dummyData();
 
 // if (db.users != undefined) {

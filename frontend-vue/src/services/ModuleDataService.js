@@ -6,10 +6,6 @@ class ModuleDataService {
       return http.get("/modules");
     }
 
-    get(id) {
-        return http.get(`/modules/${id}`)
-    }
-    
     findByName(name) {
         return http.get(`/modules?name=${name}`);
     }  
