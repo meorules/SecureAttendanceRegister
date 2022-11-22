@@ -13,11 +13,11 @@ module.exports = mongoose => {
                 required: true
             },
             module: {
-                type: mongoose.Schema.Types.ObjectId,
+                type: String,
                 ref: "Module"
             },
             lessons: [{
-                type: mongoose.Schema.Types.ObjectId,
+                type: String,
                 ref: "Lesson"
             }],
             students: [{

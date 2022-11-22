@@ -1,5 +1,8 @@
+const { mongoose } = require("../models");
 const db = require("../models");
+var ObjectId = require('mongodb').ObjectId; 
 const Module = db.modules;
+const Group = db.groups;
 
 // Find all Modules.
 exports.findAll = (req, res) => {
@@ -22,12 +25,19 @@ exports.findAll = (req, res) => {
       });
 }
 
-// Find a single Module with a Module Code.
 exports.findOne = (req, res) => {
-  res.status(500).send({
-    message:
-      err.message || "Some error occurred while retrieving a Module."
-  });
+ let id = req.params.id;
 
+  Group
+    .find({module: id })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.send({
+        message:
+          err.message || "Some error occurred while retrieving Modules."
+      });
+    });
 };
 

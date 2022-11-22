@@ -9,7 +9,7 @@ module.exports = mongoose => {
                 defaultValue: 0 //0 for not attended, 1 for attended, 2 for excused absence, 3 for late
             },
             student: {
-                type: mongoose.Schema.Types.ObjectId,
+                type: String,
                 required: true,
                 ref: "Student"
             }

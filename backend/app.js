@@ -41,7 +41,7 @@ app.use('/users', usersRouter);
 app.use('/Attendance', animalsRouter);
 app.use('/Attendance', userRouter);
 app.use('/Attendance', moduleRouter);
-app.use('/Attendance/modules/:id', groupRouter);
+app.use('/Attendance/modules', groupRouter);
 //app.use('/Attendance/modules/:id/:groupid', lessonAttendanceRouter);
 //app.use('/Attendance/modules/:id/:groupid', semesterRegistrationRouter);
 //app.use('/Attendance/modules/:id/:groupid', attendanceIndicatorsRouter);

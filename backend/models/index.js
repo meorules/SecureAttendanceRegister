@@ -1,10 +1,11 @@
 const dbConfig = require("../config/db.config.js");
 const mongoose = require("mongoose");
 const db = {};
+var ObjectId = require('mongodb').ObjectId; 
 
 mongoose.Promise = global.Promise;
 
-mongoose.set('setDefaultsOnInsert', false);
+mongoose.set('setDefaultsOnInsert', true);
 db.mongoose = mongoose;
 db.url = dbConfig.url;
 
@@ -23,7 +24,8 @@ db.students = require("./UserTypes/student.js")(mongoose);
 //db.academicadvisors = require("./UserTypes/academicadvisor.js")(mongoose);
 //db.courseleaders = require("./UserTypes/courseleader.js")(mongoose);
 
-//let dummyData = require("../populatedummydb")(db);
+let dummyData = require("../populatedummydb")(db);
+//dummyData();
 
 // if (db.users != undefined) {
 //     if (db.users.count() == 0) {
@@ -32,3 +34,5 @@ db.students = require("./UserTypes/student.js")(mongoose);
 // }
 
 module.exports = db;
+
+

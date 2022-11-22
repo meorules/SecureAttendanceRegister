@@ -12,15 +12,15 @@ module.exports = mongoose => {
                 required: true
             },
             moduleLeader: {
-                type: mongoose.Schema.Types.ObjectId,
+                type: String,
                 ref: "Lecturer"
             },
             teachingLecturers: [{
-                type: mongoose.Schema.Types.ObjectId,
+                type: String,
                 ref: "Lecturer"
             }],
             groups: [{
-                type: mongoose.Schema.Types.ObjectId,
+                type: String,
                 ref: "Group"
             }]
         })

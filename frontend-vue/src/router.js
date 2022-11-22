@@ -21,8 +21,8 @@ const routes = [
     },
     {
         path: "/modules/:id",
-        name: "module-details",
-        component: () => import("./components/ModuleDetails")
+        name: "group-list",
+        component: () => import("./components/GroupList")
     },
     {
         path: "/animals/:id",

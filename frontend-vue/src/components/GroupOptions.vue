@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="col-md-6">
-      <h4>Groups List</h4>
+      <h4>Lesson List</h4>
       <ul class="list-group">
         <li class="list-group-item"
           :class="{ active: index == currentIndex }"
@@ -51,11 +51,17 @@
       </div>
     </div>
   </div>
+  <button>Attendance Indicator</button>
+  <button>Semester Registration</button>
+  <button>Edit</button>
+  <button>Register</button>
 </template>
 
 
 <script>
 import GroupDataService from "../services/GroupDataService";
+
+// WHERE THE FUNCTIONS FOR EACH GROUP GO
 
 export default {
 name: "group-list",

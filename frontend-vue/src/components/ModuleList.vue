@@ -26,9 +26,7 @@
           </li>
         </ul>
   
-        <button class="m-3 btn btn-sm btn-danger" @click="removeAllModules">
-          Remove All
-        </button>
+       
       </div>
       <div class="col-md-6">
         <div v-if="currentModule">
@@ -48,7 +46,7 @@
           <div>
             <label><strong>Module Groups:</strong></label> {{ currentModule.groups }}
           </div>
-          <router-link :to="'/modules/' + currentModule.moduleCode" class="badge badge-danger">Select</router-link>
+          <router-link :to="'/modules/' + currentModule._id" class="badge badge-danger">Select</router-link>
         </div>
         <div v-else>
           <br />

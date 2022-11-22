@@ -9,7 +9,7 @@ module.exports = mongoose => {
                 required: true
             },
             attendance: [{
-                type: mongoose.Schema.Types.ObjectId,
+                type: String,
                 ref: "Attendance"
             }]
         }));
