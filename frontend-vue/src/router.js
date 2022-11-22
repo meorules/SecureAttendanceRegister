@@ -13,18 +13,11 @@ const routes = [
         name: "modules",
         component: () => import("./components/ModuleList")
     },
-    
     {
-        path: "/modules/:id/groups",
+        path: "/modules/:id/:groupid",
         alias: "/groups",
         name: "groups",
-        component: () => import("./components/GroupList")
-    },
-    {
-        path: "/lessons",
-        alias: "/lessons",
-        name: "lessons",
-        component: () => import("./components/LessonList")
+        component: () => import("./components/GroupOptions")
     },
     {
         path: "/modules/:id",

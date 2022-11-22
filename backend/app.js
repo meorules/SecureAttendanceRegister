@@ -15,6 +15,11 @@ var animalsRouter = require('./routes/animal.routes');
 var userRouter = require('./routes/user.routes');
 var moduleRouter = require('./routes/module.routes');
 var groupRouter = require('./routes/group.routes');
+var lessonAttendanceRouter = require('./routes/lessonAttendance.routes');
+var semesterRegistrationRouter = require('./routes/semesterRegistration.routes');
+var attendanceIndicatorsRouter = require('./routes/attendanceIndicators.routes');
+
+
 
 var app = express();
 
@@ -37,6 +42,10 @@ app.use('/Attendance', animalsRouter);
 app.use('/Attendance', userRouter);
 app.use('/Attendance', moduleRouter);
 app.use('/Attendance/modules/:id', groupRouter);
+//app.use('/Attendance/modules/:id/:groupid', lessonAttendanceRouter);
+//app.use('/Attendance/modules/:id/:groupid', semesterRegistrationRouter);
+//app.use('/Attendance/modules/:id/:groupid', attendanceIndicatorsRouter);
+
 // new routes for authentication
 require('./routes/auth.routes')(app);
 require('./routes/security.routes')(app);
