@@ -31,7 +31,7 @@
                              //Modules added, adding modules into the course
                              for (counter in moduleCollection) {
                                  Courses.findByIdAndUpdate(courseCollection[0]._id, { $push: { modules: moduleCollection[counter]._id } }, { new: true, useFindAndModify: false })
-                                     .then(result2 => console.log(result2))
+                                     //.then(result2 => console.log(result2))
                                      .catch(err2 => console.log(err2));
                              }
 
@@ -42,12 +42,12 @@
                                      } else {
                                          for (counter in studentCollection) {
                                              Students.findByIdAndUpdate(studentCollection[counter]._id, { $set: { course: courseCollection[0] } }, { new: true, useFindAndModify: false })
-                                                 .then(result2 => console.log(result2))
+                                                 //.then(result2 => console.log(result2))
                                                  .catch(err2 => console.log(err2));
                                          }
                                          for (counter in studentCollection) {
                                              Courses.findByIdAndUpdate(courseCollection[0]._id, { $push: { students: studentCollection[counter] } }, { new: true, useFindAndModify: false })
-                                                 .then(result2 => console.log(result2))
+                                                 //.then(result2 => console.log(result2))
                                                  .catch(err2 => console.log(err2));
                                          }
 
@@ -59,21 +59,21 @@
                                              } else {
                                                  //Setting course leader
                                                  Courses.findByIdAndUpdate(courseCollection[0]._id, { $set: { courseLeader: lecturerCollection[0] } }, { new: true, useFindAndModify: false })
-                                                     .then(result2 => console.log(result2))
+                                                     //.then(result2 => console.log(result2))
                                                      .catch(err2 => console.log(err2));
                                                  //Adding lecturers to the various modules and making one of them module leader
                                                  for (let i = 0; i < moduleCollection.length; i++) {
                                                      Modules.findByIdAndUpdate(moduleCollection[i]._id, { $set: { moduleLeader: lecturerCollection[i + 1] } }, { new: true, useFindAndModify: false })
-                                                         .then(result2 => console.log(result2))
+                                                         //.then(result2 => console.log(result2))
                                                          .catch(err2 => console.log(err2));
                                                      Modules.findByIdAndUpdate(moduleCollection[i]._id, { $push: { teachingLecturers: lecturerCollection[i + 1] } }, { new: true, useFindAndModify: false })
-                                                         .then(result2 => console.log(result2))
+                                                         //.then(result2 => console.log(result2))
                                                          .catch(err2 => console.log(err2));
                                                      Modules.findByIdAndUpdate(moduleCollection[i]._id, { $push: { teachingLecturers: lecturerCollection[i + 2] } }, { new: true, useFindAndModify: false })
-                                                         .then(result2 => console.log(result2))
+                                                         //.then(result2 => console.log(result2))
                                                          .catch(err2 => console.log(err2));
                                                      Modules.findByIdAndUpdate(moduleCollection[i]._id, { $push: { teachingLecturers: lecturerCollection[i + 3] } }, { new: true, useFindAndModify: false })
-                                                         .then(result2 => console.log(result2))
+                                                         //.then(result2 => console.log(result2))
                                                          .catch(err2 => console.log(err2));
                                                  }
                                                  //Adding groups
@@ -86,22 +86,22 @@
                                                              //Adding the groups to the modules and making sure the module is also saved on the group
                                                              for (let i = 0; i < moduleCollection.length; i++) {
                                                                  Modules.findByIdAndUpdate(moduleCollection[i]._id, { $push: { groups: groupCollection[j] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Modules.findByIdAndUpdate(moduleCollection[i]._id, { $push: { groups: groupCollection[j + 1] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Modules.findByIdAndUpdate(moduleCollection[i]._id, { $push: { groups: groupCollection[j + 2] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Groups.findByIdAndUpdate(groupCollection[j]._id, { $set: { module: moduleCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 1]._id, { $set: { module: moduleCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 2]._id, { $set: { module: moduleCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  j += 3;
                                                              }
@@ -111,37 +111,37 @@
                                                              //Adding students to groups and adding respective modules to the students
                                                              for (let i = 0; i < 5; i++) {
                                                                  Students.findByIdAndUpdate(studentCollection[i]._id, { $push: { modules: moduleCollection[j] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Students.findByIdAndUpdate(studentCollection[i]._id, { $push: { modules: moduleCollection[j + 1] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Students.findByIdAndUpdate(studentCollection[i]._id, { $push: { modules: moduleCollection[j + 2] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 1 + (k % 2)]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 3]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 1 + (k % 2) + 3]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 6]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 1 + (k % 2) + 6]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  k++;
@@ -151,37 +151,37 @@
                                                              j = 3;
                                                              for (let i = 5; i < 10; i++) {
                                                                  Students.findByIdAndUpdate(studentCollection[i]._id, { $push: { modules: moduleCollection[j] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Students.findByIdAndUpdate(studentCollection[i]._id, { $push: { modules: moduleCollection[j + 1] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Students.findByIdAndUpdate(studentCollection[i]._id, { $push: { modules: moduleCollection[j + 2] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 6]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 1 + (k % 2) + 6]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 9]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 1 + (k % 2) + 9]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 12]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 1 + (k % 2) + 12]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  k++;
@@ -190,37 +190,37 @@
                                                              j = 0;
                                                              for (let i = 10; i < 15; i++) {
                                                                  Students.findByIdAndUpdate(studentCollection[i]._id, { $push: { modules: moduleCollection[j] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Students.findByIdAndUpdate(studentCollection[i]._id, { $push: { modules: moduleCollection[j + 2] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
                                                                  Students.findByIdAndUpdate(studentCollection[i]._id, { $push: { modules: moduleCollection[j + 5] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 1 + (k % 2)]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 6]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 6 + 1 + (k % 2)]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 15]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  Groups.findByIdAndUpdate(groupCollection[j + 15 + 1 + (k % 2)]._id, { $push: { students: studentCollection[i] } }, { new: true, useFindAndModify: false })
-                                                                     .then(result2 => console.log(result2))
+                                                                     //.then(result2 => console.log(result2))
                                                                      .catch(err2 => console.log(err2));
 
                                                                  k++;
@@ -236,17 +236,18 @@
                                                                          let j = 0;
                                                                          for (let i = 0; i < groupCollection.length; i++) {
                                                                              Groups.findByIdAndUpdate(groupCollection[i]._id, { $push: { lessons: LessonsCollection[j] } }, { new: true, useFindAndModify: false })
-                                                                                 .then(result2 => console.log(result2))
+                                                                                 //.then(result2 => console.log(result2))
                                                                                  .catch(err2 => console.log(err2));
                                                                              Groups.findByIdAndUpdate(groupCollection[i]._id, { $push: { lessons: LessonsCollection[j + 1] } }, { new: true, useFindAndModify: false })
-                                                                                 .then(result2 => console.log(result2))
+                                                                                 //.then(result2 => console.log(result2))
                                                                                  .catch(err2 => console.log(err2));
                                                                              Groups.findByIdAndUpdate(groupCollection[i]._id, { $push: { lessons: LessonsCollection[j + 2] } }, { new: true, useFindAndModify: false })
-                                                                                 .then(result2 => console.log(result2))
+                                                                                 //.then(result2 => console.log(result2))
                                                                                  .catch(err2 => console.log(err2));
                                                                              j += 3;
                                                                          }
 
+                                                                         //First half of groups is randomized, ( First 3 modules), 2nd half is not set
                                                                          //Creating Attendance for the various lessosn and students in each group
                                                                          Groups.find(function(groupErrs, updatedGroups) {
                                                                              if (groupErrs) {
@@ -255,16 +256,30 @@
                                                                                  for (let i = 0; i < updatedGroups.length; i++) {
                                                                                      for (let j = 0; j < updatedGroups[i].lessons.length; j++) {
                                                                                          for (let k = 0; k < updatedGroups[i].students.length; k++) {
-                                                                                             Attendances.create({ attendanceValue: -1, student: updatedGroups[i].students[k] },
-                                                                                                 function(attenErr, attenCreated) {
-                                                                                                     if (attenErr) {
-                                                                                                         console.log(attenErr);
-                                                                                                     } else {
-                                                                                                         Lessons.findByIdAndUpdate(updatedGroups[i].lessons[j], { $push: { attendance: attenCreated } }, { new: true, useFindAndModify: false })
-                                                                                                             .then(result2 => console.log(result2))
-                                                                                                             .catch(err2 => console.log(err2));
-                                                                                                     }
-                                                                                                 })
+                                                                                             if (i < (updatedGroups.length / 2)) {
+                                                                                                 randAtten = Math.floor(Math.random() * 3);
+                                                                                                 Attendances.create({ attendanceValue: randAtten, student: updatedGroups[i].students[k] },
+                                                                                                     function(attenErr, attenCreated) {
+                                                                                                         if (attenErr) {
+                                                                                                             console.log(attenErr);
+                                                                                                         } else {
+                                                                                                             Lessons.findByIdAndUpdate(updatedGroups[i].lessons[j], { $push: { attendance: attenCreated } }, { new: true, useFindAndModify: false })
+                                                                                                                 //.then(result2 => console.log(result2))
+                                                                                                                 .catch(err2 => console.log(err2));
+                                                                                                         }
+                                                                                                     })
+                                                                                             } else {
+                                                                                                 Attendances.create({ student: updatedGroups[i].students[k] },
+                                                                                                     function(attenErr, attenCreated) {
+                                                                                                         if (attenErr) {
+                                                                                                             console.log(attenErr);
+                                                                                                         } else {
+                                                                                                             Lessons.findByIdAndUpdate(updatedGroups[i].lessons[j], { $push: { attendance: attenCreated } }, { new: true, useFindAndModify: false })
+                                                                                                                 //.then(result2 => console.log(result2))
+                                                                                                                 .catch(err2 => console.log(err2));
+                                                                                                         }
+                                                                                                     })
+                                                                                             }
 
                                                                                          }
                                                                                      }
@@ -309,7 +324,7 @@
              console.log(err);
              console.log("Users insertion failed");
          } else {
-             console.log("Users correctly inserted");
+             //console.log("Users correctly inserted");
          }
      });
 
