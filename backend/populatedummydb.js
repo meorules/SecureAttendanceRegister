@@ -228,11 +228,54 @@
                                                              }
 
                                                              //Creating lessons
-                                                             Lessons.insertMany([{ date: "2022-11-14 10:00:00" }, { date: "2022-11-21 10:00:00" }, { date: "2022-11-15 10:00:00" }, { date: "2022-11-22 10:00:00" }, { date: "2022-11-15 12:00:00" }, { date: "2022-11-22 12:00:00" }, { date: "2022-11-14 12:00:00" }, { date: "2022-11-21 12:00:00" }, { date: "2022-11-15 14:00:00" }, { date: "2022-11-22 14:00:00" }, { date: "2022-11-15 16:00:00" }, { date: "2022-11-22 16:00:00" }, { date: "2022-11-14 14:00:00" }, { date: "2022-11-21 14:00:00" }, { date: "2022-11-14 16:00:00" }, { date: "2022-11-21 16:00:00" }, { date: "2022-11-15 18:00:00" }, { date: "2022-11-22 18:00:00" }, { date: "2022-11-16 10:00:00" }, { date: "2022-11-23 10:00:00" }, { date: "2022-11-16 14:00:00" }, { date: "2022-11-23 14:00:00" }, { date: "2022-11-16 16:00:00" }, { date: "2022-11-23 16:00:00" }, { date: "2022-11-16 12:00:00" }, { date: "2022-11-23 12:00:00" }, { date: "2022-11-16 18:00:00" }, { date: "2022-11-23 18:00:00" }, { date: "2022-11-17 16:00:00" }, { date: "2022-11-24 16:00:00" }, { date: "2022-11-18 12:00:00" }, { date: "2022-11-25 12:00:00" }, { date: "2022-11-18 14:00:00" }, { date: "2022-11-25 14:00:00" }, { date: "2022-11-18 16:00:00" }, { date: "2022-11-25 16:00:00" }],
+                                                             Lessons.insertMany([{ date: "2022-11-14 10:00:00" }, { date: "2022-11-21 10:00:00" }, { date: "2022-11-28 10:00:00" }, { date: "2022-11-15 10:00:00" }, { date: "2022-11-22 10:00:00" }, { date: "2022-11-29 10:00:00" }, { date: "2022-11-15 12:00:00" }, { date: "2022-11-22 12:00:00" }, { date: "2022-11-29 12:00:00" }, { date: "2022-11-14 12:00:00" }, { date: "2022-11-21 12:00:00" }, { date: "2022-11-28 12:00:00" }, { date: "2022-11-15 14:00:00" }, { date: "2022-11-22 14:00:00" }, { date: "2022-11-29 14:00:00" }, { date: "2022-11-15 16:00:00" }, { date: "2022-11-22 16:00:00" }, { date: "2022-11-29 16:00:00" }, { date: "2022-11-14 14:00:00" }, { date: "2022-11-21 14:00:00" }, { date: "2022-11-28 14:00:00" }, { date: "2022-11-14 16:00:00" }, { date: "2022-11-21 16:00:00" }, { date: "2022-11-28 16:00:00" }, { date: "2022-11-15 18:00:00" }, { date: "2022-11-22 18:00:00" }, { date: "2022-11-29 18:00:00" }, { date: "2022-11-16 10:00:00" }, { date: "2022-11-23 10:00:00" }, { date: "2022-11-30 10:00:00" }, { date: "2022-11-16 14:00:00" }, { date: "2022-11-23 14:00:00" }, { date: "2022-11-30 14:00:00" }, { date: "2022-11-16 16:00:00" }, { date: "2022-11-23 16:00:00" }, { date: "2022-11-30 16:00:00" }, { date: "2022-11-16 12:00:00" }, { date: "2022-11-23 12:00:00" }, { date: "2022-11-30 12:00:00" }, { date: "2022-11-16 18:00:00" }, { date: "2022-11-23 18:00:00" }, { date: "2022-11-30 18:00:00" }, { date: "2022-11-17 16:00:00" }, { date: "2022-11-24 16:00:00" }, { date: "2022-12-01 16:00:00" }, { date: "2022-11-18 12:00:00" }, { date: "2022-11-25 12:00:00" }, { date: "2022-12-02 12:00:00" }, { date: "2022-11-18 14:00:00" }, { date: "2022-11-25 14:00:00" }, { date: "2022-12-02 14:00:00" }, { date: "2022-11-18 16:00:00" }, { date: "2022-11-25 16:00:00" }, { date: "2022-12-02 16:00:00" }],
                                                                  function(lessonsErr, LessonsCollection) {
                                                                      if (lessonsErr) {
                                                                          console.log(lessonsErr);
                                                                      } else {
+                                                                         let j = 0;
+                                                                         for (let i = 0; i < groupCollection.length; i++) {
+                                                                             Groups.findByIdAndUpdate(groupCollection[i]._id, { $push: { lessons: LessonsCollection[j] } }, { new: true, useFindAndModify: false })
+                                                                                 .then(result2 => console.log(result2))
+                                                                                 .catch(err2 => console.log(err2));
+                                                                             Groups.findByIdAndUpdate(groupCollection[i]._id, { $push: { lessons: LessonsCollection[j + 1] } }, { new: true, useFindAndModify: false })
+                                                                                 .then(result2 => console.log(result2))
+                                                                                 .catch(err2 => console.log(err2));
+                                                                             Groups.findByIdAndUpdate(groupCollection[i]._id, { $push: { lessons: LessonsCollection[j + 2] } }, { new: true, useFindAndModify: false })
+                                                                                 .then(result2 => console.log(result2))
+                                                                                 .catch(err2 => console.log(err2));
+                                                                             j += 3;
+                                                                         }
+
+                                                                         //Creating Attendance for the various lessosn and students in each group
+                                                                         Groups.find(function(groupErrs, updatedGroups) {
+                                                                             if (groupErrs) {
+                                                                                 console.log(groupErrs);
+                                                                             } else {
+                                                                                 for (let i = 0; i < updatedGroups.length; i++) {
+                                                                                     for (let j = 0; j < updatedGroups[i].lessons.length; j++) {
+                                                                                         for (let k = 0; k < updatedGroups[i].students.length; k++) {
+                                                                                             Attendances.create({ attendanceValue: -1, student: updatedGroups[i].students[k] },
+                                                                                                 function(attenErr, attenCreated) {
+                                                                                                     if (attenErr) {
+                                                                                                         console.log(attenErr);
+                                                                                                     } else {
+                                                                                                         Lessons.findByIdAndUpdate(updatedGroups[i].lessons[j], { $push: { attendance: attenCreated } }, { new: true, useFindAndModify: false })
+                                                                                                             .then(result2 => console.log(result2))
+                                                                                                             .catch(err2 => console.log(err2));
+                                                                                                     }
+                                                                                                 })
+
+                                                                                         }
+                                                                                     }
+
+
+
+                                                                                 }
+                                                                             }
+                                                                         })
+
+
 
 
 

@@ -23,7 +23,19 @@ db.students = require("./UserTypes/student.js")(mongoose);
 // db.academicadvisors = require("./UserTypes/academicadvisor.js")(mongoose);
 // db.courseleaders = require("./UserTypes/courseleader.js")(mongoose);
 
-let dummyData = require("../populatedummydb")(db);
+db.users.find(function(usersErr, Users) {
+    if (usersErr) {
+        console.log(usersErr);
+    } else {
+        if (Users.length == 0) {
+            console.log("DATA to be added as there is none in the DB");
+            let dummyData = require("../populatedummydb")(db);
+        } else {
+            console.log("Users exist in the DB, so all dummy data is assumed as added in.");
+        }
+    }
+});
+
 //dummyData();
 
 // if (db.users != undefined) {
