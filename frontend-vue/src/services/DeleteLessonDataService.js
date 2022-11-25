@@ -2,14 +2,9 @@ import http from "../http-common";
 
 class DeleteLessonDataService {
 
-    getAll(id, groupid) {
-        return http.get(`/modules/${id}/${groupid}/deleteLesson`);
-      }
-  
-      // get(id) {
-      //     return http.get(`/modules/${id}/${groupid}/attendanceIndicators/${id}`)
-      // }
-  
+    delete(id, groupid, lessonid) {
+        return http.get(`/modules/${id}/${groupid}/${lessonid}/deleteLesson`);
+    }
 }
 
 export default new DeleteLessonDataService();

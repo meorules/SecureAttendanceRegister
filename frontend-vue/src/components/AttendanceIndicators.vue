@@ -21,41 +21,44 @@
             :class="{ active: index == currentIndex }"
             v-for="(student, index) in students"
             :key="index"
-            @click="setActiveStudent(student, index); setupDoughnutChartValues()" 
+            @click="setActiveStudent(student, index)" 
           >
             {{ student.firstName }}  
             </li>
         </ul>
-        <button class="m-3 btn btn-sm btn-danger" @click="removeAllModules">
-          Remove All
-        </button>
       </div>
       <div class="col-md-6">
         <div v-if="currentStudent">
-          <h4>Student:</h4>
           <div>
+            <br>
+            <br>
+            <br>
+            <br>
             <div>
               <label><strong>Student Name:</strong></label> {{ currentStudent.firstName}}
             </div>
+            <label><strong>Attended:</strong></label> {{ attendances[0]}}<strong>%</strong>
+            <br>
+            <label><strong>Not-Attended:</strong></label> {{ attendances[1]}}<strong>%</strong>
+            <br>
+            <label><strong>Excused Absence:</strong></label>{{ attendances[2]}}<strong>%</strong>
+            <br>
+            <label><strong>Late:</strong></label>{{ attendances[3]}}<strong>%</strong>
           </div>
         </div>
         <div v-else>
           <br />
           <p>Please click on a Student.</p>
         </div>
-        <DoughnutChart notAttendedCounter=this.notAttendedCounter attendedCounter=this.attendedCounter
-        excusedAbsence=this.excusedAbsenceCounter lateCounter = this.lateCounter></DoughnutChart>
       </div>
     </div>
   </template>
   
   <script>
   import AttendanceIndicatorDataService from "../services/attendanceIndicatorDataService";
-  import DoughnutChart from "../components/DoughnutChart";
   
   export default {
     name: "modules-list",
-    components: DoughnutChart,
     data() {
       return {
         students: [],
@@ -63,10 +66,6 @@
         currentStudent: null,
         currentIndex: -1,
         name: "",
-        notAttendedCounter: 0,
-        attendedCounter: 0,
-        excusedAbsenceCounter: 0,
-        lateCounter: 0,
       };
     },
     methods: {
@@ -97,18 +96,11 @@
         this.currentIndex = -1;
       },
 
-      setActiveStudent(Student, index) {
+      async setActiveStudent(Student, index) {
         this.currentStudent = Student;
         console.log(this.currentStudent);
         this.currentIndex = module ? index : -1;
-        this.attendances = this.retrieveAttendance();
-      },
-
-      setupDoughnutChartValues() {
-        this.notAttendedCounter = this.attendances[0];
-        this.attendedCounter = this.attendances[1];
-        this.excusedAbsenceCounter = this.attendances[2];
-        this.lateCounter = this.attendances[4];
+        this.retrieveAttendance();
       },
 
       removeAllModules() {

@@ -1,9 +1,12 @@
 import http from "../http-common";
+import authHeader from "./auth-header";
+
+
 
 class ModuleDataService {
 
     getAll() {
-      return http.get("/modules");
+      return http.get("/modules", {headers: authHeader() });
     }
 
     findByName(name) {

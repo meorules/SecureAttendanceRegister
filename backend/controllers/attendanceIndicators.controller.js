@@ -8,11 +8,7 @@ const Attendance = db.attendances;
 // Find all Attendance Indicators.
 exports.findAll = async(req, res) => {
     let id = req.params.groupid;
-    console.log(req.params)
-    console.log("req.params.groupid" + req.params.groupid);
     const group = await Group.findById(id);
-    console.log("group: " + group);
-    console.log(group)
     Student
         .find({ _id: { $in: group.students } })
         .then(data => {
@@ -59,14 +55,25 @@ exports.findAttendance = async(req, res) => {
             attended++;
         else if (attendance.attendanceValue == 2)
             excused++
-            else if (attendance.attendanceValue == 3)
-                late++;
+        else if (attendance.attendanceValue == 3)
+            late++;
     })
+    console.log(notAttended)
+    console.log(attended)
+    console.log(late)
+    console.log(excused)
+    let total = notAttended + attended + excused + late;
+
+    // console.log(Math.floor(5.95));
+    notAttended = (notAttended / total * 100).toFixed(2);
+    attended = (attended / total * 100).toFixed(2);
+    excused = (excused / total * 100).toFixed(2);
+    late = (late / total * 100).toFixed(2);
 
     let indicators = [];
-
-    indicators.push(notAttended)
+    
     indicators.push(attended)
+    indicators.push(notAttended)
     indicators.push(excused)
     indicators.push(late)
 
