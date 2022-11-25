@@ -11,28 +11,38 @@ exports.delete = (req, res) => {
     group = req.params.groupid;
 
     Lesson.findById(lesson, function(lessonErr, lessonReturned) {
-            if (lessonErr) {
-                console.log(lessonErr);
-            } else {
-                for (let i = 0; i < lessonReturned.attendance.length; i++) {
-                    Attendance.deleteById(lessonReturned.attendance[i])
-                        .catch(deleteErr => console.log(deleteErr));
-                }
-                Lesson.deleteById(lessonReturned)
+        if (lessonErr) {
+            console.log(lessonErr);
+            res.status(500).send({
+                message: lessonErr || "Some error occurred while retrieving the lesson."
+            });
+        } else {
+            for (let i = 0; i < lessonReturned.attendance.length; i++) {
+                Attendance.deleteOne({ _id: lessonReturned.attendance[i] })
                     .catch(deleteErr => console.log(deleteErr));
-
             }
+            Lesson.deleteOne({ _id: lessonReturned })
+                .catch(deleteErr => console.log(deleteErr));
+
+            res.status(200).send({ message: "Lesson has been deleted" });
+
             Group.findByIdAndUpdate(group, { $pull: { lesson } })
                 .catch(deleteErr => console.log(deleteErr));
 
-        })
-        .then(result => {
-            res.status(200).send({ message: "Lesson has been deleted" });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving the lesson."
-            });
-        });
+        }
+    })
 
+}
+
+
+exports.findAll = async (req, res) => {
+
+    let id = req.params.groupid;
+    const group = await Group.findById( id);
+
+    console.log("lesson")
+
+   const lessons = await Lesson.find({_id: {$in: group.lessons} })
+    
+   res.send(lessons)
 }

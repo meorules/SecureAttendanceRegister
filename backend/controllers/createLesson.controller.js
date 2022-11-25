@@ -15,13 +15,22 @@ exports.create = (req, res) => {
     lessonDate = req.body.date;
 
     Group.find({ _id: group }, function(groupErrs, updatedGroup) {
-        if (groupsErrs) {
+        if (groupErrs) {
             console.log(groupErrs);
+            res.status(500).send({
+                message: groupErrs  || "Some error occurred while creating the Lesson."
+            });
         } else {
             Lesson.create({ date: lessonDate }, function(lessonErrs, newLesson) {
-                    Group.findByIdAndUpdate(group, { $push: { lessons: newLesson } }, { new: true, useFindAndModify: false });
+                if (lessonErrs) {
+                    console.log(lessonErrs);
+                    res.status(500).send({
+                        message: lessonErrs  || "Some error occurred while creating the Lesson."
+                    });
+                } else {
+                    Group.findByIdAndUpdate(group, { $push: { lessons: newLesson } }, { new: true, useFindAndModify: false }).catch(err2 => console.log(err2));
                     for (let i = 0; i < updatedGroup.students.length; i++) {
-                        Attendances.create({ student: updatedGroup.students[i] }, function(attenErr, attenCreated) {
+                        Attendance.create({ student: updatedGroup.students[i] }, function(attenErr, attenCreated) {
                             if (attenErr) {
                                 console.log(attenErr);
                             } else {
@@ -30,16 +39,10 @@ exports.create = (req, res) => {
                             }
                         })
                     }
-                })
-                .then(result => {
                     res.status(200).send({ lessonid: newLesson._id });
-                })
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occurred while creating the Lesson."
-                    });
-                })
-
+                    console.log(result)
+                }
+            })
         }
     })
 }

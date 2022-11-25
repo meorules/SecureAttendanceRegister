@@ -5,51 +5,34 @@
           <input type="text" class="form-control" placeholder="Search by name"
             v-model="name"/>
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button"
-              @click="searchName"
-            >
-              Search
-            </button>
           </div>
         </div>
       </div>
       <div class="col-md-6">
         <h3>Delete Lesson</h3>
-        <h4>Lesson Deletion:</h4>
         <ul class="list-group">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
             v-for="(lesson, index) in lessons"
             :key="index"
-            @click="setActiveModule(module, index)"
+            @click="setActiveLesson(lesson, index)"
           >
             {{ lesson.date }}
           </li>
         </ul>
   
-        <button class="m-3 btn btn-sm btn-danger" @click="removeAllModules">
-          Remove All
-        </button>
       </div>
       <div class="col-md-6">
-        <div v-if="currentModule">
-          <h4>Lesson List:</h4>
-          <div>
-            <div>
-            <label><strong>Module Code:</strong></label> {{ currentModule.moduleCode }}
-          </div>
-            <label><strong>Module Name:</strong></label> {{ currentModule.moduleName }}
-          </div>
-          <div>
-            <label><strong>Module Leader:</strong></label> {{ currentModule.moduleLeader }}
-          </div>
-          <div>
-            <label><strong>Module Teachers:</strong></label> {{ currentModule.teachingLecturers }}
-          </div>
-          <div>
-            <label><strong>Module Groups:</strong></label> {{ currentModule.groups }}
-          </div>
-          <router-link :to="'/modules/' + currentModule._id" class="badge badge-danger">Select</router-link>
+        <div class="col-md-6">
+        
+        <div v-if="currentLesson">
+          <h4></h4>
+          <br>
+          <br>
+          <br>
+          <button class="m-3 btn btn-sm btn-danger" @click="deleteLessons">
+        Delete
+      </button>
         </div>
         <div v-else>
           <br />
@@ -57,6 +40,7 @@
         </div>
       </div>
     </div>
+  </div>
   </template>
   
   <script>
@@ -67,14 +51,14 @@
     data() {
       return {
         lessons: [],
-        currentModule: null,
+        currentLesson: null,
         currentIndex: -1,
         name: ""
       };
     },
     methods: {
       retrieveLessons() {
-        DeleteLessonDataService.getAll(this.$route.params.id, this.$route.params.groupid)
+        DeleteLessonDataService.getLesson(this.$route.params.id, this.$route.params.groupid)
           .then(response => {
             this.lessons = response.data;
             console.log(response.data);
@@ -83,15 +67,25 @@
             console.log(e);
           });
       },
-  
+      deleteLessons() {
+        DeleteLessonDataService.delete(this.$route.params.id, this.$route.params.groupid, this.currentLesson._id)
+          .then(response => {
+            this.lessons = response.data;
+            console.log(response.data);
+            location.reload();
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      },
       refreshList() {
         this.retrieveLessons();
-        this.currentModule = null;
+        this.currentLesson = null;
         this.currentIndex = -1;
       },
   
-      setActiveModule(Module, index) {
-        this.currentModule = Module;
+      setActiveLesson(Lesson, index) {
+        this.currentLesson = Lesson;
         this.currentIndex = module ? index : -1;
       },
   
@@ -105,18 +99,6 @@
             console.log(e);
           });
       },
-      
-      searchName() {
-        DeleteLessonDataService.findByName(this.name)
-          .then(response => {
-            this.modules = response.data;
-            this.setActiveModule(null);
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      }
     },
     mounted() {
       this.retrieveLessons();

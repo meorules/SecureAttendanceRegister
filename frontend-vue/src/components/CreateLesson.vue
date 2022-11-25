@@ -16,10 +16,16 @@
       <div class="col-md-6">
         <h3>Create Lesson</h3>
         <h4>Lesson Creation:</h4>
-        <Form @submit="handleLogin" :validation-schema="schema">
+        <Form :validation-schema="schema">
           <div class="form-group">
             <label for="lessonDate">Lesson Date</label>
+            <input v-model="currentNewLesson.date" type="date"/>
+            <label for="appt">Choose a time for your lesson:</label>
+            <input v-model="currentNewLesson.time" type="time" id="appt" name="appt"
+              min="09:00" max="19:00" required >
             <ErrorMessage name="lessonDate" class="error-feedback" />
+            <button class="badge badge-danger mr-2"
+            @click="createLesson">Create</button>
           </div> 
         </Form>
       </div>
@@ -33,15 +39,20 @@
     name: "modules-list",
     data() {
       return {
+        currentNewLesson: {
+          date: Date,
+          time: String
+        },
         modules: [],
         name: ""
       };
     },
     methods: {
-      createLesson(moduleId, groupId, data){
-        CreateLessonDataService.create(moduleId, groupId, data)
-
-
+      createLesson() {
+      //createLesson(moduleId, groupId, data){
+        // CreateLessonDataService.create(moduleId, groupId, data);
+        console.log("newLessonDate: " + this.currentNewLesson.date);
+        console.log("newLessonTime: " + this.currentNewLesson.time);
       },
 
       retrieveStudents() {
@@ -90,7 +101,7 @@
       }
     },
     mounted() {
-      this.retrieveStudents();
+      // this.retrieveStudents();
     }
   };
   </script>
