@@ -15,11 +15,12 @@ var animalsRouter = require('./routes/animal.routes');
 var userRouter = require('./routes/user.routes');
 var moduleRouter = require('./routes/module.routes');
 var groupRouter = require('./routes/group.routes');
-var lessonAttendanceRouter = require('./routes/lessonAttendance.routes');
+var groupOptionsRouter = require('./routes/group.options.routes');
 var semesterRegistrationRouter = require('./routes/semesterRegistration.routes');
 var attendanceIndicatorsRouter = require('./routes/attendanceIndicators.routes');
-
-
+var editAttendanceRouter = require('./routes/editAttendance.routes');
+var createLessonRouter = require('./routes/createLesson.routes');
+var deleteLessonRouter = require('./routes/deleteLesson.routes');
 
 var app = express();
 
@@ -36,15 +37,31 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// What the URL already is | What you append to the URL.
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/Attendance', animalsRouter);
 app.use('/Attendance', userRouter);
 app.use('/Attendance', moduleRouter);
 app.use('/Attendance/modules', groupRouter);
-//app.use('/Attendance/modules/:id/:groupid', lessonAttendanceRouter);
-//app.use('/Attendance/modules/:id/:groupid', semesterRegistrationRouter);
-//app.use('/Attendance/modules/:id/:groupid', attendanceIndicatorsRouter);
+app.use('/Attendance/modules/:id/:groupid', groupOptionsRouter);
+app.use('/Attendance/modules/:id/:groupid/attendanceIndicators', attendanceIndicatorsRouter)
+app.use('/Attendance/modules/:id/:groupid/semesterRegistration', semesterRegistrationRouter);
+app.use('/Attendance/modules/:id/:groupid/editAttendance', editAttendanceRouter);
+app.use('/Attendance/modules/:id/:groupid/createLesson', createLessonRouter);
+app.use('/Attendance/modules/:id/:groupid/deleteLesson', deleteLessonRouter);
+
+// 
+// app.use('/Attendance/modules/:id/:groupid', lessonAttendanceRouter);
+
+
+// Base path -> Append on to these
+// Base paths will need to be updated and fixed
+
+// ???
+//app.use('/Attendance/modules/:id/:groupid/editAttendance', editAt);
+//app.use('/Attendance/modules/:id/:groupid/deleteAttendance', );
+
 
 // new routes for authentication
 require('./routes/auth.routes')(app);
@@ -64,18 +81,18 @@ db.mongoose.connect(db.url, {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
 module.exports = app;

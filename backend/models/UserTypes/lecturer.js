@@ -17,11 +17,11 @@ module.exports = mongoose => {
                 type: String
             },
             modules: [{
-                type: String,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "Module"
             }],
             advisees: [{
-                type: String,
+                type: mongoose.Schema.Types.ObjectId,
                 ref: "Student"
             }]
         })

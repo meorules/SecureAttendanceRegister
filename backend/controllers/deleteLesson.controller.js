@@ -5,7 +5,7 @@ const Module = db.modules;
 const Group = db.groups;
 const Lesson = db.lessons;
 
-// Find all Semester Registration.
+// Find all Attendance.
 exports.findAll = (req, res) => {
     const moduleName = req.query.name;
     //We use req.query.name to get query string from the Request and consider it as condition for findAll() method.
@@ -25,7 +25,7 @@ exports.findAll = (req, res) => {
         });
 }
 
-// Find one Semester Registration.
+// Find one Attendance.
 exports.findOne = (req, res) => {
     let id = req.params.id;
 

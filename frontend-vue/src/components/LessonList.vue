@@ -32,13 +32,13 @@
             <label><strong>Lesson Date:</strong></label> {{ currentLesson.date }}
           </div>
           <div>
-            <label><strong>Lessons:</strong></label> {{ currentLesson.attendance }}
+            <label><strong>Attendance:</strong></label> {{ currentLesson.attendance }}
           </div>
           <router-link :to="'/groups/' + currentModule._id" class="badge badge-danger">Select Lesson</router-link>
         </div>
         <div v-else>
           <br />
-          <p>Please click on a Lesson...</p>
+          <p>Please click on a Lesson.</p>
         </div>
       </div>
     </div>

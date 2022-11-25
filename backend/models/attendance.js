@@ -6,10 +6,10 @@ module.exports = mongoose => {
             attendanceValue: {
                 type: Number,
                 required: true,
-                defaultValue: 0 //0 for not attended, 1 for attended, 2 for excused absence, 3 for late
+                default: -1 //0 for not attended, 1 for attended, 2 for excused absence, 3 for late
             },
             student: {
-                type: String,
+                type: mongoose.Schema.Types.ObjectId,
                 required: true,
                 ref: "Student"
             }

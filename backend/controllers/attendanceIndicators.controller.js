@@ -1,7 +1,7 @@
 const db = require("../models");
 const Group = db.groups;
 
-// Find all Modules.
+// Find all Attendance Indicators.
 exports.findAll = (req, res) => {
     const groupName = req.query.name;
     //We use req.query.name to get query string from the Request and consider it as condition for findAll() method.
@@ -17,7 +17,7 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving Modules."
+            err.message || "Some error occurred while retrieving Attendance."
         });
       });
 }
@@ -26,7 +26,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   res.status(500).send({
     message:
-      err.message || "Some error occurred while retrieving one Module."
+      err.message || "Some error occurred while retrieving Attendance."
   });
 
 };

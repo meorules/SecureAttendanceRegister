@@ -14,7 +14,8 @@
         </div>
       </div>
       <div class="col-md-6">
-        <h4>Modules List</h4>
+        <h3>Delete Lesson</h3>
+        <h4>Lesson Deletion:</h4>
         <ul class="list-group">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
@@ -22,7 +23,7 @@
             :key="index"
             @click="setActiveModule(module, index)"
           >
-            {{ module.moduleName }}
+            {{ module.moduleName.student.lastName }}
           </li>
         </ul>
   
@@ -52,14 +53,14 @@
         </div>
         <div v-else>
           <br />
-          <p>Please click on a Module.</p>
+          <p>Please click on a Student.</p>
         </div>
       </div>
     </div>
   </template>
   
   <script>
-  import ModuleDataService from "../services/ModuleDataService";
+  import DeleteLessonDataService from "../services/DeleteLessonDataService";
   
   export default {
     name: "modules-list",
@@ -72,8 +73,8 @@
       };
     },
     methods: {
-      retrieveModules() {
-        ModuleDataService.getAll()
+      retrieveStudents() {
+        DeleteLessonDataService.getAll()
           .then(response => {
             this.modules = response.data;
             console.log(response.data);
@@ -95,7 +96,7 @@
       },
   
       removeAllModules() {
-        ModuleDataService.deleteAll()
+        DeleteLessonDataService.deleteAll()
           .then(response => {
             console.log(response.data);
             this.refreshList();
@@ -106,7 +107,7 @@
       },
       
       searchName() {
-        ModuleDataService.findByName(this.name)
+        DeleteLessonDataService.findByName(this.name)
           .then(response => {
             this.modules = response.data;
             this.setActiveModule(null);
@@ -118,7 +119,7 @@
       }
     },
     mounted() {
-      this.retrieveModules();
+      this.retrieveStudents();
     }
   };
   </script>

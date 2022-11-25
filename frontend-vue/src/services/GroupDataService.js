@@ -6,6 +6,10 @@ class GroupDataService {
         return http.get(`/modules/${id}`)
     }
 
+    findOne(id, groupID) {
+        return http.get(`/modules/${id}/${groupID}`)
+    }
+
 }
 
 export default new GroupDataService();
