@@ -2,21 +2,13 @@ import http from "../http-common";
 
 class EditAttendanceDataService {
 
-    getAll() {
-      return http.get("/attendanceIndicators");
+    getAll(id, groupid) {
+      return http.get(`/modules/${id}/${groupid}/editAttendance`);
     }
 
-    get(id) {
-        return http.get(`/attendanceIndicators/${id}`)
-    }
-
-    update(id, data) {
-        return http.put(`/attendanceIndicators/${id}`, data);
-    }
-
-    findByName(name) {
-        return http.get(`/attendanceIndicators?name=${name}`);
-    }  
+    // get(id) {
+    //     return http.get(`/modules/${id}/${groupid}/attendanceIndicators/${id}`)
+    // }
 }
 
 export default new EditAttendanceDataService();

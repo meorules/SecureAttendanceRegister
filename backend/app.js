@@ -21,6 +21,7 @@ var attendanceIndicatorsRouter = require('./routes/attendanceIndicators.routes')
 var editAttendanceRouter = require('./routes/editAttendance.routes');
 var createLessonRouter = require('./routes/createLesson.routes');
 var deleteLessonRouter = require('./routes/deleteLesson.routes');
+var studentAttendanceRouter = require('./routes/studentAttendance.routes');
 
 var app = express();
 
@@ -45,11 +46,13 @@ app.use('/Attendance', userRouter);
 app.use('/Attendance', moduleRouter);
 app.use('/Attendance/modules', groupRouter);
 app.use('/Attendance/modules/:id/:groupid', groupOptionsRouter);
-app.use('/Attendance/modules/:id/:groupid/attendanceIndicators', attendanceIndicatorsRouter)
-app.use('/Attendance/modules/:id/:groupid/semesterRegistration', semesterRegistrationRouter);
-app.use('/Attendance/modules/:id/:groupid/editAttendance', editAttendanceRouter);
-app.use('/Attendance/modules/:id/:groupid/createLesson', createLessonRouter);
-app.use('/Attendance/modules/:id/:groupid/deleteLesson', deleteLessonRouter);
+app.use('/Attendance/modules/:id/', attendanceIndicatorsRouter)
+app.use('/Attendance/modules/:id/', semesterRegistrationRouter);
+app.use('/Attendance/modules/:id/', editAttendanceRouter);
+app.use('/Attendance/modules/:id/', createLessonRouter);
+app.use('/Attendance/modules/:id/', deleteLessonRouter);
+app.use('/Attendance/modules/:id/', studentAttendanceRouter);
+
 
 // 
 // app.use('/Attendance/modules/:id/:groupid', lessonAttendanceRouter);

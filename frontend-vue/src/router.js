@@ -47,6 +47,11 @@ const routes = [{
         component: () => import("./components/DeleteLesson")
     },
     {
+        path: "/modules/:id/:groupid/semesterRegistration/:studentid",
+        alias: "/studentAttendance",
+        component: () => import("./components/StudentAttendance")
+    },
+    {
         path: "/modules/:id",
         name: "group-list",
         component: () =>

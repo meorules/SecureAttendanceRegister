@@ -14,16 +14,29 @@
         </div>
       </div>
       <div class="col-md-6">
-        <h3>Semester Registration</h3>
-        <h4>Student List</h4>
+        <h3>Student Attendance</h3>
+        <h4>Student List | Attendance List</h4>
         <ul class="list-group">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
-            v-for="(student, index) in students"
+            v-for="(lesson, index) in lessons"
             :key="index"
-            @click="setActiveStudent(student, index)"
+            @click="setActiveStudent(lesson, index)"
           >
-            {{student.firstName }}
+            {{ lesson.date }}
+          </li>
+        </ul>
+        <br>
+        <br>
+        <br>
+        <ul class="list-group2">
+          <li class="list-group-item"
+            :class="{ active: index == currentIndex }"
+            v-for="(atten, index) in attendances"
+            :key="index"
+            @click="setActiveStudent(atten, index)"
+          >
+            {{ atten.attendanceValue }}
           </li>
         </ul>
   
@@ -51,56 +64,48 @@
   </template>
   
   <script>
-  import SemesterRegistrationDataService from "../services/semesterRegistrationDataService";
+  import StudentAttendanceDataService from "../services/StudentAttendanceDataService";
   
   export default {
     name: "semester-registration",
     data() {
       return {
-        students: [],
+        lessons: [],
         attendances: [],
-        currentStudent: null,
         currentIndex: -1,
         name: ""
       };
     },
     methods: {
-      retrieveStudents() {
-        SemesterRegistrationDataService.getAll(this.$route.params.id, this.$route.params.groupid)
+      retrieveAttendance() {
+        StudentAttendanceDataService.getAttendance(this.$route.params.id, this.$route.params.groupid, this.$route.params.studentid)
           .then(response => {
-            this.students = response.data;
+            this.attendances = response.data;
             console.log(response.data);
           })
           .catch(e => {
             console.log(e);
           });
       },
-  
+      retrieveLesson() {
+        StudentAttendanceDataService.getLesson(this.$route.params.id, this.$route.params.groupid, this.$route.params.studentid)
+          .then(response => {
+            this.lessons = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      },
       refreshList() {
         this.retrieveModules();
         this.currentStudent= null;
         this.currentIndex = -1;
       },
-  
-      setActiveStudent(Student, index) {
-        this.currentStudent = Student;
-        this.currentIndex = module ? index : -1;
-      },
-      
-      searchName() {
-        SemesterRegistrationDataService.findByName(this.name)
-          .then(response => {
-            this.modules = response.data;
-            this.setActiveModule(null);
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      }
     },
     mounted() {
-      this.retrieveStudents();
+        this.retrieveAttendance(); 
+        this.retrieveLesson();
     }
   };
   </script>

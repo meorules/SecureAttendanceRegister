@@ -16,45 +16,12 @@
       <div class="col-md-6">
         <h3>Create Lesson</h3>
         <h4>Lesson Creation:</h4>
-        <ul class="list-group">
-          <li class="list-group-item"
-            :class="{ active: index == currentIndex }"
-            v-for="(module, index) in modules"
-            :key="index"
-            @click="setActiveModule(module, index)"
-          >
-            {{ module.moduleName.student.lastName }}
-          </li>
-        </ul>
-  
-        <button class="m-3 btn btn-sm btn-danger" @click="removeAllModules">
-          Remove All
-        </button>
-      </div>
-      <div class="col-md-6">
-        <div v-if="currentModule">
-          <h4>Module</h4>
-          <div>
-            <div>
-            <label><strong>Module Code:</strong></label> {{ currentModule.moduleCode }}
-          </div>
-            <label><strong>Module Name:</strong></label> {{ currentModule.moduleName }}
-          </div>
-          <div>
-            <label><strong>Module Leader:</strong></label> {{ currentModule.moduleLeader }}
-          </div>
-          <div>
-            <label><strong>Module Teachers:</strong></label> {{ currentModule.teachingLecturers }}
-          </div>
-          <div>
-            <label><strong>Module Groups:</strong></label> {{ currentModule.groups }}
-          </div>
-          <router-link :to="'/modules/' + currentModule._id" class="badge badge-danger">Select</router-link>
-        </div>
-        <div v-else>
-          <br />
-          <p>Please click on a Student.</p>
-        </div>
+        <Form @submit="handleLogin" :validation-schema="schema">
+          <div class="form-group">
+            <label for="lessonDate">Lesson Date</label>
+            <ErrorMessage name="lessonDate" class="error-feedback" />
+          </div> 
+        </Form>
       </div>
     </div>
   </template>
@@ -67,12 +34,16 @@
     data() {
       return {
         modules: [],
-        currentModule: null,
-        currentIndex: -1,
         name: ""
       };
     },
     methods: {
+      createLesson(moduleId, groupId, data){
+        CreateLessonDataService.create(moduleId, groupId, data)
+
+
+      },
+
       retrieveStudents() {
         CreateLessonDataService.getAll()
           .then(response => {

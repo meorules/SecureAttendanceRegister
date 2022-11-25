@@ -10,13 +10,7 @@ router.get('/', function(req, res, next) {
     res.json({ message: "Welcome to the Attendance api." });
 });
 
-// Retrieve one group.
-// router.get("/:id", groupController.findOne, "/:groupid", groupOptionsController.findOneByID);
-
-router.get(createLessonController.findOne);
-
-// router.get('/', function(req, res, next) {
-//     res.json(groupOptionsController.findOne(req.groupid));
-// });
+//  POST request to create a new lesson object in the db, then return it's id to the caller
+router.post("/:groupid/createLesson/", createLessonController.create);
 
 module.exports = router;

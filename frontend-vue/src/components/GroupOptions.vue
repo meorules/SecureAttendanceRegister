@@ -49,8 +49,6 @@ methods: {
       GroupDataService.getGroup(this.$route.params.id, this.$route.params.groupid)
         .then(response => {
           this.currentGroup = response.data;
-          console.log("INSIDE THE VUE COMPONENT:");
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);

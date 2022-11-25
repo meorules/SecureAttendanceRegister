@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
  
 //Require controller
-var lessonController = require('../controllers/lessonAttendance.controller');
+var semesterRegistration = require('../controllers/semesterRegistration.controller');
 
 // GET at the root returns a welcome message in json
 router.get('/', function(req, res, next) {
@@ -11,9 +11,9 @@ router.get('/', function(req, res, next) {
  
 
 // Retrieve all animals.
-router.get("/lessons/", lessonController.findAll);
+router.get("/:groupid/semesterRegistration/", semesterRegistration.findAll);
 
 // Retrieve one animal.
-router.get('/lessons/:id', lessonController.findOne);
+router.get('/lessons/:id', semesterRegistration.findOne);
  
 module.exports = router;

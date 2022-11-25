@@ -19,11 +19,11 @@
         <ul class="list-group">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
-            v-for="(module, index) in modules"
+            v-for="(lesson, index) in lessons"
             :key="index"
-            @click="setActiveModule(module, index)"
+            @click="setActiveModule(lesson, index)"
           >
-            {{ module.moduleName.student.lastName }}
+            {{ lesson.date }}
           </li>
         </ul>
   
@@ -63,20 +63,20 @@
   import EditAttendanceDataService from "../services/EditAttendanceService";
   
   export default {
-    name: "modules-list",
+    name: "edit-attendance",
     data() {
       return {
-        modules: [],
+        lessons: [],
         currentModule: null,
         currentIndex: -1,
         name: ""
       };
     },
     methods: {
-      retrieveStudents() {
-        EditAttendanceDataService.getAll()
+      retrieveLessons() {
+        EditAttendanceDataService.getAll(this.$route.params.id, this.$route.params.groupid)
           .then(response => {
-            this.modules = response.data;
+            this.lessons = response.data;
             console.log(response.data);
           })
           .catch(e => {
@@ -85,7 +85,7 @@
       },
   
       refreshList() {
-        this.retrieveModules();
+        this.retrieveLessons();
         this.currentModule = null;
         this.currentIndex = -1;
       },
@@ -119,7 +119,7 @@
       }
     },
     mounted() {
-      this.retrieveStudents();
+      this.retrieveLessons();
     }
   };
   </script>

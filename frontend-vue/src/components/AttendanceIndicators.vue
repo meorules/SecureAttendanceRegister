@@ -19,82 +19,98 @@
         <ul class="list-group">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
-            v-for="(module, index) in modules"
+            v-for="(student, index) in students"
             :key="index"
-            @click="setActiveModule(module, index)"
+            @click="setActiveStudent(student, index); setupDoughnutChartValues()" 
           >
-            {{ module.moduleName.student.lastName }}
-          </li>
+            {{ student.firstName }}  
+            </li>
         </ul>
-  
         <button class="m-3 btn btn-sm btn-danger" @click="removeAllModules">
           Remove All
         </button>
       </div>
       <div class="col-md-6">
-        <div v-if="currentModule">
-          <h4>Module</h4>
+        <div v-if="currentStudent">
+          <h4>Student:</h4>
           <div>
             <div>
-            <label><strong>Module Code:</strong></label> {{ currentModule.moduleCode }}
+              <label><strong>Student Name:</strong></label> {{ currentStudent.firstName}}
+            </div>
           </div>
-            <label><strong>Module Name:</strong></label> {{ currentModule.moduleName }}
-          </div>
-          <div>
-            <label><strong>Module Leader:</strong></label> {{ currentModule.moduleLeader }}
-          </div>
-          <div>
-            <label><strong>Module Teachers:</strong></label> {{ currentModule.teachingLecturers }}
-          </div>
-          <div>
-            <label><strong>Module Groups:</strong></label> {{ currentModule.groups }}
-          </div>
-          <router-link :to="'/modules/' + currentModule._id" class="badge badge-danger">Select</router-link>
         </div>
         <div v-else>
           <br />
           <p>Please click on a Student.</p>
         </div>
+        <DoughnutChart notAttendedCounter=this.notAttendedCounter attendedCounter=this.attendedCounter
+        excusedAbsence=this.excusedAbsenceCounter lateCounter = this.lateCounter></DoughnutChart>
       </div>
     </div>
   </template>
   
   <script>
   import AttendanceIndicatorDataService from "../services/attendanceIndicatorDataService";
+  import DoughnutChart from "../components/DoughnutChart";
   
   export default {
     name: "modules-list",
+    components: DoughnutChart,
     data() {
       return {
-        modules: [],
-        currentModule: null,
+        students: [],
+        attendances: [],
+        currentStudent: null,
         currentIndex: -1,
-        name: ""
+        name: "",
+        notAttendedCounter: 0,
+        attendedCounter: 0,
+        excusedAbsenceCounter: 0,
+        lateCounter: 0,
       };
     },
     methods: {
       retrieveStudents() {
-        AttendanceIndicatorDataService.getAll()
+        console.log(this.$route.params)
+        AttendanceIndicatorDataService.getAll(this.$route.params.id, this.$route.params.groupid)
           .then(response => {
-            this.modules = response.data;
+            this.students = response.data;
             console.log(response.data);
           })
           .catch(e => {
             console.log(e);
           });
       },
-  
+      retrieveAttendance() {
+        AttendanceIndicatorDataService.get(this.$route.params.id, this.$route.params.groupid, this.currentStudent._id)
+          .then(response => {
+            this.attendances = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+      },
       refreshList() {
         this.retrieveModules();
-        this.currentModule = null;
+        this.currentStudent = null;
         this.currentIndex = -1;
       },
-  
-      setActiveModule(Module, index) {
-        this.currentModule = Module;
+
+      setActiveStudent(Student, index) {
+        this.currentStudent = Student;
+        console.log(this.currentStudent);
         this.currentIndex = module ? index : -1;
+        this.attendances = this.retrieveAttendance();
       },
-  
+
+      setupDoughnutChartValues() {
+        this.notAttendedCounter = this.attendances[0];
+        this.attendedCounter = this.attendances[1];
+        this.excusedAbsenceCounter = this.attendances[2];
+        this.lateCounter = this.attendances[4];
+      },
+
       removeAllModules() {
         AttendanceIndicatorDataService.deleteAll()
           .then(response => {

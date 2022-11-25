@@ -2,21 +2,9 @@ import http from "../http-common";
 
 class SemesterRegistrationDataService {
 
-    getAll() {
-      return http.get("/attendanceIndicators");
+    getAll(id, groupid) {
+      return http.get(`/modules/${id}/${groupid}/semesterRegistration`);
     }
-
-    get(id) {
-        return http.get(`/attendanceIndicators/${id}`)
-    }
-
-    update(id, data) {
-        return http.put(`/attendanceIndicators/${id}`, data);
-    }
-
-    findByName(name) {
-        return http.get(`/attendanceIndicators?name=${name}`);
-    }  
 }
 
 export default new SemesterRegistrationDataService();

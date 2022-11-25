@@ -2,12 +2,12 @@ import http from "../http-common";
 
 class AttendanceIndicatorDataService {
 
-    getAll() {
-      return http.get("/attendanceIndicators");
+    getAll(id, groupid) {
+      return http.get(`/modules/${id}/${groupid}/attendanceIndicators`);
     }
-
-    get(id) {
-        return http.get(`/attendanceIndicators/${id}`)
+    
+    get(id, groupid, studentid) {
+        return http.get(`/modules/${id}/${groupid}/attendanceIndicators/${studentid}`);
     }
 }
 

@@ -19,11 +19,11 @@
         <ul class="list-group">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
-            v-for="(module, index) in modules"
+            v-for="(lesson, index) in lessons"
             :key="index"
             @click="setActiveModule(module, index)"
           >
-            {{ module.moduleName.student.lastName }}
+            {{ lesson.date }}
           </li>
         </ul>
   
@@ -33,7 +33,7 @@
       </div>
       <div class="col-md-6">
         <div v-if="currentModule">
-          <h4>Module</h4>
+          <h4>Lesson List:</h4>
           <div>
             <div>
             <label><strong>Module Code:</strong></label> {{ currentModule.moduleCode }}
@@ -63,20 +63,20 @@
   import DeleteLessonDataService from "../services/DeleteLessonDataService";
   
   export default {
-    name: "modules-list",
+    name: "delete-lesson",
     data() {
       return {
-        modules: [],
+        lessons: [],
         currentModule: null,
         currentIndex: -1,
         name: ""
       };
     },
     methods: {
-      retrieveStudents() {
-        DeleteLessonDataService.getAll()
+      retrieveLessons() {
+        DeleteLessonDataService.getAll(this.$route.params.id, this.$route.params.groupid)
           .then(response => {
-            this.modules = response.data;
+            this.lessons = response.data;
             console.log(response.data);
           })
           .catch(e => {
@@ -85,7 +85,7 @@
       },
   
       refreshList() {
-        this.retrieveModules();
+        this.retrieveLessons();
         this.currentModule = null;
         this.currentIndex = -1;
       },
@@ -119,7 +119,7 @@
       }
     },
     mounted() {
-      this.retrieveStudents();
+      this.retrieveLessons();
     }
   };
   </script>
