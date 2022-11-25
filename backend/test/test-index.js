@@ -3,7 +3,7 @@ let chaiHttp = require('chai-http');
 const e = require('express');
 let server = require('../app');
 let should = chai.should();
- 
+
 chai.use(chaiHttp);
 //the parent block
 describe('backend root', () => {
