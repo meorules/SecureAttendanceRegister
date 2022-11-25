@@ -45,8 +45,8 @@ data() {
   };
 },
 methods: {
-  retrieveCurrentGroup(id, groupID) {
-      GroupDataService.findOne(id, groupID)
+  retrieveCurrentGroup() {
+      GroupDataService.getGroup(this.$route.params.id, this.$route.params.groupid)
         .then(response => {
           this.currentGroup = response.data;
           console.log("INSIDE THE VUE COMPONENT:");
@@ -60,7 +60,7 @@ methods: {
 mounted() {
   //console.log(this.$route.params)
   console.log(this.$route.params.groupid)
-  this.retrieveCurrentGroup(this.$route.params.id, this.$route.params.groupid);
+  this.retrieveCurrentGroup();
 }
 };
 </script>

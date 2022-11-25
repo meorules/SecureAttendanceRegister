@@ -16,3 +16,18 @@ exports.findOne = (req, res) => {
             });
         });
 };
+
+exports.findGroup = (req, res) => {
+  let id = req.params.groupid;
+
+  Group
+      .find({ _id: id })
+      .then(data => {
+          res.send(data);
+      })
+      .catch(err => {
+          res.send({
+              message: err.message || "Some error occurred while retrieving Modules."
+          });
+      });
+};

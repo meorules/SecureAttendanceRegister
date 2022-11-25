@@ -10,8 +10,8 @@ router.get('/', function(req, res, next) {
 });
  
 // Retrieve one group.
-router.post("/:id", groupController.findOne);
+router.get("/:id", groupController.findOne);
 
-
+router.get("/:id", groupController.findGroup);
  
 module.exports = router;

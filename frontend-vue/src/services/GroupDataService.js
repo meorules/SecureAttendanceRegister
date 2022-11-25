@@ -6,8 +6,8 @@ class GroupDataService {
         return http.get(`/modules/${id}`)
     }
 
-    findOne(id, groupID) {
-        return http.get(`/modules/${id}/${groupID}`)
+    getGroup(id, groupid) {
+        return http.get(`/modules/${id}/${groupid}`)
     }
 
 }
