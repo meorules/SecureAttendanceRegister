@@ -2,8 +2,8 @@ import http from "../http-common";
 
 class EditAttendanceDataService {
 
-    post(id, groupid, attendanceid, attendanceValue) {
-      return http.post(`/modules/${id}/${groupid}/editAttendance/${attendanceid}/${attendanceValue}`);
+    post(id, groupid, lessonid, attendanceid, attendanceValue) {
+      return http.post(`/modules/${id}/${groupid}/editAttendance/${lessonid}/${attendanceid}/${attendanceValue}`);
     }
 
     getAll(id,groupid) {

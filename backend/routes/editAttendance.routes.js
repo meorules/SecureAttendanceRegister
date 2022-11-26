@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post("/:groupid/editAttendance/:attendanceid/:attendanceValue", editAttendanceController.put);
+router.post("/:groupid/editAttendance/:lessonid/:attendanceid/:attendanceValue", editAttendanceController.put);
 
 router.get("/:groupid/editAttendance/", editAttendanceController.findAll);
 

@@ -7,7 +7,6 @@
             :class="{ active: index == currentIndex }"
             v-for="(student, index) in students"
             :key="index"
-            @click="setActiveStudent(student, index)"
           >
             {{ student.firstName }}
           </li>
@@ -21,7 +20,7 @@
             :class="{ active: index == currentIndex }"
             v-for="(atten, index) in attendances"
             :key="index"
-            @click="setActiveStudent(atten, index)"
+            @click="setActiveAttendance(atten, index)"
             > 
             <div v-if="atten.attendanceValue == '0'">
               Not Attended
@@ -39,22 +38,26 @@
         </ul>
       </div>
       <div class="col-md-8">
-        <div v-if="currentStudent">
+        <div v-if="currentAttendance">
           <div>
             <div>
-              <label><strong>Student :</strong></label> {{ currentStudent.firstName }}
+              <form>
+                <label for="Attendance">Update Attendance to:</label>
+                <select v-model="selectedAttendanceType">
+                  <option v-for="(attendanceType, index) in attendanceTypes" v-bind:key="index">{{attendanceType.name}}</option>
+                </select>
+                <br><br>
+                <button class="btn btn-outline-secondary" type="button" @click="selectAttendance">Save</button>
+              </form>
+            </div>
           </div>
-        </div>
-          <router-link :to="'/modules/'+$route.params.id+'/' + $route.params.groupid + '/semesterRegistration/' + currentStudent._id" class="badge badge-danger">Select</router-link>
-        </div>
-        <div v-else>
         </div>
       </div>
     </div>
   </template>
   
   <script>
-  import EditAttendanceDataService from "../services/EditAttendanceDataService";
+import EditAttendanceDataService from "../services/EditAttendanceDataService";
   
   export default {
     name: "semester-registration",
@@ -62,11 +65,26 @@
       return {
         students: [],
         attendances: [],
-        currentIndex: -1,
-        name: ""
+        currentAttendance: null,
+        currentNewAttendance:{
+            attendanceValue: String,
+        },
+        name: "",
+        attendanceTypes: [
+          {id: 1, name: "Not-Attended"},
+          {id: 2, name: "Attended"},
+          {id: 3, name: "Excused-Absence"},
+          {id: 4, name: "Late"}
+        ],
+        selectedAttendanceType: ""
       };
     },
     methods: {
+      setActiveAttendance(Attendance, index) {
+        this.currentAttendance = Attendance;
+        console.log(this.currentAttendance);
+        this.currentIndex = module ? index : -1;
+      },
       retrieveAttendance() {
         EditAttendanceDataService.getAttendance(this.$route.params.id, this.$route.params.groupid, this.$route.params.lessonid)
           .then(response => {
@@ -88,8 +106,26 @@
             console.log(e);
           });
       },
+      selectAttendance() {
+        let newAttendance = this.selectedAttendanceType;
+        console.log(this.selectedAttendanceType);
+        this.saveAttendance(newAttendance);
+      },
+      saveAttendance(newAttendance) {
+        // EditAttendanceDataService.post(this.$route.params.id, this.$route.params.groupid, this.$route.params.lessonid, this.currentAttendance._id, this.currentNewAttendance.value)
+        EditAttendanceDataService.post(this.$route.params.id, this.$route.params.groupid, this.$route.params.lessonid, this.currentAttendance._id, newAttendance)
+          .then(response => {
+            this.students = response.data;
+            console.log(response.data);
+          })
+          .catch(e => {
+            console.log(e);
+          });
+          this.refreshList();
+      },
       refreshList() {
-        this.retrieveModules();
+        this.retrieveAttendance();
+        this.retrieveStudents();
         this.currentStudent= null;
         this.currentIndex = -1;
       },
@@ -117,6 +153,12 @@
   .col-md-7 {
     position: absolute;
     left: 48%;
+    max-width: 300px;
+  }
+
+  .col-md-8 {
+    position: absolute;
+    left: 65%;
     max-width: 300px;
   }
   </style>

@@ -9,13 +9,33 @@ const Student = db.students
 
 // Edit a lesson
 exports.put = async(req, res) => {
+    console.log("in HERE")
+    let newAttendanceValue=null;
 
+    if(req.params.attendanceValue == "Not-Attended"){
+        newAttendanceValue = 0;
+    }
+    else if(req.params.attendanceValue == "Attended"){
+        newAttendanceValue = 1;
+    }
+    else if(req.params.attendanceValue == "Excused-Absence") {
+        newAttendanceValue = 2;
+    }
+    else if(req.params.attendanceValue == "Late"){
+        newAttendanceValue = 3;
+    }
+
+
+    console.log(req.params.attendanceid)
     attendance = req.params.attendanceid;
-    newAttendanceValue = req.params.attendanceValue;
+    console.log(attendance)
+    
 
     Attendance.findByIdAndUpdate(attendance, { $set: { attendanceValue: newAttendanceValue } }, { new: true, useFindAndModify: false })
         .then(result => {
+            console.log(result)
             res.status(200).send("DONE");
+            
         })
         .catch(err => {
             res.status(500).send({
