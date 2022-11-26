@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get("/:groupid/editAttendance/", editAttendanceController.findAll);
+router.put("/:groupid/editAttendance/", editAttendanceController.put);
 
 
 module.exports = router;

@@ -12,6 +12,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 // The router for animals
 var animalsRouter = require('./routes/animal.routes');
+
 var userRouter = require('./routes/user.routes');
 var moduleRouter = require('./routes/module.routes');
 var groupRouter = require('./routes/group.routes');
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/Attendance', animalsRouter);
+
 app.use('/Attendance', userRouter);
 app.use('/Attendance', moduleRouter);
 app.use('/Attendance/modules', groupRouter);

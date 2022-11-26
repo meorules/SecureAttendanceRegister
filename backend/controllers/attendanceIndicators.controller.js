@@ -8,23 +8,25 @@ const Attendance = db.attendances;
 // Find all Attendance Indicators.
 exports.findAll = async(req, res) => {
     let id = req.params.groupid;
-    console.log(req.params)
-    console.log("req.params.groupid" + req.params.groupid);
-    const group = await Group.findById(id);
-    console.log("group: " + group);
-    console.log(group)
-    Student
-        .find({ _id: { $in: group.students } })
-        .then(data => {
-            console.log(data)
-            res.send(data);
+    const group = await Group.findById(id).then(group => {
+            Student
+                .find({ _id: { $in: group.students } })
+                .then(data => {
+                    res.send(data);
+                })
+                .catch(err => {
+                    res.status(500).send({
+                        message: err.message || "Some error occurred while retrieving Attendance Indicators."
+                    });
+                });
         })
         .catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving Attendance Indicators."
             });
-        });
 
+
+        })
 }
 
 exports.findAttendance = async(req, res) => {
