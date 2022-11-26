@@ -13,5 +13,10 @@ router.get('/', function(req, res, next) {
 
 router.post("/:groupid/editAttendance/:attendanceid/:attendanceValue", editAttendanceController.put);
 
+router.get("/:groupid/editAttendance/", editAttendanceController.findAll);
+
+router.get("/:groupid/editAttendance/:lessonid", editAttendanceController.findAttendance);
+
+router.get("/:groupid/editAttendance/:lessonid/students", editAttendanceController.findStudents);
 
 module.exports = router;

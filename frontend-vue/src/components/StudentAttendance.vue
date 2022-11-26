@@ -118,9 +118,9 @@ export default {
 }
 
 .col-md-7 {
-  position: relative;
-  top: -170px;
-  left: 320px;
-  right: 0;
+  position: absolute;
+  left: 48%;
+  top: 31.5%;
+  max-width: 300px;
 }
 </style>

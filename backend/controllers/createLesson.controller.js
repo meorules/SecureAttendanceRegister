@@ -31,7 +31,7 @@ exports.create = async (req, res) => {
                     });
                 } else {
                     Group.findByIdAndUpdate(group, { $push: { lessons: newLesson } }, { new: true, useFindAndModify: false }).catch(err2 => console.log(err2));
-                    let length = updatedGroup[0].students.length
+                    let length = updatedGroup[0].students.length;
                     for (let i = 0; i < length; i++) {
                         Attendance.create({ student: updatedGroup[0].students[i] }, function(attenErr, attenCreated) {
                             if (attenErr) {

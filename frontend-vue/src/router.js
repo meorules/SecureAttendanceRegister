@@ -37,6 +37,11 @@ const routes = [{
         component: () => import("./components/EditAttendance")
     },
     {
+        path: "/modules/:id/:groupid/editAttendance/:lessonid",
+        alias: "/lessonAttendance",
+        component: () => import("./components/LessonAttendance")
+    },
+    {
         path: "/modules/:id/:groupid/createLesson",
         alias: "/createLesson",
         component: () => import("./components/CreateLesson")

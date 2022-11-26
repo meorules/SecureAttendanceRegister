@@ -25,7 +25,7 @@
     </nav>
 
     <div class="container mt-3">
-      <h2>Attendance Vue 3 example</h2>
+      <h2>Attendance Vue 3 prototype</h2>
       <router-view />
     </div>
   </div>
