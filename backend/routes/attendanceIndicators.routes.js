@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const { authjwt } = require("../middlewares");
 
 // Require controller.
 var attendanceIndicatorsController = require('../controllers/attendanceIndicators.controller');
@@ -11,9 +12,9 @@ router.get('/', function(req, res, next) {
 
 
 // Retrieve all groups.
-router.get("/:groupid/attendanceIndicators/", attendanceIndicatorsController.findAll);
+router.get("/:groupid/attendanceIndicators/", [authjwt.verifyToken], attendanceIndicatorsController.findAll);
 
-router.get("/:groupid/attendanceIndicators/:studentid", attendanceIndicatorsController.findAttendance);
+router.get("/:groupid/attendanceIndicators/:studentid", [authjwt.verifyToken], attendanceIndicatorsController.findAttendance);
 
 
 module.exports = router;

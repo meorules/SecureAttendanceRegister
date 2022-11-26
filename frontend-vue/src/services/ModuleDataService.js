@@ -10,7 +10,7 @@ class ModuleDataService {
     }
 
     findByName(name) {
-        return http.get(`/modules?name=${name}`);
+        return http.get(`/modules?name=${name}`, {headers: authHeader() });
     }  
 }
 

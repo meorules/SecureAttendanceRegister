@@ -89,7 +89,6 @@ import EditAttendanceDataService from "../services/EditAttendanceDataService";
         EditAttendanceDataService.getAttendance(this.$route.params.id, this.$route.params.groupid, this.$route.params.lessonid)
           .then(response => {
             this.attendances = response.data;
-            console.log("helllooooo")
             console.log(response.data);
           })
           .catch(e => {

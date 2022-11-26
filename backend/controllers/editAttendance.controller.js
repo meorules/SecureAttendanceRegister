@@ -1,37 +1,52 @@
-const { mongoose } = require("../models");
+const config = require("../config/auth.config.js");
+const jwt = require('jsonwebtoken');
 const db = require("../models");
-var ObjectId = require('mongodb').ObjectId;
-const Module = db.modules;
 const Group = db.groups;
 const Lesson = db.lessons;
 const Attendance = db.attendances;
 const Student = db.students
+const User = db.users
 
 // Edit a lesson
 exports.put = async(req, res) => {
-    console.log("in HERE")
-    let newAttendanceValue=null;
+    let token = req.header('x-access-token')
 
-    if(req.params.attendanceValue == "Not-Attended"){
-        newAttendanceValue = 0;
+    const userid = jwt.verify(token, config.secret, (err, decoded) => {
+        if (err) {
+          return res.status(401).send({ message: "Unauthorised!" });
+        }
+        return req.userId = decoded.id;
+        
+      });
+    
+    const user = await User.findById(userid);
+
+    if (user.roleType == 0){
+        res.status(401).send({ message: "Unauthorised!" });
     }
-    else if(req.params.attendanceValue == "Attended"){
-        newAttendanceValue = 1;
-    }
-    else if(req.params.attendanceValue == "Excused-Absence") {
-        newAttendanceValue = 2;
-    }
-    else if(req.params.attendanceValue == "Late"){
-        newAttendanceValue = 3;
-    }
+    else if (user.roleType == 1){
+        let newAttendanceValue=null;
+
+        if(req.params.attendanceValue == "Not-Attended"){
+             newAttendanceValue = 0;
+        }
+        else if(req.params.attendanceValue == "Attended"){
+            newAttendanceValue = 1;
+        }
+        else if(req.params.attendanceValue == "Excused-Absence") {
+            newAttendanceValue = 2;
+        }
+        else if(req.params.attendanceValue == "Late"){
+            newAttendanceValue = 3;
+        }
 
 
-    console.log(req.params.attendanceid)
-    attendance = req.params.attendanceid;
-    console.log(attendance)
+        console.log(req.params.attendanceid)
+        attendance = req.params.attendanceid;
+        console.log(attendance)
     
 
-    Attendance.findByIdAndUpdate(attendance, { $set: { attendanceValue: newAttendanceValue } }, { new: true, useFindAndModify: false })
+        Attendance.findByIdAndUpdate(attendance, { $set: { attendanceValue: newAttendanceValue } }, { new: true, useFindAndModify: false })
         .then(result => {
             console.log(result)
             res.status(200).send("DONE");
@@ -42,31 +57,64 @@ exports.put = async(req, res) => {
                 message: err || "Some error occurred while editing attendance"
             })
         })
+    }
 
 };
 
 exports.findAll = async (req, res) => {
+    let token = req.header('x-access-token')
 
-    let id = req.params.groupid;
-    const group = await Group.findById(id);
+    const userid = jwt.verify(token, config.secret, (err, decoded) => {
+        if (err) {
+          return res.status(401).send({ message: "Unauthorised!" });
+        }
+        return req.userId = decoded.id;
+        
+      });
+    
+    const user = await User.findById(userid);
 
-    console.log("attendance")
+    if (user.roleType == 0){
+        res.status(401).send({ message: "Unauthorised!" });
+    }
+    else if (user.roleType == 1){
+        let id = req.params.groupid;
+        const group = await Group.findById(id);
 
-   const lessons = await Lesson.find({_id: {$in: group.lessons} })
-    console.log("not dead")
-   res.send(lessons)
+
+    const lessons = await Lesson.find({_id: {$in: group.lessons} })
+        
+    res.send(lessons)
+    }
 }
 
 exports.findAttendance = async (req, res) => {
 
+    let token = req.header('x-access-token')
 
+    const userid = jwt.verify(token, config.secret, (err, decoded) => {
+        if (err) {
+          return res.status(401).send({ message: "Unauthorised!" });
+        }
+        return req.userId = decoded.id;
+        
+      });
+    
+    const user = await User.findById(userid);
+    let details;
 
-   const lesson = await Lesson.findById(req.params.lessonid)
+    if (user.roleType == 0){
+        res.status(401).send({ message: "Unauthorised!" });
+    }
+    else if (user.roleType == 1){
+        const lesson = await Lesson.findById(req.params.lessonid)
+        console.log("heydooooood")
 
+        const attendance = await Attendance.find({_id: {$in: lesson.attendance }})
 
-    const attendance = await Attendance.find({_id: {$in: lesson.attendance }})
+        res.send(attendance)
+    }
 
-   res.send(attendance)
 }
 
 exports.findStudents = async (req, res) => {

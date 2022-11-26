@@ -49,7 +49,6 @@
     },
     methods: {
       createLesson() {
-      //createLesson(moduleId, groupId, data){
        CreateLessonDataService.create( this.$route.params.id, this.$route.params.groupid, this.currentNewLesson.date, this.currentNewLesson.time);
       },
 

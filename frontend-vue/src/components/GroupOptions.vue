@@ -10,20 +10,22 @@
       </div>
     </div>
   </div>
-
+  
   <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/attendanceIndicator'" class="badge badge-danger">Attendance Indicator</router-link>
+  
   <!-- Takes to a list of students, get % of each student -->
 
   <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/semesterRegistration'" class="badge badge-danger">Semester Registration</router-link>
   <!-- Spreadsheet -->
-
+  <div v-if="this.user.roleType == 1">
   <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/editAttendance'" class="badge badge-danger">Edit Attendance</router-link>
   <!-- List of students & display whether they've attended | OR spreadsheet -->
-
+ 
   <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/createLesson'" class="badge badge-danger">Create Lesson</router-link>
   <!-- Form (students on left) -> Box to fill in -->
-
+  
   <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/deleteLesson'" class="badge badge-danger">Delete Lesson</router-link>
+  </div>
   <!-- Show list of lessons | Click a lesson and delete it -->
 
 </template>
@@ -41,7 +43,8 @@ data() {
     groups: [],
     currentGroup: "",
     currentIndex: -1,
-    name: ""
+    name: "",
+    user: JSON.parse(localStorage.getItem('user'))
   };
 },
 methods: {

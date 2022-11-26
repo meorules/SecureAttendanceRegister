@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const { authjwt } = require("../middlewares");
  
 // Require controller.
 var groupController = require('../controllers/group.controller');
@@ -10,8 +11,8 @@ router.get('/', function(req, res, next) {
 });
  
 // Retrieve one group.
-router.get("/:id", groupController.findOne);
+router.get("/:id", [authjwt.verifyToken], groupController.findOne);
 
-router.get("/:id", groupController.findGroup);
+router.get("/:id", [authjwt.verifyToken], groupController.findGroup);
  
 module.exports = router;

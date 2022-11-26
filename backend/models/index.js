@@ -9,7 +9,6 @@ db.mongoose = mongoose;
 db.url = dbConfig.url;
 
 
-db.animals = require("./animal.model.js")(mongoose);
 db.users = require("./user.js")(mongoose);
 
 db.attendances = require("./attendance.js")(mongoose);

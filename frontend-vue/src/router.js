@@ -2,13 +2,6 @@ import { createWebHistory, createRouter } from 'vue-router';
 
 const routes = [{
         path: "/",
-        alias: "/animals",
-        name: "animals",
-        component: () =>
-            import ("./components/AnimalsList")
-    },
-    {
-        path: "/",
         alias: "/modules",
         name: "modules",
         component: () =>
@@ -69,18 +62,6 @@ const routes = [{
             import ("./components/AttendanceIndicators")
     },
     {
-        path: "/animals/:id",
-        name: "animal-details",
-        component: () =>
-            import ("./components/AnimalDetails")
-    },
-    {
-        path: '/add-animal',
-        name: 'add-animal',
-        component: () =>
-            import ("./components/AnimalAdd")
-    },
-    {
         path: '/users',
         name: 'users',
         component: () =>
@@ -135,19 +116,19 @@ const router = createRouter({
     routes
 });
 
-// router.beforeEach((to, from, next) => {
-//   const publicPages = ['/login', '/register', '/home'];
-//   const authRequired = !publicPages.includes(to.path);
-//   const loggedIn = localStorage.getItem('user');
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/login', '/register', '/home'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = localStorage.getItem('user');
 
-//   // trying to access a restricted page + not logged in
-//   // redirect to login page
-//   if (authRequired && !loggedIn) {
-//     next('/login');
-//   } else {
-//     next();
-//   }
-// });
+  // trying to access a restricted page + not logged in
+  // redirect to login page
+  if (authRequired && !loggedIn) {
+    next('/login');
+  } else {
+    next();
+  }
+});
 
 
 export default router;
