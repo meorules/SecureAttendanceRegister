@@ -24,29 +24,31 @@ exports.findAll = async(req, res) => {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving Attendance Indicators."
             });
-
-
         })
 }
 
 exports.findAttendance = async(req, res) => {
 
     let id = req.params.groupid;
-    const group = await Group.findById(id);
+    const group = await Group.findById(id)
+        .catch(err2 => res.status(500).send({
+            message: err2 || "Some error occurred while creating the attendance."
+        }));
 
-    console.log("attendance")
-
-    const lessons = await Lesson.find({ _id: { $in: group.lessons } })
+    const lessons = await Lesson.find({ _id: { $in: group.lessons } }).catch(err2 => res.status(500).send({
+        message: err2 || "Some error occurred while creating the attendance."
+    }));
 
     let attendanceArray = [];
-
     lessons.forEach(lesson => {
         for (let i = 0; i < lesson.attendance.length; i++) {
             attendanceArray.push(lesson.attendance[i])
         }
     });
 
-    const attendances = await Attendance.find({ _id: { $in: attendanceArray }, student: req.params.studentid })
+    const attendances = await Attendance.find({ _id: { $in: attendanceArray }, student: req.params.studentid }).catch(err2 => res.status(500).send({
+        message: err2 || "Some error occurred while retreiving the attendance for a student"
+    }));
 
     let attended = 0;
     let late = 0;
@@ -64,13 +66,8 @@ exports.findAttendance = async(req, res) => {
             else if (attendance.attendanceValue == 3)
                 late++;
     })
-    console.log(notAttended)
-    console.log(attended)
-    console.log(late)
-    console.log(excused)
     let total = notAttended + attended + excused + late;
 
-    // console.log(Math.floor(5.95));
     notAttended = (notAttended / total * 100).toFixed(2);
     attended = (attended / total * 100).toFixed(2);
     excused = (excused / total * 100).toFixed(2);
@@ -82,9 +79,6 @@ exports.findAttendance = async(req, res) => {
     indicators.push(notAttended)
     indicators.push(excused)
     indicators.push(late)
-
-
-
 
     res.send(indicators)
 }
