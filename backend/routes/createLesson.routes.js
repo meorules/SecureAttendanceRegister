@@ -11,6 +11,6 @@ router.get('/', function(req, res, next) {
 });
 
 //  POST request to create a new lesson object in the db, then return it's id to the caller
-router.post("/:groupid/createLesson/", createLessonController.create);
+router.post("/:groupid/createLesson/:date/:time", createLessonController.create);
 
 module.exports = router;

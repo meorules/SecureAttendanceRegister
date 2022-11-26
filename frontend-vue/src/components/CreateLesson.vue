@@ -50,9 +50,7 @@
     methods: {
       createLesson() {
       //createLesson(moduleId, groupId, data){
-        // CreateLessonDataService.create(moduleId, groupId, data);
-        console.log("newLessonDate: " + this.currentNewLesson.date);
-        console.log("newLessonTime: " + this.currentNewLesson.time);
+       CreateLessonDataService.create( this.$route.params.id, this.$route.params.groupid, this.currentNewLesson.date, this.currentNewLesson.time);
       },
 
       retrieveStudents() {
@@ -76,29 +74,7 @@
         this.currentModule = Module;
         this.currentIndex = module ? index : -1;
       },
-  
-      removeAllModules() {
-        CreateLessonDataService.deleteAll()
-          .then(response => {
-            console.log(response.data);
-            this.refreshList();
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      },
       
-      searchName() {
-        CreateLessonDataService.findByName(this.name)
-          .then(response => {
-            this.modules = response.data;
-            this.setActiveModule(null);
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      }
     },
     mounted() {
       // this.retrieveStudents();
