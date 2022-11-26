@@ -4,8 +4,12 @@ const e = require('express');
 let server = require('../app');
 let should = chai.should();
 
+2
+3
+
 let mongoose = require('mongoose');
 const db = require("../models");
+
 Groups = db.groups;
 Modules = db.modules;
 
@@ -13,8 +17,8 @@ Modules = db.modules;
 chai.use(chaiHttp);
 
 describe('Testing deleteLesson Routes', () => {
-    //Testing POST /Attendance/modules/:moduleid/:groupid/createLesson/
-    //Positive Test, creating a normal lesson
+    //Testing DELETE /Attendance/modules/:moduleid/:groupid/deleteLesson/:lessonid
+    //Positive Test, deleting a normal lesson
     describe('Succeed to delete a lesson', () => {
         it('it should return a 200 status', (done) => {
             Modules.find({ moduleName: "CAPS" }, function(moduleErr, moduleReturned) {
@@ -26,14 +30,14 @@ describe('Testing deleteLesson Routes', () => {
                         if (groupErr) {
                             console.log(groupErr);
                         } else {
-                            let students = groupReturned.students;
+                            let lessons = groupReturned.lessons;
                             chai.request(server)
-                                .post('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/createLesson/' + '2022-12-10' + '/' + '22:00:00')
+                                .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + lessons[0]._id)
                                 .end((err, res) => {
                                     //console.log(res);
                                     res.should.have.status(200);
                                     res.body.should.have.property('message');
-                                    res.body.should.be.a('object');
+                                    res.body.message.should.be.eql('Lesson has been deleted');
                                     done();
                                 });
                         }
@@ -43,10 +47,10 @@ describe('Testing deleteLesson Routes', () => {
         })
     })
 
-    //Testing POST /Attendance/modules/:moduleid/:groupid/createLesson/
-    //Negative Test, incorrect date
-    describe('Fail to create a lesson', () => {
-        it('it should return a 500 error request', (done) => {
+    //Testing DELETE /Attendance/modules/:moduleid/:groupid/deleteLesson/:lessonid
+    //Negative Test, deleting a lesson without a real id
+    describe('Fail to delete a lesson', () => {
+        it('it should return a 500 status', (done) => {
             Modules.find({ moduleName: "CAPS" }, function(moduleErr, moduleReturned) {
                 if (moduleErr) {
                     console.log(moduleErr);
@@ -56,11 +60,42 @@ describe('Testing deleteLesson Routes', () => {
                         if (groupErr) {
                             console.log(groupErr);
                         } else {
-                            let students = groupReturned.students;
+                            let lessons = groupReturned.lessons;
                             chai.request(server)
-                                .post('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/createLesson/' + '2022-13-10' + '/' + '22:00:00')
+                                .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + 'efoiewrf')
                                 .end((err, res) => {
+                                    //console.log(res);
                                     res.should.have.status(500);
+                                    res.body.should.have.property('message');
+                                    done();
+                                });
+                        }
+                    })
+                }
+            })
+        })
+    })
+
+
+    //Testing POST /Attendance/modules/:moduleid/:groupid/deleteLesson/
+    //Positive Test
+    describe('Get a list of all lessons', () => {
+        it('it should return a 200 status with all the lessons in the provided group', (done) => {
+            Modules.find({ moduleName: "CAPS" }, function(moduleErr, moduleReturned) {
+                if (moduleErr) {
+                    console.log(moduleErr);
+                } else {
+                    let groupID = moduleReturned[0].groups[0]._id;
+                    Groups.findOne({ _id: groupID }, function(groupErr, groupReturned) {
+                        if (groupErr) {
+                            console.log(groupErr);
+                        } else {
+                            chai.request(server)
+                                .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson')
+                                .end((err, res) => {
+                                    res.should.have.status(200);
+                                    res.body.should.be.a('array');
+                                    res.body.length.should.be.above(2);
                                     done();
                                 });
                         }

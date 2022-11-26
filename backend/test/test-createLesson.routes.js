@@ -28,7 +28,7 @@ describe('Testing createLesson Routes', () => {
                         } else {
                             let students = groupReturned.students;
                             chai.request(server)
-                                .post('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/createLesson/' + '2022-12-10' + '/' + '22:00:00')
+                                .post('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/createLesson/' + '2022-11-14' + '/' + '10:00:00')
                                 .end((err, res) => {
                                     //console.log(res);
                                     res.should.have.status(200);
