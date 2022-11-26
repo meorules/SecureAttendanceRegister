@@ -9,11 +9,9 @@ const Student = db.students;
 // Find all Semester Registration.
 exports.findAll = async (req, res) => {
     let id = req.params.groupid;
-  console.log(req.params)
-  console.log("req.params.groupid" + req.params.groupid);
+ 
   const group = await Group.findById( id);
-  console.log("group: " + group);
-  console.log(group)
+  
   Student
   .find({_id: {$in: group.students} })
   .then(data => {

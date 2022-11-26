@@ -4,35 +4,10 @@
       <router-link to="/" class="navbar-brand">Attendance</router-link>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link to="/animals" class="nav-link">Animals</router-link>
-        </li>
-        <li class="nav-item">
           <router-link to="/modules" class="nav-link">Modules</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/add-animal" class="nav-link">Add</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/users" class="nav-link">List Users</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/add-user" class="nav-link">Add Users</router-link>
-        </li>
-        <li class="nav-item">
-          <router-link to="/public" class="nav-link">
-            <font-awesome-icon icon="home" />Public
-          </router-link>
-        </li>
-        <li v-if="protectedContent" class="nav-item">
-          <router-link to="/protected" class="nav-link">Protected</router-link>
         </li>
       </div>
       <div v-if="!currentUser" class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <router-link to="/register" class="nav-link">
-            <font-awesome-icon icon="user-plus" />Sign Up
-          </router-link>
-        </li>
         <li class="nav-item">
           <router-link to="/login" class="nav-link">
             <font-awesome-icon icon="sign-in-alt" />Login
@@ -41,12 +16,6 @@
       </div>
 
       <div v-if="currentUser" class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <router-link to="/profile" class="nav-link">
-            <font-awesome-icon icon="user" />
-            {{ currentUser.username }}
-          </router-link>
-        </li>
         <li class="nav-item">
           <a class="nav-link" href @click.prevent="logOut">
             <font-awesome-icon icon="sign-out-alt" />LogOut

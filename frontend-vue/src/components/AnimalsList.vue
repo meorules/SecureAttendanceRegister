@@ -48,7 +48,9 @@
         <div>
           <label><strong>Colour:</strong></label> {{ currentAnimal.colour }}
         </div>
-        <router-link :to="'/animals/' + currentAnimal._id" class="badge badge-danger">Edit</router-link>
+        <button class="m-3 btn btn btn-danger" @click="removeAllAnimals">
+        Remove All
+      </button>
       </div>
       <div v-else>
         <br />

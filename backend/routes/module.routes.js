@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const { authjwt } = require("../middlewares");
  
 //Require controller
 var moduleController = require('../controllers/module.controller');
@@ -11,7 +12,7 @@ router.get('/', function(req, res, next) {
  
 
 // Retrieve all animals.
-router.get("/modules/", moduleController.findAll);
+router.get("/modules/", [authjwt.verifyToken], moduleController.findAll);
 
 // Retrieve one animal.
 router.get('/modules/:id', moduleController.findOne);

@@ -64,11 +64,22 @@ exports.findAttendance = async(req, res) => {
             else if (attendance.attendanceValue == 3)
                 late++;
     })
+    console.log(notAttended)
+    console.log(attended)
+    console.log(late)
+    console.log(excused)
+    let total = notAttended + attended + excused + late;
+
+    // console.log(Math.floor(5.95));
+    notAttended = (notAttended / total * 100).toFixed(2);
+    attended = (attended / total * 100).toFixed(2);
+    excused = (excused / total * 100).toFixed(2);
+    late = (late / total * 100).toFixed(2);
 
     let indicators = [];
 
-    indicators.push(notAttended)
     indicators.push(attended)
+    indicators.push(notAttended)
     indicators.push(excused)
     indicators.push(late)
 

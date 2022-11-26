@@ -16,10 +16,16 @@
       <div class="col-md-6">
         <h3>Create Lesson</h3>
         <h4>Lesson Creation:</h4>
-        <Form @submit="handleLogin" :validation-schema="schema">
+        <Form :validation-schema="schema">
           <div class="form-group">
             <label for="lessonDate">Lesson Date</label>
+            <input v-model="currentNewLesson.date" type="date"/>
+            <label for="appt">Choose a time for your lesson:</label>
+            <input v-model="currentNewLesson.time" type="time" id="appt" name="appt"
+              min="09:00" max="19:00" required >
             <ErrorMessage name="lessonDate" class="error-feedback" />
+            <button class="badge badge-danger mr-2"
+            @click="createLesson">Create</button>
           </div> 
         </Form>
       </div>
@@ -33,15 +39,18 @@
     name: "modules-list",
     data() {
       return {
+        currentNewLesson: {
+          date: Date,
+          time: String
+        },
         modules: [],
         name: ""
       };
     },
     methods: {
-      createLesson(moduleId, groupId, data){
-        CreateLessonDataService.create(moduleId, groupId, data)
-
-
+      createLesson() {
+      //createLesson(moduleId, groupId, data){
+       CreateLessonDataService.create( this.$route.params.id, this.$route.params.groupid, this.currentNewLesson.date, this.currentNewLesson.time);
       },
 
       retrieveStudents() {
@@ -65,32 +74,10 @@
         this.currentModule = Module;
         this.currentIndex = module ? index : -1;
       },
-  
-      removeAllModules() {
-        CreateLessonDataService.deleteAll()
-          .then(response => {
-            console.log(response.data);
-            this.refreshList();
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      },
       
-      searchName() {
-        CreateLessonDataService.findByName(this.name)
-          .then(response => {
-            this.modules = response.data;
-            this.setActiveModule(null);
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      }
     },
     mounted() {
-      this.retrieveStudents();
+      // this.retrieveStudents();
     }
   };
   </script>
