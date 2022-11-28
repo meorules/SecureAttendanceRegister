@@ -6,43 +6,45 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <h3>Student Attendance</h3>
-      <h4>Student List | Attendance List</h4>
-      <ul class="list-group">
-        <li class="list-group-item"
-          :class="{ active: index == currentIndex }"
-          v-for="(lesson, index) in lessons"
-          :key="index"
-          @click="setActiveStudent(lesson, index)"
-        >
-          {{ lesson.date }}
-        </li>
-      </ul>
-      <br>
-    </div>
-    <div class="col-md-7">
-      <ul class="list-group2">
-        <li class="list-group-item"
-          :class="{ active: index == currentIndex }"
-          v-for="(atten, index) in attendances"
-          :key="index"
-          @click="setActiveStudent(atten, index)"
-          > 
-          <div v-if="atten.attendanceValue == '0'">
-            Not Attended
-          </div>
-          <div v-else-if="atten.attendanceValue == '1'">
-            Attended
-          </div>
-          <div v-else-if="atten.attendanceValue == '2'">
-            Excused Absence
-          </div>
-          <div v-else>
-            Late
-          </div>
-        </li>
-      </ul>
+    <h3>Student Attendance</h3>
+    <h4>Student List | Attendance List</h4>
+    <div class="display-container">
+      <div class="col-md-6">
+        <ul class="list-group">
+          <li class="list-group-item"
+            :class="{ active: index == currentIndex }"
+            v-for="(lesson, index) in lessons"
+            :key="index"
+            @click="setActiveStudent(lesson, index)"
+          >
+            {{ lesson.date }}
+          </li>
+        </ul>
+        <br>
+      </div>
+      <div class="col-md-7">
+        <ul class="list-group2">
+          <li class="list-group-item"
+            :class="{ active: index == currentIndex }"
+            v-for="(atten, index) in attendances"
+            :key="index"
+            @click="setActiveStudent(atten, index)"
+            > 
+            <div v-if="atten.attendanceValue == '0'">
+              Not Attended
+            </div>
+            <div v-else-if="atten.attendanceValue == '1'">
+              Attended
+            </div>
+            <div v-else-if="atten.attendanceValue == '2'">
+              Excused Absence
+            </div>
+            <div v-else>
+              Late
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="col-md-8">
       <div v-if="currentStudent">
@@ -107,20 +109,22 @@ export default {
 </script>
 
 <style>
+h3, h4 {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
 .list {
   text-align: left;
   max-width: 750px;
   margin: auto;
 }
 
-.col-md-6 {
-  position: relative;
+.display-container {
+  width:100%;
+  display:flex;
+  flex-direction: row;
 }
 
-.col-md-7 {
-  position: absolute;
-  left: 48%;
-  top: 31.5%;
-  max-width: 300px;
-}
 </style>

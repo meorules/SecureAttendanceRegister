@@ -1,6 +1,6 @@
 <template>
-    <div class="list row">
-      <div class="col-md-6">
+    <div class="list row display-container">
+      <div>
         <h3>Students</h3>
         <ul class="list-group">
           <li class="list-group-item"
@@ -13,7 +13,7 @@
         </ul>
         <br>
       </div>
-      <div class="col-md-7">
+      <div>
         <h3>Attendance</h3>
         <ul class="list-group2">
           <li class="list-group-item"
@@ -37,7 +37,7 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-8">
+      <div>
         <div v-if="currentAttendance">
           <div>
             <div>
@@ -57,7 +57,7 @@
   </template>
   
   <script>
-import EditAttendanceDataService from "../services/EditAttendanceDataService";
+  import EditAttendanceDataService from "../services/EditAttendanceDataService";
   
   export default {
     name: "semester-registration",
@@ -144,20 +144,15 @@ import EditAttendanceDataService from "../services/EditAttendanceDataService";
     
   }
   
-  .col-md-6 {
-    position: relative;
-    max-width: 300px;
-  }
-  
-  .col-md-7 {
-    position: absolute;
-    left: 48%;
-    max-width: 300px;
+  .display-container > div{
+    flex: 1 1 0px;
   }
 
-  .col-md-8 {
-    position: absolute;
-    left: 65%;
-    max-width: 300px;
+  .display-container {
+  min-width:100%;
+  display:flex;
+  flex-direction: row;
+  gap: 10px;
   }
+
   </style>
