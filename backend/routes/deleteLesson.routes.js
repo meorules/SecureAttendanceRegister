@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+const { authjwt } = require("../middlewares");
 // Require controller.
 var deleteLesson = require('../controllers/deleteLesson.controller');
 var studentLesson = require('../controllers/studentLesson.controller');
@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
 //  DELETE request to delete a lesson object in the db
 router.delete("/:groupid/deleteLesson/:lessonid", deleteLesson.delete);
 
-router.get("/:groupid/deleteLesson/", studentLesson.findAll);
+router.get("/:groupid/deleteLesson/", [authjwt.verifyToken], studentLesson.findAll);
 
 
 module.exports = router;

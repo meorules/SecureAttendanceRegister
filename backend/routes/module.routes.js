@@ -9,12 +9,12 @@ var moduleController = require('../controllers/module.controller');
 router.get('/', function(req, res, next) {
  res.json({message: "Welcome to the Attendance api."});
 });
- 
 
-// Retrieve all animals.
+
+// Retrieve all modules
 router.get("/modules/", [authjwt.verifyToken], moduleController.findAll);
 
-// Retrieve one animal.
-router.get('/modules/:id', moduleController.findOne);
+// Retrieve one modules.
+router.get('/modules/:id', [authjwt.verifyToken], moduleController.findOne);
  
 module.exports = router;
