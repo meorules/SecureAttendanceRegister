@@ -60,7 +60,6 @@
         EditAttendanceDataService.getAll(this.$route.params.id, this.$route.params.groupid)
           .then(response => {
             this.lessons = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);

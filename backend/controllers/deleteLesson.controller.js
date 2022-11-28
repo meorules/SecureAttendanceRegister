@@ -18,7 +18,11 @@ exports.delete = async(req, res) => {
 
     });
 
-    const user = await User.findById(userid);
+    const user = await User.findById(userid).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find a user."
+        });
+    });
 
 
     if (user.roleType == 0) {
@@ -29,7 +33,6 @@ exports.delete = async(req, res) => {
 
         Lesson.findById(lesson, function(lessonErr, lessonReturned) {
             if (lessonErr) {
-                //console.log(lessonErr);
                 res.status(500).send({
                     message: lessonErr || "Some error occurred while retrieving the lesson."
                 });
@@ -53,6 +56,10 @@ exports.delete = async(req, res) => {
                     }));
 
             }
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find a lesson."
+            });
         })
     }
 }
@@ -69,21 +76,28 @@ exports.findAll = async(req, res) => {
 
     });
 
-    const user = await User.findById(userid);
+    const user = await User.findById(userid).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find a user."
+        });
+    });
 
 
     if (user.roleType == 0) {
         res.status(401).send({ message: "Unauthorised!" });
     } else if (user.roleType == 1) {
         let id = req.params.groupid;
-        const group = await Group.findById(id);
+        const group = await Group.findById(id).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find a group."
+            });
+        });
 
-        const lessons = await Lesson.find({ _id: { $in: group.lessons } })
-
-        res.send(lessons)
-
-
-        const lessons = await Lesson.find({ _id: { $in: group.lessons } })
+        const lessons = await Lesson.find({ _id: { $in: group.lessons } }).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find lessons."
+            });
+        })
 
         res.send(lessons)
     }

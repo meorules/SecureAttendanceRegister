@@ -4,9 +4,6 @@ const e = require('express');
 let server = require('../app');
 let should = chai.should();
 
-2
-3
-
 let mongoose = require('mongoose');
 const db = require("../models");
 
@@ -32,14 +29,25 @@ describe('Testing deleteLesson Routes', () => {
                         } else {
                             let lessons = groupReturned.lessons;
                             chai.request(server)
-                                .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + lessons[0]._id)
-                                .end((err, res) => {
-                                    //console.log(res);
-                                    res.should.have.status(200);
-                                    res.body.should.have.property('message');
-                                    res.body.message.should.be.eql('Lesson has been deleted');
-                                    done();
-                                });
+                                .post('/Attendance/auth/signin')
+                                .send({ username: "cd7484758", password: "test123" })
+                                .end((loginErr, loginDetails) => {
+                                    loginDetails.should.have.status(200);
+                                    loginDetails.body.should.have.property('id');
+                                    loginDetails.body.should.have.property('roleType');
+                                    loginDetails.body.should.have.property('accessToken');
+                                    loginDetails.body.roleType.should.be.eql(1);
+                                    chai.request(server)
+                                        .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + lessons[lessons.size - 1]._id)
+                                        .set('x-access-token', loginDetails.body.accessToken)
+                                        .end((err, res) => {
+                                            //console.log(res);
+                                            res.should.have.status(200);
+                                            res.body.should.have.property('message');
+                                            res.body.message.should.be.eql('Lesson has been deleted');
+                                            done();
+                                        });
+                                })
                         }
                     })
                 }
@@ -62,13 +70,24 @@ describe('Testing deleteLesson Routes', () => {
                         } else {
                             let lessons = groupReturned.lessons;
                             chai.request(server)
-                                .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + 'efoiewrf')
-                                .end((err, res) => {
-                                    //console.log(res);
-                                    res.should.have.status(500);
-                                    res.body.should.have.property('message');
-                                    done();
-                                });
+                                .post('/Attendance/auth/signin')
+                                .send({ username: "cd7484758", password: "test123" })
+                                .end((loginErr, loginDetails) => {
+                                    loginDetails.should.have.status(200);
+                                    loginDetails.body.should.have.property('id');
+                                    loginDetails.body.should.have.property('roleType');
+                                    loginDetails.body.should.have.property('accessToken');
+                                    loginDetails.body.roleType.should.be.eql(1);
+                                    chai.request(server)
+                                        .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + 'efoiewrf')
+                                        .set('x-access-token', loginDetails.body.accessToken)
+                                        .end((err, res) => {
+                                            //console.log(res);
+                                            res.should.have.status(500);
+                                            res.body.should.have.property('message');
+                                            done();
+                                        });
+                                })
                         }
                     })
                 }
@@ -91,13 +110,25 @@ describe('Testing deleteLesson Routes', () => {
                             console.log(groupErr);
                         } else {
                             chai.request(server)
-                                .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson')
-                                .end((err, res) => {
-                                    res.should.have.status(200);
-                                    res.body.should.be.a('array');
-                                    res.body.length.should.be.above(2);
-                                    done();
-                                });
+                                .post('/Attendance/auth/signin')
+                                .send({ username: "cd7484758", password: "test123" })
+                                .end((loginErr, loginDetails) => {
+                                    loginDetails.should.have.status(200);
+                                    loginDetails.body.should.have.property('id');
+                                    loginDetails.body.should.have.property('roleType');
+                                    loginDetails.body.should.have.property('accessToken');
+                                    loginDetails.body.roleType.should.be.eql(1);
+
+                                    chai.request(server)
+                                        .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson')
+                                        .set('x-access-token', loginDetails.body.accessToken)
+                                        .end((err, res) => {
+                                            res.should.have.status(200);
+                                            res.body.should.be.a('array');
+                                            res.body.length.should.be.above(2);
+                                            done();
+                                        });
+                                })
                         }
                     })
                 }

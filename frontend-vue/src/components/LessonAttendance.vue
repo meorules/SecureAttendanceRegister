@@ -82,14 +82,12 @@ import EditAttendanceDataService from "../services/EditAttendanceDataService";
     methods: {
       setActiveAttendance(Attendance, index) {
         this.currentAttendance = Attendance;
-        console.log(this.currentAttendance);
         this.currentIndex = module ? index : -1;
       },
       retrieveAttendance() {
         EditAttendanceDataService.getAttendance(this.$route.params.id, this.$route.params.groupid, this.$route.params.lessonid)
           .then(response => {
             this.attendances = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -99,7 +97,6 @@ import EditAttendanceDataService from "../services/EditAttendanceDataService";
         EditAttendanceDataService.getStudents(this.$route.params.id, this.$route.params.groupid, this.$route.params.lessonid)
           .then(response => {
             this.students = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -107,15 +104,13 @@ import EditAttendanceDataService from "../services/EditAttendanceDataService";
       },
       selectAttendance() {
         let newAttendance = this.selectedAttendanceType;
-        console.log(this.selectedAttendanceType);
         this.saveAttendance(newAttendance);
       },
       saveAttendance(newAttendance) {
         // EditAttendanceDataService.post(this.$route.params.id, this.$route.params.groupid, this.$route.params.lessonid, this.currentAttendance._id, this.currentNewAttendance.value)
-        EditAttendanceDataService.post(this.$route.params.id, this.$route.params.groupid, this.$route.params.lessonid, this.currentAttendance._id, newAttendance)
+        EditAttendanceDataService.put(this.$route.params.id, this.$route.params.groupid, this.$route.params.lessonid, this.currentAttendance._id, newAttendance)
           .then(response => {
             this.students = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);

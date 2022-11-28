@@ -10,6 +10,7 @@ const User = db.users;
 // Find all Attendance. 
 exports.create = async(req, res) => {
     let token = req.header('x-access-token')
+    console.log(token)
 
     const userid = jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
@@ -19,20 +20,20 @@ exports.create = async(req, res) => {
 
     });
 
-    const user = await User.findById(userid);
-
+    const user = await User.findById(userid).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find a user."
+        });
+    });
 
     if (user.roleType == 0) {
         res.status(401).send({ message: "Unauthorised!" });
     } else if (user.roleType == 1) {
         group = req.params.groupid;
         lessonDate = req.params.date + " " + req.params.time;
-        //console.log(lessonDate)
-        //console.log(req.params.time)
 
         Group.find({ _id: group }, function(groupErrs, updatedGroups) {
             if (groupErrs) {
-                //console.log(groupErrs);
                 res.status(500).send({
                     message: groupErrs || "Some error occurred while creating the Lesson."
                 });
@@ -40,7 +41,6 @@ exports.create = async(req, res) => {
                 updatedGroup = updatedGroups[0];
                 Lesson.create({ date: lessonDate }, function(lessonErrs, newLesson) {
                     if (lessonErrs) {
-                        //console.log(lessonErrs);
                         res.status(500).send({
                             message: lessonErrs || "Some error occurred while creating the Lesson."
                         });
@@ -52,7 +52,6 @@ exports.create = async(req, res) => {
                         for (let i = 0; i < updatedGroup.students.length; i++) {
                             Attendance.create({ student: updatedGroup.students[i] }, function(attenErr, attenCreated) {
                                 if (attenErr) {
-                                    //console.log(attenErr);
                                     res.status(500).send({
                                         message: attenErr || "Some error occurred while creating the attendance."
                                     });
@@ -68,6 +67,10 @@ exports.create = async(req, res) => {
                     }
                 })
             }
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find a group."
+            });
         })
     }
 }

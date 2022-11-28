@@ -13,61 +13,55 @@ Modules = db.modules;
 chai.use(chaiHttp);
 
 describe('Testing User Routes', () => {
-    describe('Testing create route', () => {
-        //Testing POST /Attendance/modules/:moduleid/:groupid/createLesson/
-        //Positive Test, creating a normal lesson
-        describe('Succeed to create a lesson', () => {
-            it('it should return a 200 status with the new lesson created', (done) => {
-                Modules.find({ moduleName: "CAPS" }, function(moduleErr, moduleReturned) {
-                    if (moduleErr) {
-                        console.log(moduleErr);
-                    } else {
-                        let groupID = moduleReturned[0].groups[0]._id;
-                        Groups.findOne({ _id: groupID }, function(groupErr, groupReturned) {
-                            if (groupErr) {
-                                console.log(groupErr);
-                            } else {
-                                let students = groupReturned.students;
-                                chai.request(server)
-                                    .post('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/createLesson/' + '2022-12-10' + '/' + '22:00:00')
-                                    .end((err, res) => {
-                                        //console.log(res);
-                                        res.should.have.status(200);
-                                        res.body.should.be.a('object');
-                                        done();
-                                    });
-                            }
-                        })
-                    }
+    describe('Testing logging in as a lecturer', () => {
+        //Testing POST /Attendance/auth/signin
+        //Positive Test, logging in as a lecturer
+        it('it should return the user object with the access token and role type 1', (done) => {
+            chai.request(server)
+                .post('/Attendance/auth/signin')
+                .send({ username: "cd7484758", password: "test123" })
+                .end((loginErr, loginDetails) => {
+                    loginDetails.should.have.status(200);
+                    loginDetails.body.should.have.property('id');
+                    loginDetails.body.should.have.property('roleType');
+                    loginDetails.body.should.have.property('accessToken');
+                    loginDetails.body.roleType.should.be.eql(1);
+                    done();
                 })
-            })
         })
+    })
 
-        //Testing POST /Attendance/modules/:moduleid/:groupid/createLesson/
-        //Negative Test, incorrect date
-        describe('Fail to create a lesson', () => {
-            it('it should return a 500 error request', (done) => {
-                Modules.find({ moduleName: "CAPS" }, function(moduleErr, moduleReturned) {
-                    if (moduleErr) {
-                        console.log(moduleErr);
-                    } else {
-                        let groupID = moduleReturned[0].groups[0]._id;
-                        Groups.findOne({ _id: groupID }, function(groupErr, groupReturned) {
-                            if (groupErr) {
-                                console.log(groupErr);
-                            } else {
-                                let students = groupReturned.students;
-                                chai.request(server)
-                                    .post('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/createLesson/' + '2022-13-10' + '/' + '22:00:00')
-                                    .end((err, res) => {
-                                        res.should.have.status(500);
-                                        done();
-                                    });
-                            }
-                        })
-                    }
+    describe('Testing logging in as a lecturer', () => {
+        //Testing POST /Attendance/auth/signin
+        //Negative Test, logging in as a lecturer with incorrect details
+        it('it should return a 401 status Invalid Password!', (done) => {
+            chai.request(server)
+                .post('/Attendance/auth/signin')
+                .send({ username: "cd7484758", password: "jofhs" })
+                .end((loginErr, loginDetails) => {
+                    loginDetails.should.have.status(401);
+                    loginDetails.body.should.have.property('message');
+                    loginDetails.body.message.should.be.eql('Invalid Password!');
+                    done();
                 })
-            })
+        })
+    })
+
+    describe('Testing logging in as a student', () => {
+        //Testing POST /Attendance/auth/signin
+        //Positive Test, logging in as a student
+        it('it should return the user object with the access token', (done) => {
+            chai.request(server)
+                .post('/Attendance/auth/signin')
+                .send({ username: "mo190201", password: "test123" })
+                .end((loginErr, loginDetails) => {
+                    loginDetails.should.have.status(200);
+                    loginDetails.body.should.have.property('id');
+                    loginDetails.body.should.have.property('roleType');
+                    loginDetails.body.should.have.property('accessToken');
+                    loginDetails.body.roleType.should.be.eql(0);
+                    done();
+                })
         })
     })
 

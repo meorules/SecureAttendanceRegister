@@ -19,7 +19,11 @@ exports.put = async(req, res) => {
 
     });
 
-    const user = await User.findById(userid);
+    const user = await User.findById(userid).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find a user."
+        });
+    });
 
     if (user.roleType == 0) {
         res.status(401).send({ message: "Unauthorised!" });
@@ -34,13 +38,11 @@ exports.put = async(req, res) => {
             newAttendanceValue = 2;
         } else if (req.params.attendanceValue == "Late") {
             newAttendanceValue = 3;
+        } else {
+            res.status(400).send({ message: "Invalid Attendance Value" });
         }
 
-
-        console.log(req.params.attendanceid)
         attendance = req.params.attendanceid;
-        console.log(attendance)
-
 
         Attendance.findByIdAndUpdate(attendance, { $set: { attendanceValue: newAttendanceValue } }, { new: true, useFindAndModify: false })
             .then(result => {
@@ -68,16 +70,28 @@ exports.findAll = async(req, res) => {
 
     });
 
-    const user = await User.findById(userid);
+    const user = await User.findById(userid).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find a user."
+        });
+    });
 
     if (user.roleType == 0) {
         res.status(401).send({ message: "Unauthorised!" });
     } else if (user.roleType == 1) {
         let id = req.params.groupid;
-        const group = await Group.findById(id);
+        const group = await Group.findById(id).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find a group."
+            });
+        });
 
 
-        const lessons = await Lesson.find({ _id: { $in: group.lessons } })
+        const lessons = await Lesson.find({ _id: { $in: group.lessons } }).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find lessons."
+            });
+        })
 
         res.send(lessons)
     }
@@ -95,16 +109,27 @@ exports.findAttendance = async(req, res) => {
 
     });
 
-    const user = await User.findById(userid);
+    const user = await User.findById(userid).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find a user."
+        });
+    });
     let details;
 
     if (user.roleType == 0) {
         res.status(401).send({ message: "Unauthorised!" });
     } else if (user.roleType == 1) {
-        const lesson = await Lesson.findById(req.params.lessonid)
-        console.log("heydooooood")
+        const lesson = await Lesson.findById(req.params.lessonid).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find a lesson."
+            });
+        })
 
-        const attendance = await Attendance.find({ _id: { $in: lesson.attendance } })
+        const attendance = await Attendance.find({ _id: { $in: lesson.attendance } }).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find attendance records."
+            });
+        })
 
         res.send(attendance)
     }
@@ -112,11 +137,18 @@ exports.findAttendance = async(req, res) => {
 }
 
 exports.findStudents = async(req, res) => {
-    console.log("bob")
-    console.log(req.params.groupid)
-    const group = await Group.findById(req.params.groupid)
-    console.log("dead")
-    const students = await Student.find({ _id: { $in: group.students } })
+
+    const group = await Group.findById(req.params.groupid).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find a group."
+        });
+    })
+
+    const students = await Student.find({ _id: { $in: group.students } }).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to finds."
+        });
+    })
 
     res.send(students)
 }

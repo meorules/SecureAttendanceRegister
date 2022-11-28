@@ -56,7 +56,6 @@
         CreateLessonDataService.getAll()
           .then(response => {
             this.modules = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);

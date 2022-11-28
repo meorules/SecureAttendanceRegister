@@ -45,7 +45,6 @@ export default {
       UserDataService.create(data)
           .then(response => {
             this.user._id = response.data._id;
-            console.log(response.data);
             this.submitted = true;
           })
           .catch(e => {

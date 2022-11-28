@@ -26,15 +26,30 @@ describe('Testing AttendanceIndicators Routes', () => {
                             console.log(groupErr);
                         } else {
                             let students = groupReturned.students;
+
                             chai.request(server)
-                                .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/attendanceIndicators')
-                                .end((err, res) => {
-                                    //console.log(res);
-                                    res.should.have.status(200);
-                                    res.body.should.be.a('array');
-                                    res.body.length.should.be.above(3);
-                                    done();
-                                });
+                                .post('/Attendance/auth/signin')
+                                .send({ username: "cd7484758", password: "test123" })
+                                .end((loginErr, loginDetails) => {
+                                    loginDetails.should.have.status(200);
+                                    loginDetails.body.should.have.property('id');
+                                    loginDetails.body.should.have.property('roleType');
+                                    loginDetails.body.should.have.property('accessToken');
+                                    loginDetails.body.roleType.should.be.eql(1);
+
+                                    chai.request(server)
+                                        .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/attendanceIndicators')
+                                        .set('x-access-token', loginDetails.body.accessToken)
+                                        .end((err, res) => {
+                                            //console.log(res);
+                                            res.should.have.status(200);
+                                            res.body.should.be.a('array');
+                                            res.body.length.should.be.above(3);
+                                            done();
+                                        });
+
+                                })
+
                         }
                     })
                 }
@@ -50,13 +65,26 @@ describe('Testing AttendanceIndicators Routes', () => {
                 if (moduleErr) {
                     console.log(moduleErr);
                 } else {
+
                     chai.request(server)
-                        .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + "4rfh834rfg77711" + '/attendanceIndicators')
-                        .end((err, res) => {
-                            res.should.have.status(500);
-                            res.body.should.have.property('message');
-                            res.body.message.should.be.eql('Cast to ObjectId failed for value "4rfh834rfg77711" (type string) at path "_id" for model "Group"');
-                            done();
+                        .post('/Attendance/auth/signin')
+                        .send({ username: "cd7484758", password: "test123" })
+                        .end((loginErr, loginDetails) => {
+                            loginDetails.should.have.status(200);
+                            loginDetails.body.should.have.property('id');
+                            loginDetails.body.should.have.property('roleType');
+                            loginDetails.body.should.have.property('accessToken');
+                            loginDetails.body.roleType.should.be.eql(1);
+
+                            chai.request(server)
+                                .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + "4rfh834rfg77711" + '/attendanceIndicators')
+                                .set('x-access-token', loginDetails.body.accessToken)
+                                .end((err, res) => {
+                                    res.should.have.status(500);
+                                    res.body.should.have.property('message');
+                                    res.body.message.should.be.eql('Cast to ObjectId failed for value "4rfh834rfg77711" (type string) at path "_id" for model "Group"');
+                                    done();
+                                });
                         });
                 }
             })
@@ -79,13 +107,25 @@ describe('Testing AttendanceIndicators Routes', () => {
                             let students = groupReturned.students;
 
                             chai.request(server)
-                                .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/attendanceIndicators/' + students[0]._id)
-                                .end((err, res) => {
-                                    //console.log(res);
-                                    res.should.have.status(200);
-                                    res.body.should.be.a('array');
-                                    res.body.length.should.be.equal(4);
-                                    done();
+                                .post('/Attendance/auth/signin')
+                                .send({ username: "cd7484758", password: "test123" })
+                                .end((loginErr, loginDetails) => {
+                                    loginDetails.should.have.status(200);
+                                    loginDetails.body.should.have.property('id');
+                                    loginDetails.body.should.have.property('roleType');
+                                    loginDetails.body.should.have.property('accessToken');
+                                    loginDetails.body.roleType.should.be.eql(1);
+
+                                    chai.request(server)
+                                        .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/attendanceIndicators/' + students[0]._id)
+                                        .set('x-access-token', loginDetails.body.accessToken)
+                                        .end((err, res) => {
+                                            //console.log(res);
+                                            res.should.have.status(200);
+                                            res.body.should.be.a('array');
+                                            res.body.length.should.be.equal(4);
+                                            done();
+                                        });
                                 });
                         }
                     })
@@ -108,13 +148,25 @@ describe('Testing AttendanceIndicators Routes', () => {
                             console.log(groupErr);
                         } else {
                             chai.request(server)
-                                .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/attendanceIndicators/' + "4rf1")
-                                .end((err, res) => {
-                                    res.should.have.status(500);
-                                    res.body.should.have.property('message');
-                                    res.body.message.message.should.be.eql('Cast to ObjectId failed for value "4rf1" (type string) at path "student" for model "Attendance"');
-                                    done();
-                                });
+                                .post('/Attendance/auth/signin')
+                                .send({ username: "cd7484758", password: "test123" })
+                                .end((loginErr, loginDetails) => {
+                                    loginDetails.should.have.status(200);
+                                    loginDetails.body.should.have.property('id');
+                                    loginDetails.body.should.have.property('roleType');
+                                    loginDetails.body.should.have.property('accessToken');
+                                    loginDetails.body.roleType.should.be.eql(1);
+
+                                    chai.request(server)
+                                        .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/attendanceIndicators/' + "4rf1")
+                                        .set('x-access-token', loginDetails.body.accessToken)
+                                        .end((err, res) => {
+                                            res.should.have.status(500);
+                                            res.body.should.have.property('message');
+                                            res.body.message.message.should.be.eql('Cast to ObjectId failed for value "4rf1" (type string) at path "student" for model "Attendance"');
+                                            done();
+                                        });
+                                })
                         }
                     })
                 }

@@ -11,7 +11,6 @@ const User = db.users
 // Find all Attendance Indicators.
 exports.findAll = async(req, res) => {
     let id = req.params.groupid;
-
     let token = req.header('x-access-token')
 
     const userid = jwt.verify(token, config.secret, (err, decoded) => {
@@ -22,12 +21,20 @@ exports.findAll = async(req, res) => {
 
     });
 
-    const user = await User.findById(userid);
+    const user = await User.findById(userid).catch(err => {
+        res.status(500).send({
+            message: err.message || "User could not be found."
+        });
+    })
     let details;
 
     if (user.roleType == 0) {
         details = await Student
-            .findOne({ username: user.username })
+            .findOne({ username: user.username }).catch(err => {
+                res.status(500).send({
+                    message: err.message || "Student could not be found."
+                });
+            })
 
         Group.findById(id).then(group => {
                 Student
