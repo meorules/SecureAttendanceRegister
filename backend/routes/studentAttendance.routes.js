@@ -4,7 +4,7 @@ const { authjwt } = require("../middlewares");
  
 //Require controller
 var studentAttendance = require('../controllers/studentAttendance.controller');
-var studentLesson = require('../controllers/studentLesson.controller');
+var studentLessonAttendance = require('../controllers/studentLessonAttendance.controller');
 
 
 // GET at the root returns a welcome message in json
@@ -16,6 +16,6 @@ router.get('/', function(req, res, next) {
 router.get("/:groupid/semesterRegistration/:studentid", [authjwt.verifyToken], studentAttendance.findAll);
 
 
-router.get("/:groupid/semesterRegistration/:studentid/lesson", [authjwt.verifyToken], studentLesson.findAll);
+router.get("/:groupid/semesterRegistration/:studentid/lesson", [authjwt.verifyToken], studentLessonAttendance.findAll);
 
 module.exports = router;
