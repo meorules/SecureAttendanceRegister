@@ -47,7 +47,7 @@ Execute: ``npm start``<br />
 Which starts the back-end Node server.<br />
 NOTE: Slashes may be different on your machine if using Windows. (Example path obtained in Ubuntu).
 
-# List of npm packages:
+# List of npm packages (If manual install is required):
 Any of these packages may be installed with ``npm install``
 ```
 @vue/cli
@@ -81,4 +81,18 @@ morgan
 multer
 nodemon
 pug
+```
+
+# List of Development Dependencies:
+```
+@babel/core
+@babel/eslint-parser
+@vue/cli-plugin-babel
+@vue/cli-plugin-eslint
+@vue/cli-service
+eslint
+eslint-plugin-vue
+chai
+chai-http
+mocha
 ```
