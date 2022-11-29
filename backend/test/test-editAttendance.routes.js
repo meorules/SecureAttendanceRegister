@@ -29,7 +29,7 @@ describe('Testing editAttendance Routes', () => {
                             console.log(groupErr);
                         } else {
                             let lessons = groupReturned.lessons;
-                            Lessons.findOne({ _id: lessons[0]._id }, function(lessonErr, lessonReturned) {
+                            Lessons.findOne({ _id: lessons[1]._id }, function(lessonErr, lessonReturned) {
                                 if (lessonErr) {
                                     console.log(lessonErr);
                                 } else {
@@ -83,7 +83,7 @@ describe('Testing editAttendance Routes', () => {
                             console.log(groupErr);
                         } else {
                             let lessons = groupReturned.lessons;
-                            Lessons.findOne({ _id: lessons[0]._id }, function(lessonErr, lessonReturned) {
+                            Lessons.findOne({ _id: lessons[1]._id }, function(lessonErr, lessonReturned) {
                                 if (lessonErr) {
                                     console.log(lessonErr);
                                 } else {
