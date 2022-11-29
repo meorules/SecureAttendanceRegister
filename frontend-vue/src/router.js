@@ -1,6 +1,12 @@
 import { createWebHistory, createRouter } from 'vue-router';
 
 const routes = [{
+        path: '/login',
+        name: 'login',
+        component: () =>
+            import ("./components/LoginPage")
+    },
+    {
         path: "/",
         alias: "/modules",
         name: "modules",
@@ -85,18 +91,12 @@ const routes = [{
         component: () =>
             import ("./components/PublicPage")
     },
-    {
-        path: '/login',
-        name: 'login',
-        component: () =>
-            import ("./components/LoginPage")
-    },
-    {
-        path: '/register',
-        name: 'register',
-        component: () =>
-            import ("./components/RegisterPage")
-    },
+    // {
+    //     path: '/register',
+    //     name: 'register',
+    //     component: () =>
+    //         import ("./components/RegisterPage")
+    // },
     {
         path: '/profile',
         name: 'profile',

@@ -1,15 +1,5 @@
 <template>
   <div class="list row">
-    <div class="col-md-8">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search by name"
-          v-model="name"/>
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button"
-            @click="searchName">Search</button>
-        </div>
-      </div>
-    </div>
     <div class="col-md-6">
       <h4>Groups List</h4>
       <ul class="list-group">
@@ -76,18 +66,6 @@ export default {
       this.currentGroup = Group;
       this.currentIndex = module ? index : -1;
     },
-    
-    searchName() {
-      GroupDataService.findByName(this.name)
-        .then(response => {
-          this.modules = response.data;
-          this.setActiveModule(null);
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    }
   },
   mounted() {
     this.message = '';

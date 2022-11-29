@@ -6,7 +6,7 @@
     <div class="col-md-6">
       <div>
         <br />
-        <p>Please click on an option: INSERT-GROUP-NAME-HERE</p>
+        <p>Please click on an option:</p>
       </div>
     </div>
   </div>

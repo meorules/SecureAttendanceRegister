@@ -29,7 +29,7 @@
               Attended
             </div>
             <div v-else-if="atten.attendanceValue == '2'">
-              Excused Absence
+              Excused
             </div>
             <div v-else>
               Late
@@ -60,7 +60,7 @@
   import EditAttendanceDataService from "../services/EditAttendanceDataService";
   
   export default {
-    name: "semester-registration",
+    name: "edit-attendance",
     data() {
       return {
         students: [],
@@ -73,7 +73,7 @@
         attendanceTypes: [
           {id: 1, name: "Not-Attended"},
           {id: 2, name: "Attended"},
-          {id: 3, name: "Excused-Absence"},
+          {id: 3, name: "Excused"},
           {id: 4, name: "Late"}
         ],
         selectedAttendanceType: ""

@@ -4,15 +4,11 @@
         <h3>
           <strong>{{currentUser.username}}</strong> Profile
         </h3>
+        <h4>
+          <strong>Signed in successfully</strong>
+        </h4>
+
       </header>
-      <p>
-        <strong>Token:</strong>
-        {{currentUser.accessToken.substring(0, 20)}} ... {{currentUser.accessToken.substr(currentUser.accessToken.length - 20)}}
-      </p>
-      <p>
-        <strong>Id:</strong>
-        {{currentUser.id}}
-      </p>
     </div>
   </template>
   

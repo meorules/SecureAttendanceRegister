@@ -1,10 +1,22 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
-      <router-link to="/" class="navbar-brand">Attendance</router-link>
-      <div class="navbar-nav mr-auto">
+      <div class="navbar-nav mr-aut">
+        <li class="navbar-brand">
+          <strong>Attendance</strong>
+        </li>
+      </div>
+      <div v-if="currentUser && !adminCheck"  class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/modules" class="nav-link">Modules</router-link>
+        </li>
+      </div>
+      <div v-if="currentUser && adminCheck"  class="navbar-nav mr-auto">
+      <li class="nav-item">
+          <router-link to="/users" class="nav-link">List Users</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link to="/add-user" class="nav-link">Add Users</router-link>
         </li>
       </div>
       <div v-if="!currentUser" class="navbar-nav ml-auto">
@@ -14,7 +26,6 @@
           </router-link>
         </li>
       </div>
-
       <div v-if="currentUser" class="navbar-nav ml-auto">
         <li class="nav-item">
           <a class="nav-link" href @click.prevent="logOut">
@@ -39,6 +50,23 @@ export default {
     },
     protectedContent() {
       return (this.currentUser?true:false); 
+    },
+    adminCheck() {
+      if (this.currentUser){
+        let user = JSON.parse(localStorage.getItem('user'))
+        if ( user.roleType  == 4) {
+          console.log("here")
+          return true;
+        }
+        else {
+          console.log("oi")
+          return false;
+        }
+      }
+      else {
+        console.log("hello")
+        return false;
+      }
     }
   },
   methods: {

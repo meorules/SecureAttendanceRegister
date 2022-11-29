@@ -16,27 +16,17 @@
       </div>
       <div class="col-md-6">
         <div v-if="currentLesson">
-          <h4>Module</h4>
+          <h4>Lesson</h4>
           <div>
             <div>
-            <label><strong>Module Code:</strong></label> {{ currentLesson.date }}
-          </div>
-            <label><strong>Module Name:</strong></label> 
-          </div>
-          <div>
-            <label><strong>Module Leader:</strong></label>
-          </div>
-          <div>
-            <label><strong>Module Teachers:</strong></label>
-          </div>
-          <div>
-            <label><strong>Module Groups:</strong></label> 
+            <label><strong>Lesson date:</strong></label> {{ currentLesson.date }}
+            </div>
           </div>
           <router-link :to="'/modules/'+$route.params.id+'/' + $route.params.groupid + '/editAttendance/' + currentLesson._id" class="badge badge-danger">Select</router-link>
         </div>
         <div v-else>
           <br />
-          <p>Please click on a Student.</p>
+          <p>Please click on a Lesson.</p>
         </div>
       </div>
     </div>
@@ -61,10 +51,23 @@
           .then(response => {
             this.lessons = response.data;
             console.log(response.data);
+
+            for (let i = 0; i < this.lessons.length; i++) {
+              this.formatDateTime(this.lessons[i]);
+            }
           })
           .catch(e => {
             console.log(e);
           });
+      },
+      formatDateTime(lesson) {
+        let currentDate = lesson.date;
+        let year = currentDate.substring(0, 4);
+        let month = currentDate.substring(5, 7);
+        let day = currentDate.substring(8, 10);
+        let time = currentDate.substring(11, 19);
+
+        lesson.date = year + "-" + month + "-" + day + " " + time;
       },
   
       refreshList() {

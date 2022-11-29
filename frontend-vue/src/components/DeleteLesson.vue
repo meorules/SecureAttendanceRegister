@@ -1,13 +1,5 @@
 <template>
     <div class="list row">
-      <div class="col-md-8">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Search by name"
-            v-model="name"/>
-          <div class="input-group-append">
-          </div>
-        </div>
-      </div>
       <div class="col-md-6">
         <h3>Delete Lesson</h3>
         <ul class="list-group">
@@ -62,6 +54,10 @@
           .then(response => {
             this.lessons = response.data;
             console.log(response.data);
+
+            for (let i = 0; i < this.lessons.length; i++) {
+              this.formatDateTime(this.lessons[i]);
+            }
           })
           .catch(e => {
             console.log(e);
@@ -78,6 +74,15 @@
             console.log(e);
           });
       },
+      formatDateTime(lesson) {
+        let currentDate = lesson.date;
+        let year = currentDate.substring(0, 4);
+        let month = currentDate.substring(5, 7);
+        let day = currentDate.substring(8, 10);
+        let time = currentDate.substring(11, 19);
+
+        lesson.date = year + "-" + month + "-" + day + " " + time;
+      },
       refreshList() {
         this.retrieveLessons();
         this.currentLesson = null;
@@ -87,17 +92,6 @@
       setActiveLesson(Lesson, index) {
         this.currentLesson = Lesson;
         this.currentIndex = module ? index : -1;
-      },
-  
-      removeAllModules() {
-        DeleteLessonDataService.deleteAll()
-          .then(response => {
-            console.log(response.data);
-            this.refreshList();
-          })
-          .catch(e => {
-            console.log(e);
-          });
       },
     },
     mounted() {

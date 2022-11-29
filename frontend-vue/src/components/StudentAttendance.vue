@@ -7,15 +7,16 @@
       </div>
     </div>
     <h3>Student Attendance</h3>
-    <h4>Student List | Attendance List</h4>
+    
     <div class="display-container">
       <div class="col-md-6">
+        <h4>Student List</h4>
         <ul class="list-group">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
             v-for="(lesson, index) in lessons"
             :key="index"
-            @click="setActiveStudent(lesson, index)"
+            
           >
             {{ lesson.date }}
           </li>
@@ -23,12 +24,12 @@
         <br>
       </div>
       <div class="col-md-7">
+        <h4>Attendance List</h4>
         <ul class="list-group2">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
             v-for="(atten, index) in attendances"
             :key="index"
-            @click="setActiveStudent(atten, index)"
             > 
             <div v-if="atten.attendanceValue == '0'">
               Not Attended
@@ -37,7 +38,7 @@
               Attended
             </div>
             <div v-else-if="atten.attendanceValue == '2'">
-              Excused Absence
+              Excused
             </div>
             <div v-else>
               Late
@@ -90,11 +91,24 @@ export default {
         .then(response => {
           this.lessons = response.data;
           console.log(response.data);
+
+          for (let i = 0; i < this.lessons.length; i++) {
+              this.formatDateTime(this.lessons[i]);
+            }
         })
         .catch(e => {
           console.log(e);
         });
     },
+    formatDateTime(lesson) {
+        let currentDate = lesson.date;
+        let year = currentDate.substring(0, 4);
+        let month = currentDate.substring(5, 7);
+        let day = currentDate.substring(8, 10);
+        let time = currentDate.substring(11, 19);
+
+        lesson.date = year + "-" + month + "-" + day + " " + time;
+      },
     refreshList() {
       this.retrieveModules();
       this.currentStudent= null;
