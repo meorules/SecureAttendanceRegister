@@ -42,11 +42,12 @@ exports.findAll = async(req, res) => {
                 });
             })
     }
-
+    
     if (details != null){
-    Module
-        .find({ _id: { $in: details.modules } })
-        .then(data => {
+        if (details.modules.length != 0){
+     Module
+            .find({ _id: { $in: details.modules } })
+            .then(data => {
             res.send(data);
         })
         .catch(err => {
@@ -54,6 +55,12 @@ exports.findAll = async(req, res) => {
                 message: err.message || "Some error occurred while retrieving Modules."
             });
         });
+        }
+        else{
+            res.status(500).send({
+                message: "No modules associated with this user."
+            });
+        }
     }
     else{
         res.status(500).send({
@@ -61,6 +68,7 @@ exports.findAll = async(req, res) => {
         });
     }
 }
+
 
 exports.findOne = async(req, res) => {
     let id = req.params.id;
