@@ -1,4 +1,5 @@
 <template>
+  <html>
   <div class="col-md-12">
     <div class="card card-container">
       <img
@@ -50,6 +51,7 @@
       </div>
     </div>
   </div>
+  </html>
 </template>
 
 <script>
@@ -162,4 +164,8 @@ label {
 .error-feedback {
   color: red;
 }
+
+body {
+  background-color: rgb(241, 239, 239);
+  }
 </style>

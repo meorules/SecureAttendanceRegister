@@ -1,4 +1,5 @@
 <template>
+  <html>
     <div class="list row">
       <div class="col-md-6">
         <h3>Delete Lesson</h3>
@@ -21,18 +22,18 @@
           <h4></h4>
           <br>
           <br>
-          <br>
-          <button class="m-3 btn btn-sm btn-danger" @click="deleteLessons">
+          <button class=" btn btn-dark" @click="deleteLessons">
         Delete
       </button>
         </div>
         <div v-else>
           <br />
-          <p>Please click on a Student.</p>
+          <p>Please click on a Lesson.</p>
         </div>
       </div>
     </div>
   </div>
+  </html>
   </template>
   
   <script>
@@ -53,7 +54,6 @@
         DeleteLessonDataService.getLesson(this.$route.params.id, this.$route.params.groupid)
           .then(response => {
             this.lessons = response.data;
-            console.log(response.data);
 
             for (let i = 0; i < this.lessons.length; i++) {
               this.formatDateTime(this.lessons[i]);
@@ -67,7 +67,6 @@
         DeleteLessonDataService.delete(this.$route.params.id, this.$route.params.groupid, this.currentLesson._id)
           .then(response => {
             this.lessons = response.data;
-            console.log(response.data);
             location.reload();
           })
           .catch(e => {
@@ -105,5 +104,9 @@
     text-align: left;
     max-width: 750px;
     margin: auto;
+  }
+
+  body {
+  background-color: rgb(241, 239, 239);
   }
   </style>

@@ -2,10 +2,6 @@ import http from "../http-common";
 import authHeader from "./auth-header";
 class LessonAttendanceDataService {
 
-   // TODO: 
-   // CREATE
-   // EDIT
-
     getAll() {
       return http.get("/attendanceIndicators", {headers: authHeader() });
     }

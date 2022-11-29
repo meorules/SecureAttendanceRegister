@@ -41,7 +41,6 @@ describe('Testing AttendanceIndicators Routes', () => {
                                         .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/attendanceIndicators')
                                         .set('x-access-token', loginDetails.body.accessToken)
                                         .end((err, res) => {
-                                            //console.log(res);
                                             res.should.have.status(200);
                                             res.body.should.be.a('array');
                                             res.body.length.should.be.above(3);
@@ -120,7 +119,6 @@ describe('Testing AttendanceIndicators Routes', () => {
                                         .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/attendanceIndicators/' + students[0]._id)
                                         .set('x-access-token', loginDetails.body.accessToken)
                                         .end((err, res) => {
-                                            //console.log(res);
                                             res.should.have.status(200);
                                             res.body.should.be.a('array');
                                             res.body.length.should.be.equal(4);

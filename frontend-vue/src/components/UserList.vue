@@ -1,4 +1,5 @@
 <template>
+  <html>
   <div class="list row">
     <div class="col-md-6">
       <h4>Users List</h4>
@@ -50,6 +51,7 @@
       </div>
     </div>
   </div>
+  </html>
 </template>
 
 <script>
@@ -70,7 +72,6 @@ export default {
       UserDataService.getAll()
           .then(response => {
             this.users = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -100,4 +101,8 @@ export default {
   max-width: 750px;
   margin: auto;
 }
+
+body {
+  background-color: rgb(241, 239, 239);
+  }
 </style>

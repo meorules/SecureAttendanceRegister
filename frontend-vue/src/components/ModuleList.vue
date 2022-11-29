@@ -1,4 +1,5 @@
 <template>
+  <html>
     <div class="list row">
       <div class="col-md-6">
         <h4>Modules List</h4>
@@ -24,7 +25,7 @@
           </div>
             <label><strong>Module Name:</strong></label> {{ currentModule.moduleName }}
           </div>
-          <router-link :to="'/modules/' + currentModule._id" class="badge badge-danger">Select</router-link>
+          <router-link :to="'/modules/' + currentModule._id" class="btn btn-dark">Select</router-link>
         </div>
         <div v-else>
           <br />
@@ -32,6 +33,7 @@
         </div>
       </div>
     </div>
+    </html>
   </template>
   
   <script>
@@ -52,7 +54,6 @@
         ModuleDataService.getAll()
           .then(response => {
             this.modules = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -81,5 +82,9 @@
     text-align: left;
     max-width: 750px;
     margin: auto;
+  }
+
+  body {
+  background-color: rgb(241, 239, 239);
   }
   </style>

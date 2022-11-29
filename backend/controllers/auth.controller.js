@@ -1,6 +1,8 @@
 const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.users;
+const Student = db.students;
+const Lecturer = db.lecturers;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -9,15 +11,28 @@ exports.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
     password: bcrypt.hashSync(req.body.password, 8),
-    firstName: req.body.firstName,
     roleType: req.body.roleType
   });
 
+console.log(req.body)
   user
     .save()
     .then(data => {
+      if(req.body.roleType==0){
+        console.log("eyo")
+        Student.create({username:req.body.username,firstName:req.body.firstName,lastName:req.body.lastName}).then(result=>{
+        }).catch(err=>res.status(500).send({ 
+          message: err || "Some error during signup"})
+          )
+      }
+      else if(req.body.roleType==1){
+        Lecturer.create({username:req.body.username,firstName:req.body.firstName,lastName:req.body.lastName}).then(result=>{
+        }).catch(err=>res.status(500).send({ 
+          message: err || "Some error during signup"})
+          )
+      }
         console.log("Signup User saved in the database");
-        res.send({ message: "User was registered successfully!" });
+        res.status(200).send({ message: "User was registered successfully!" });
     })
     .catch(err => {
         res.status(500).send({ 

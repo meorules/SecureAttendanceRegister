@@ -1,9 +1,11 @@
 <template>
+  <html>
     <div class="container">
       <header class="jumbotron">
         <h3>{{content}}</h3>
       </header>
     </div>
+    </html>
   </template>
   
   <script>
@@ -33,3 +35,9 @@
     }
   };
   </script>
+
+  <style>
+  body {
+  background-color: rgb(241, 239, 239);
+  }
+  </style>

@@ -55,16 +55,13 @@ export default {
       if (this.currentUser){
         let user = JSON.parse(localStorage.getItem('user'))
         if ( user.roleType  == 4) {
-          console.log("here")
           return true;
         }
         else {
-          console.log("oi")
           return false;
         }
       }
       else {
-        console.log("hello")
         return false;
       }
     }
@@ -85,6 +82,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  background-color: rgb(241, 239, 239);
   margin-top: 60px;
 }
 </style>

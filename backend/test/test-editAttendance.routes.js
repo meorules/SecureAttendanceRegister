@@ -47,7 +47,6 @@ describe('Testing editAttendance Routes', () => {
                                                 .put('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/editAttendance/' + lessonReturned._id + '/' + lessonReturned.attendance[0] + '/' + 'Not-Attended')
                                                 .set('x-access-token', loginDetails.body.accessToken)
                                                 .end((err, res) => {
-                                                    //console.log(res);
                                                     res.should.have.status(200);
                                                     res.body.should.have.property('result')
                                                     res.body.result.attendanceValue.should.be.eql(0);
@@ -102,7 +101,6 @@ describe('Testing editAttendance Routes', () => {
                                                 .put('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/editAttendance/' + lessonReturned._id + '/' + lessonReturned.attendance[0] + '/' + 'foiuh')
                                                 .set('x-access-token', loginDetails.body.accessToken)
                                                 .end((err, res) => {
-                                                    //console.log(res);
                                                     res.should.have.status(400);
                                                     res.body.should.have.property('message')
                                                     res.body.message.should.be.eql('Invalid Attendance Value');

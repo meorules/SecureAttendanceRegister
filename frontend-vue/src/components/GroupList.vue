@@ -1,4 +1,5 @@
 <template>
+  <html>
   <div class="list row">
     <div class="col-md-6">
       <h4>Groups List</h4>
@@ -21,7 +22,7 @@
         <div>
           <label><strong>Group Name:</strong></label> {{ currentGroup.groupName }}
         </div>
-        <router-link :to="'/modules/' +$route.params.id+'/' + currentGroup._id" class="badge badge-danger">Select</router-link>
+        <router-link :to="'/modules/' +$route.params.id+'/' + currentGroup._id" class="btn btn-dark">Select</router-link>
       </div>
       <div v-else>
         <br />
@@ -29,6 +30,7 @@
       </div>
     </div>
   </div>
+  </html>
 </template>
 
 <script>
@@ -79,4 +81,8 @@ export default {
   max-width: 750px;
   margin: auto;
 }
+
+body {
+  background-color: rgb(241, 239, 239);
+  }
 </style>

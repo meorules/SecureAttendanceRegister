@@ -1,4 +1,5 @@
 <template>
+  <html>
     <div class="list row display-container">
       <div>
         <h3>Students</h3>
@@ -14,8 +15,8 @@
         <br>
       </div>
       <div>
-        <h3>Attendance</h3>
         <ul class="list-group2">
+          <h3>Attendance</h3>
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
             v-for="(atten, index) in attendances"
@@ -42,18 +43,21 @@
           <div>
             <div>
               <form>
+                <br>
+                <br>
                 <label for="Attendance">Update Attendance to:</label>
                 <select v-model="selectedAttendanceType">
                   <option v-for="(attendanceType, index) in attendanceTypes" v-bind:key="index">{{attendanceType.name}}</option>
                 </select>
-                <br><br>
-                <button class="btn btn-outline-secondary" type="button" @click="selectAttendance">Save</button>
+                <br>
+                <button class="btn btn-dark" type="button" @click="selectAttendance">Save</button>
               </form>
             </div>
           </div>
         </div>
       </div>
     </div>
+    </html>
   </template>
   
   <script>
@@ -147,7 +151,10 @@
   min-width:100%;
   display:flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 10px
   }
 
+  body {
+  background-color: rgb(241, 239, 239);
+  }
   </style>

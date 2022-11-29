@@ -53,18 +53,6 @@ app.use('/Attendance/modules/:id/', deleteLessonRouter);
 app.use('/Attendance/modules/:id/', studentAttendanceRouter);
 
 
-// 
-// app.use('/Attendance/modules/:id/:groupid', lessonAttendanceRouter);
-
-
-// Base path -> Append on to these
-// Base paths will need to be updated and fixed
-
-// ???
-//app.use('/Attendance/modules/:id/:groupid/editAttendance', editAt);
-//app.use('/Attendance/modules/:id/:groupid/deleteAttendance', );
-
-
 // new routes for authentication
 require('./routes/auth.routes')(app);
 require('./routes/security.routes')(app);

@@ -1,4 +1,5 @@
 <template>
+  <html>
     <div class="list row">
       <div class="col-md-6">
         <h3>Semester Registration</h3>
@@ -27,7 +28,7 @@
               <label><strong>Student :</strong></label> {{ currentStudent.firstName }}
           </div>
         </div>
-          <router-link :to="'/modules/'+$route.params.id+'/' + $route.params.groupid + '/semesterRegistration/' + currentStudent._id" class="badge badge-danger">Select</router-link>
+          <router-link :to="'/modules/'+$route.params.id+'/' + $route.params.groupid + '/semesterRegistration/' + currentStudent._id" class="btn btn-dark">Select</router-link>
         </div>
         <div v-else>
           <br />
@@ -35,6 +36,7 @@
         </div>
       </div>
     </div>
+    </html>
   </template>
   
   <script>
@@ -83,5 +85,9 @@
     text-align: left;
     max-width: 750px;
     margin: auto;
+  }
+
+  body {
+  background-color: rgb(241, 239, 239);
   }
   </style>

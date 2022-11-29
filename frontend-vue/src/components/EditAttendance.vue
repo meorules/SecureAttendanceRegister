@@ -1,8 +1,9 @@
 <template>
+  <html>
     <div class="list row">
       <div class="col-md-6">
         <h3>Edit Attendance</h3>
-        <h4>Student & Attendance List</h4>
+        <h4>Lesson List</h4>
         <ul class="list-group">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
@@ -19,10 +20,12 @@
           <h4>Lesson</h4>
           <div>
             <div>
+            <br>
+            <br>
             <label><strong>Lesson date:</strong></label> {{ currentLesson.date }}
             </div>
           </div>
-          <router-link :to="'/modules/'+$route.params.id+'/' + $route.params.groupid + '/editAttendance/' + currentLesson._id" class="badge badge-danger">Select</router-link>
+          <router-link :to="'/modules/'+$route.params.id+'/' + $route.params.groupid + '/editAttendance/' + currentLesson._id" class="btn btn-dark">Select</router-link>
         </div>
         <div v-else>
           <br />
@@ -30,6 +33,7 @@
         </div>
       </div>
     </div>
+    </html>
   </template>
   
   <script>
@@ -50,7 +54,6 @@
         EditAttendanceDataService.getAll(this.$route.params.id, this.$route.params.groupid)
           .then(response => {
             this.lessons = response.data;
-            console.log(response.data);
 
             for (let i = 0; i < this.lessons.length; i++) {
               this.formatDateTime(this.lessons[i]);
@@ -92,5 +95,9 @@
     text-align: left;
     max-width: 750px;
     margin: auto;
+  }
+
+  body {
+  background-color: rgb(241, 239, 239);
   }
   </style>

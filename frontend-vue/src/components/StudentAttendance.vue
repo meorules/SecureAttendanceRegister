@@ -1,4 +1,5 @@
 <template>
+  <html>
   <div class="list row">
     <div class="col-md-8">
       <div class="input-group mb-3">
@@ -54,12 +55,13 @@
             <label><strong>Student :</strong></label> {{ currentStudent.firstName }}
         </div>
       </div>
-        <router-link :to="'/modules/'+$route.params.id+'/' + $route.params.groupid + '/semesterRegistration/' + currentStudent._id" class="badge badge-danger">Select</router-link>
+        <router-link :to="'/modules/'+$route.params.id+'/' + $route.params.groupid + '/semesterRegistration/' + currentStudent._id" class="btn btn-dark">Select</router-link>
       </div>
       <div v-else>
       </div>
     </div>
   </div>
+  </html>
 </template>
 
 <script>
@@ -89,7 +91,6 @@ export default {
       StudentAttendanceDataService.getLesson(this.$route.params.id, this.$route.params.groupid, this.$route.params.studentid)
         .then(response => {
           this.lessons = response.data;
-          console.log(response.data);
 
           for (let i = 0; i < this.lessons.length; i++) {
               this.formatDateTime(this.lessons[i]);
@@ -140,4 +141,7 @@ h3, h4 {
   flex-direction: row;
 }
 
+body {
+  background-color: rgb(241, 239, 239);
+  }
 </style>

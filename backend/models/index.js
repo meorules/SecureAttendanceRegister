@@ -36,12 +36,4 @@ db.users.find(function(usersErr, Users) {
     }
 });
 
-//dummyData();
-
-// if (db.users != undefined) {
-//     if (db.users.count() == 0) {
-//         dummyData();
-//     }
-// }
-
 module.exports = db;

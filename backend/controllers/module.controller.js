@@ -43,7 +43,7 @@ exports.findAll = async(req, res) => {
             })
     }
 
-
+    if (details != null){
     Module
         .find({ _id: { $in: details.modules } })
         .then(data => {
@@ -54,6 +54,12 @@ exports.findAll = async(req, res) => {
                 message: err.message || "Some error occurred while retrieving Modules."
             });
         });
+    }
+    else{
+        res.status(500).send({
+            message: "No modules associated with this user."
+        });
+    }
 }
 
 exports.findOne = async(req, res) => {

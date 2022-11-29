@@ -41,7 +41,6 @@ describe('Testing deleteLesson Routes', () => {
                                         .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + lessons[lessons.size - 1]._id)
                                         .set('x-access-token', loginDetails.body.accessToken)
                                         .end((err, res) => {
-                                            //console.log(res);
                                             res.should.have.status(200);
                                             res.body.should.have.property('message');
                                             res.body.message.should.be.eql('Lesson has been deleted');
@@ -82,7 +81,6 @@ describe('Testing deleteLesson Routes', () => {
                                         .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + 'efoiewrf')
                                         .set('x-access-token', loginDetails.body.accessToken)
                                         .end((err, res) => {
-                                            //console.log(res);
                                             res.should.have.status(500);
                                             res.body.should.have.property('message');
                                             done();

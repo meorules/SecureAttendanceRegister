@@ -34,7 +34,7 @@ exports.put = async(req, res) => {
             newAttendanceValue = 0;
         } else if (req.params.attendanceValue == "Attended") {
             newAttendanceValue = 1;
-        } else if (req.params.attendanceValue == "Excused-Absence") {
+        } else if (req.params.attendanceValue == "Excused") {
             newAttendanceValue = 2;
         } else if (req.params.attendanceValue == "Late") {
             newAttendanceValue = 3;
@@ -50,11 +50,7 @@ exports.put = async(req, res) => {
                     result
                 });
             })
-            .catch(err => {
-                res.status(500).send({
-                    message: err || "Some error occurred while editing attendance"
-                })
-            })
+            
     }
 
 };

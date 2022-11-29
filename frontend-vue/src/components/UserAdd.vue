@@ -1,4 +1,5 @@
 <template>
+  <html>
   <div class="col-md-12">
     <div class="card card-container">
       <img
@@ -19,9 +20,14 @@
             <ErrorMessage name="password" class="error-feedback" />
           </div>
           <div class="form-group">
-            <label for="firstName">firstName</label>
+            <label for="firstName">First Name</label>
             <Field name="firstName" type="firstName" class="form-control" />
             <ErrorMessage name="firstName" class="error-feedback" />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <Field name="lastName" type="lastName" class="form-control" />
+            <ErrorMessage name="lastName" class="error-feedback" />
           </div>
           <div class="form-group">
             <label for="roleType">roleType</label>
@@ -50,6 +56,7 @@
       </div>
     </div>
   </div>
+  </html>
 </template>
 
 <script>
@@ -66,6 +73,8 @@ export default {
   data() {
     const schema = yup.object().shape({
       firstName: yup
+        .string(),
+      lastName: yup
         .string(),
       username: yup
         .string()
@@ -88,11 +97,6 @@ export default {
       message: "",
       schema,
     };
-  },
-  computed: {
-    loggedIn() {
-      return this.$store.state.auth.status.loggedIn;
-    },
   },
   mounted() {
     
@@ -162,4 +166,8 @@ label {
 .error-feedback {
   color: red;
 }
+
+body {
+  background-color: rgb(241, 239, 239);
+  }
 </style>

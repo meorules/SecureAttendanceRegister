@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div v-if="currentUser" class="edit-form">
     <h4>User</h4>
     <form>
@@ -52,33 +52,13 @@ export default {
       UserDataService.get(id)
           .then(response => {
             this.currentUser = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
           });
     },
 
-    updateUser() {
-      UserDataService.update(this.currentUser._id, this.currentUser)
-          .then(response => {
-            console.log(response.data);
-            this.message = 'The user was updated successfully!';
-          })
-          .catch(e => {
-            console.log(e);
-          });
-    },
-
-    deleteUser() {
-      UserDataService.delete(this.currentUser._id)
-          .then(response => {
-            console.log(response.data);
-            this.$router.push({ name: "users" });
-          })
-          .catch(e => {
-            console.log(e);
-          });
+    });
     }
   },
   mounted() {
@@ -93,4 +73,4 @@ export default {
   max-width: 300px;
   margin: auto;
 }
-</style>
+</style> -->

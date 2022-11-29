@@ -10,7 +10,6 @@ const User = db.users;
 // Find all Attendance. 
 exports.create = async(req, res) => {
     let token = req.header('x-access-token')
-    console.log(token)
 
     const userid = jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
@@ -67,10 +66,6 @@ exports.create = async(req, res) => {
                     }
                 })
             }
-        }).catch(err => {
-            res.status(500).send({
-                message: err.message || "There was an error trying to find a group."
-            });
         })
     }
 }

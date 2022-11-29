@@ -1,32 +1,33 @@
 <template>
-  <div class="list row">
-    <div class="col-md-6">
-      <h4>GROUP OPTIONS PAGE</h4>
-    </div>
-    <div class="col-md-6">
-      <div>
-        <br />
-        <p>Please click on an option:</p>
+  <html>
+    <div class="list row">
+      <div class="col-md-6">
+        <h4>GROUP OPTIONS PAGE</h4>
+      </div>
+      <div class="col-md-6">
+        <div>
+          <br />
+          <p>Please click on an option:</p>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/attendanceIndicator'" class="badge badge-danger">Attendance Indicator</router-link>
-  
-  <!-- Takes to a list of students, get % of each student -->
-
-  <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/semesterRegistration'" class="badge badge-danger">Semester Registration</router-link>
-  <!-- Spreadsheet -->
-  <div v-if="this.user.roleType == 1">
-  <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/editAttendance'" class="badge badge-danger">Edit Attendance</router-link>
-  <!-- List of students & display whether they've attended | OR spreadsheet -->
- 
-  <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/createLesson'" class="badge badge-danger">Create Lesson</router-link>
-  <!-- Form (students on left) -> Box to fill in -->
-  
-  <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/deleteLesson'" class="badge badge-danger">Delete Lesson</router-link>
-  </div>
-  <!-- Show list of lessons | Click a lesson and delete it -->
+    
+    <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/attendanceIndicator'" class="btn btn-block btn-dark">Attendance Indicator</router-link>
+    <br>
+    <br>
+    <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/semesterRegistration'" class="btn btn-block btn-dark">Semester Registration</router-link>
+    <br>
+    <br>
+    <div v-if="this.user.roleType == 1">
+    <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/editAttendance'" class="btn btn-block btn-dark">Edit Attendance</router-link>
+    <br>
+    <br>
+    <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/createLesson'" class="btn btn-block btn-dark">Create Lesson</router-link>
+    <br>
+    <br>
+    <router-link :to="'/modules/' +$route.params.id+'/' + $route.params.groupid + '/deleteLesson'" class="btn btn-block btn-dark">Delete Lesson</router-link>
+    </div>
+  </html>
 
 </template>
 
@@ -64,10 +65,15 @@ mounted() {
 };
 </script>
 
+
 <style>
 .list {
 text-align: left;
 max-width: 750px;
 margin: auto;
+}
+
+body {
+  background-color: rgb(241, 239, 239);
 }
 </style>

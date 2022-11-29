@@ -1,4 +1,5 @@
 <template>
+  <html>
     <div class="list row">
       <div class="col-md-6">
         <h3>Attendance Indicator</h3>
@@ -39,6 +40,7 @@
         </div>
       </div>
     </div>
+    </html>
   </template>
   
   <script>
@@ -97,5 +99,9 @@
     text-align: left;
     max-width: 750px;
     margin: auto;
+  }
+
+  body {
+  background-color: rgb(241, 239, 239);
   }
   </style>
