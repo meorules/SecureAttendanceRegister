@@ -1,6 +1,6 @@
 # AttendanceRegister
 Attendance Register Project.<br />
-Authors: ``Chris, Nathan, Maz, Lantana``.
+Authors: ``Christopher, Nathan, Mazen, Lantana``.
 
 # What is the project?
 University Project for SAD Module<br />
