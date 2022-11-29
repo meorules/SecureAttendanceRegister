@@ -102,6 +102,7 @@
       removeAllModules() {
         AttendanceIndicatorDataService.deleteAll()
           .then(response => {
+            console.log(response);
             this.refreshList();
           })
           .catch(e => {
