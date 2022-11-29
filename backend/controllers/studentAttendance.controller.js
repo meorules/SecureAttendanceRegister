@@ -6,27 +6,34 @@ const Group = db.groups;
 const Lesson = db.lessons;
 const Attendance = db.attendances;
 
-
-
-exports.findAll = async (req, res) => {
+exports.findAll = async(req, res) => {
 
     let id = req.params.groupid;
-    const group = await Group.findById(id);
+    const group = await Group.findById(id).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find a group."
+        });
+    });
 
-    console.log("attendance")
+    const lessons = await Lesson.find({ _id: { $in: group.lessons } }).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find lessons."
+        });
+    })
 
-   const lessons = await Lesson.find({_id: {$in: group.lessons} })
+    let attendanceArray = [];
 
-   let attendanceArray = [];
-    
-   lessons.forEach(lesson => {
-    for(let i = 0; i < lesson.attendance.length; i++)
-    {
-        attendanceArray.push(lesson.attendance[i])
-    } 
-   });
+    lessons.forEach(lesson => {
+        for (let i = 0; i < lesson.attendance.length; i++) {
+            attendanceArray.push(lesson.attendance[i])
+        }
+    });
 
-    const attendance = await Attendance.find({_id: {$in: attendanceArray },student: req.params.studentid})
+    const attendance = await Attendance.find({ _id: { $in: attendanceArray }, student: req.params.studentid }).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find an attendance record."
+        });
+    })
 
-   res.send(attendance)
+    res.send(attendance)
 }

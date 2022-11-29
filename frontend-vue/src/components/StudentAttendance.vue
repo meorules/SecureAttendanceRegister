@@ -79,7 +79,6 @@ export default {
       StudentAttendanceDataService.getAttendance(this.$route.params.id, this.$route.params.groupid, this.$route.params.studentid)
         .then(response => {
           this.attendances = response.data;
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);
@@ -89,7 +88,6 @@ export default {
       StudentAttendanceDataService.getLesson(this.$route.params.id, this.$route.params.groupid, this.$route.params.studentid)
         .then(response => {
           this.lessons = response.data;
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);

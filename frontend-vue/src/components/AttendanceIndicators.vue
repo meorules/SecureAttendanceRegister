@@ -70,11 +70,9 @@
     },
     methods: {
       retrieveStudents() {
-        console.log(this.$route.params)
         AttendanceIndicatorDataService.getAll(this.$route.params.id, this.$route.params.groupid)
           .then(response => {
             this.students = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -84,7 +82,6 @@
         AttendanceIndicatorDataService.get(this.$route.params.id, this.$route.params.groupid, this.currentStudent._id)
           .then(response => {
             this.attendances = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -98,7 +95,6 @@
 
       async setActiveStudent(Student, index) {
         this.currentStudent = Student;
-        console.log(this.currentStudent);
         this.currentIndex = module ? index : -1;
         this.retrieveAttendance();
       },
@@ -106,7 +102,6 @@
       removeAllModules() {
         AttendanceIndicatorDataService.deleteAll()
           .then(response => {
-            console.log(response.data);
             this.refreshList();
           })
           .catch(e => {
@@ -119,7 +114,6 @@
           .then(response => {
             this.modules = response.data;
             this.setActiveModule(null);
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);

@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post("/:groupid/editAttendance/:lessonid/:attendanceid/:attendanceValue", [authjwt.verifyToken], editAttendanceController.put);
+router.put("/:groupid/editAttendance/:lessonid/:attendanceid/:attendanceValue", [authjwt.verifyToken], editAttendanceController.put);
 
 router.get("/:groupid/editAttendance/", [authjwt.verifyToken], editAttendanceController.findAll);
 
