@@ -51,6 +51,16 @@ Which starts the back-end Node server.<br />
 NOTE: You will need the Mongo Database running on your machine whilst running the backend for it to compile.<br />
 NOTE: Slashes may be different on your machine if using Windows. (Example path obtained in Ubuntu).
 
+# Running Unit Tests.
+If you are running Unit tests, run: ``npm tests``<br />
+These Unit tests are run within: ``AttendanceRegister/backend``
+
+# Running UI (Selenium) Tests.
+If you are running UI tests, you will be required to use the .SIDE file provided. (found in our .zip upload on Blackboard)<br />
+You will need to install the Selenium extension for either Microsoft Edge, Firefox or Chrome.<br />
+You will need to select ``Open an existing project`` and use the .SIDE file provided.<br />
+The default path should be: ``http://localhost:8080/login`` by default, if not set.
+
 # List of npm packages (If manual install is required):
 Any of these packages may be installed with ``npm install``
 ```
