@@ -52,7 +52,7 @@ NOTE: You will need the Mongo Database running on your machine whilst running th
 NOTE: Slashes may be different on your machine if using Windows. (Example path obtained in Ubuntu).
 
 # Running Unit Tests.
-If you are running Unit tests, run: ``npm tests``<br />
+If you are running Unit tests, run: ``npm test``<br />
 These Unit tests are run within: ``AttendanceRegister/backend``
 
 # Running UI (Selenium) Tests.
