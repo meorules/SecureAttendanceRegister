@@ -33,7 +33,7 @@ Example: ``AttendanceRegister/frontend-vue``<br />
 Execute: ``npm install``<br />
 Execute: ``npm run serve``<br />
 Which starts the front-end Vue3 framework.<br />
-To access the frontend, connect to your localhost: ``http://localhost:8080/``
+To access the frontend, connect to your localhost: ``http://localhost:8080/``<br />
 NOTE: Slashes may be different on your machine if using Windows. (Example path obtained in Ubuntu).
 
 # Setup & Running the backend.
