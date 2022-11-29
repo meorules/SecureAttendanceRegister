@@ -1,6 +1,5 @@
 //Mongoose ver.
 module.exports = mongoose => {
-    //    console.log(mongoose.model("Kachow", mongoose.Schema({ first: { type: String, required: true } })));
     var User = mongoose.model(
         "User",
         mongoose.Schema({

@@ -11,61 +11,67 @@ const User = db.users
 // Find all Attendance Indicators.
 exports.findAll = async(req, res) => {
     let id = req.params.groupid;
-
     let token = req.header('x-access-token')
 
     const userid = jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
-          return res.status(401).send({ message: "Unauthorised!" });
+            return res.status(401).send({ message: "Unauthorised!" });
         }
         return req.userId = decoded.id;
-        
-      });
-    
-    const user = await User.findById(userid);
+
+    });
+
+    const user = await User.findById(userid).catch(err => {
+        res.status(500).send({
+            message: err.message || "User could not be found."
+        });
+    })
     let details;
 
-    if (user.roleType == 0){
+    if (user.roleType == 0) {
         details = await Student
-        .findOne({username: user.username})
+            .findOne({ username: user.username }).catch(err => {
+                res.status(500).send({
+                    message: err.message || "Student could not be found."
+                });
+            })
 
         Group.findById(id).then(group => {
-            Student
-                .find({ _id: { $in: group.students}, _id: details._id })
-                .then(data => {
-                    res.send(data);
-                })
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occurred while retrieving Attendance Indicators."
+                Student
+                    .find({ _id: { $in: group.students }, _id: details._id })
+                    .then(data => {
+                        res.send(data);
+                    })
+                    .catch(err => {
+                        res.status(500).send({
+                            message: err.message || "Some error occurred while retrieving Attendance Indicators."
+                        });
                     });
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving Attendance Indicators."
                 });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving Attendance Indicators."
-            });
-        })
-        
-    }
-    else if (user.roleType == 1){
+            })
+
+    } else if (user.roleType == 1) {
         Group.findById(id).then(group => {
-            Student
-                .find({ _id: { $in: group.students } })
-                .then(data => {
-                    res.send(data);
-                })
-                .catch(err => {
-                    res.status(500).send({
-                        message: err.message || "Some error occurred while retrieving Attendance Indicators."
+                Student
+                    .find({ _id: { $in: group.students } })
+                    .then(data => {
+                        res.send(data);
+                    })
+                    .catch(err => {
+                        res.status(500).send({
+                            message: err.message || "Some error occurred while retrieving Attendance Indicators."
+                        });
                     });
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving Attendance Indicators."
                 });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving Attendance Indicators."
-            });
-        })
+            })
     }
 
 }

@@ -49,7 +49,6 @@ export default {
       GroupDataService.get(id)
         .then(response => {
           this.groups = response.data;
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);

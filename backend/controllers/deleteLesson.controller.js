@@ -7,77 +7,98 @@ const Attendance = db.attendances;
 const User = db.users;
 
 // Find all Attendance.
-exports.delete = async (req, res) => {
+exports.delete = async(req, res) => {
     let token = req.header('x-access-token')
 
     const userid = jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
-          return res.status(401).send({ message: "Unauthorised!" });
+            return res.status(401).send({ message: "Unauthorised!" });
         }
         return req.userId = decoded.id;
-        
-      });
-    
-    const user = await User.findById(userid);
-    
 
-    if (user.roleType == 0){
+    });
+
+    const user = await User.findById(userid).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find a user."
+        });
+    });
+
+
+    if (user.roleType == 0) {
         res.status(401).send({ message: "Unauthorised!" });
-    }
-    else if (user.roleType == 1){
-    lesson = req.params.lessonid;
-    group = req.params.groupid;
+    } else if (user.roleType == 1) {
+        lesson = req.params.lessonid;
+        group = req.params.groupid;
 
-    Lesson.findById(lesson, function(lessonErr, lessonReturned) {
-        if (lessonErr) {
-            console.log(lessonErr);
-            res.status(500).send({
-                message: lessonErr || "Some error occurred while retrieving the lesson."
-            });
-        } else {
-            for (let i = 0; i < lessonReturned.attendance.length; i++) {
-                Attendance.deleteOne({ _id: lessonReturned.attendance[i] })
-                    .catch(deleteErr => console.log(deleteErr));
+        Lesson.findById(lesson, function(lessonErr, lessonReturned) {
+            if (lessonErr) {
+                res.status(500).send({
+                    message: lessonErr || "Some error occurred while retrieving the lesson."
+                });
+            } else {
+                for (let i = 0; i < lessonReturned.attendance.length; i++) {
+                    Attendance.deleteOne({ _id: lessonReturned.attendance[i] })
+                        .catch(deleteErr => res.status(500).send({
+                            message: deleteErr || "Some error occurred while retrieving the lesson."
+                        }));
+                }
+                Lesson.deleteOne({ _id: lessonReturned })
+                    .catch(deleteErr => res.status(500).send({
+                        message: deleteErr || "Some error occurred while retrieving the lesson."
+                    }));
+
+                res.status(200).send({ message: "Lesson has been deleted" });
+
+                Group.findByIdAndUpdate(group, { $pull: { lesson } })
+                    .catch(deleteErr => res.status(500).send({
+                        message: deleteErr || "Some error occurred while retrieving the lesson."
+                    }));
+
             }
-            Lesson.deleteOne({ _id: lessonReturned })
-                .catch(deleteErr => console.log(deleteErr));
-
-            res.status(200).send({ message: "Lesson has been deleted" });
-
-            Group.findByIdAndUpdate(group, { $pull: { lesson } })
-                .catch(deleteErr => console.log(deleteErr));
-
-        }
-    })
-}
+        }).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find a lesson."
+            });
+        })
+    }
 }
 
 
-exports.findAll = async (req, res) => {
+exports.findAll = async(req, res) => {
     let token = req.header('x-access-token')
 
     const userid = jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
-          return res.status(401).send({ message: "Unauthorised!" });
+            return res.status(401).send({ message: "Unauthorised!" });
         }
         return req.userId = decoded.id;
-        
-      });
-    
-    const user = await User.findById(userid);
-    
 
-    if (user.roleType == 0){
+    });
+
+    const user = await User.findById(userid).catch(err => {
+        res.status(500).send({
+            message: err.message || "There was an error trying to find a user."
+        });
+    });
+
+
+    if (user.roleType == 0) {
         res.status(401).send({ message: "Unauthorised!" });
-    }
-    else if (user.roleType == 1){
+    } else if (user.roleType == 1) {
         let id = req.params.groupid;
-        const group = await Group.findById( id);
+        const group = await Group.findById(id).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find a group."
+            });
+        });
 
-       
+        const lessons = await Lesson.find({ _id: { $in: group.lessons } }).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find lessons."
+            });
+        })
 
-        const lessons = await Lesson.find({_id: {$in: group.lessons} })
-    
-     res.send(lessons)
+        res.send(lessons)
     }
 }

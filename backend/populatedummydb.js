@@ -93,7 +93,7 @@ module.exports = async db => {
                                                         //.then(result2 => console.log(result2))
                                                         .catch(err2 => console.log(err2));
                                                 }
-                                                
+
                                                 //Adding groups
                                                 Groups.insertMany([{ groupName: "CAPSLecture" }, { groupName: "CAPSTutorial1", groupType: 1 }, { groupName: "CAPSTutorial2", groupType: 1 }, { groupName: "SADLecture" }, { groupName: "SADTutorial1", groupType: 1 }, { groupName: "SADTutorial2", groupType: 1 }, { groupName: "AVDPLecture" }, { groupName: "ADVPTutorial1", groupType: 1 }, { groupName: "ADVPTutorial2", groupType: 1 }, { groupName: "ADSLecture" }, { groupName: "ADSTutorial1", groupType: 1 }, { groupName: "ADSTutorial2", groupType: 1 }, { groupName: "AIMLLecture" }, { groupName: "AIMLTutorial1", groupType: 1 }, { groupName: "AIMLTutorial2", groupType: 1 }, { groupName: "MATHLecture" }, { groupName: "MATHTutorial1", groupType: 1 }, { groupName: "MATHTutorial2", groupType: 1 }],
                                                     function(groupsErr, groupCollection) {

@@ -59,8 +59,6 @@ methods: {
     },
 },
 mounted() {
-  //console.log(this.$route.params)
-  console.log(this.$route.params.groupid)
   this.retrieveCurrentGroup();
 }
 };

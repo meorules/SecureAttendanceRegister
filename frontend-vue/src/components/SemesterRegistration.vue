@@ -56,7 +56,6 @@
         SemesterRegistrationDataService.getAll(this.$route.params.id, this.$route.params.groupid)
           .then(response => {
             this.students = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
