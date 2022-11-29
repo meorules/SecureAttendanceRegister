@@ -83,7 +83,7 @@ nodemon
 pug
 ```
 
-# List of Development Dependencies:
+# List of Development Dependencies (If manual install is required):
 ```
 @babel/core
 @babel/eslint-parser
