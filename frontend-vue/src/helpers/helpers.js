@@ -25,7 +25,6 @@ export const api = {
     }),
     getAnimals: handleError(async () => {
         const res = await axios.get(baseURL);
-        console.log("received data: " + JSON.stringify(res.data) );
         return res.data;
     }),
     deleteAnimal: handleError(async id => {

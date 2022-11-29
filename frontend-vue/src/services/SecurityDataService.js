@@ -1,6 +1,5 @@
 import http from "../http-common";
-import authHeader from './auth-header';
-
+import authHeader from "./auth-header";
 class SecurityDataService {
   getPublicContent() {
     return http.get("/security/public");

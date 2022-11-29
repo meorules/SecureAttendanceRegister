@@ -1,20 +1,8 @@
 <template>
+  <html>
     <div class="list row">
-      <div class="col-md-8">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Search by name"
-            v-model="name"/>
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button"
-              @click="searchName"
-            >
-              Search
-            </button>
-          </div>
-        </div>
-      </div>
       <div class="col-md-6">
-        <h4>modules List</h4>
+        <h4>Modules List</h4>
         <ul class="list-group">
           <li class="list-group-item"
             :class="{ active: index == currentIndex }"
@@ -22,40 +10,30 @@
             :key="index"
             @click="setActiveModule(module, index)"
           >
-            {{ module.name }}
+            {{ module.moduleName }}
           </li>
         </ul>
   
-        <button class="m-3 btn btn-sm btn-danger" @click="removeAllModules">
-          Remove All
-        </button>
+       
       </div>
       <div class="col-md-6">
         <div v-if="currentModule">
           <h4>Module</h4>
           <div>
-            <label><strong>Name:</strong></label> {{ currentModule.name }}
+            <div>
+            <label><strong>Module Code:</strong></label> {{ currentModule.moduleCode }}
           </div>
-          <div>
-            <label><strong>Species:</strong></label> {{ currentModule.species }}
+            <label><strong>Module Name:</strong></label> {{ currentModule.moduleName }}
           </div>
-          <div>
-            <label><strong>Breed:</strong></label> {{ currentModule.breed }}
-          </div>
-          <div>
-            <label><strong>Age:</strong></label> {{ currentModule.age }}
-          </div>
-          <div>
-            <label><strong>Colour:</strong></label> {{ currentModule.colour }}
-          </div>
-          <router-link :to="'/modules/' + currentModule._id" class="badge badge-danger">Edit</router-link>
+          <router-link :to="'/modules/' + currentModule._id" class="btn btn-dark">Select</router-link>
         </div>
         <div v-else>
           <br />
-          <p>Please click on an Module...</p>
+          <p>Please click on a Module.</p>
         </div>
       </div>
     </div>
+    </html>
   </template>
   
   <script>
@@ -76,7 +54,6 @@
         ModuleDataService.getAll()
           .then(response => {
             this.modules = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -92,30 +69,7 @@
       setActiveModule(Module, index) {
         this.currentModule = Module;
         this.currentIndex = module ? index : -1;
-      },
-  
-      removeAllModules() {
-        ModuleDataService.deleteAll()
-          .then(response => {
-            console.log(response.data);
-            this.refreshList();
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      },
-      
-      searchName() {
-        ModuleDataService.findByName(this.name)
-          .then(response => {
-            this.modules = response.data;
-            this.setActiveModule(null);
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      }
+      },      
     },
     mounted() {
       this.retrieveModules();
@@ -128,5 +82,9 @@
     text-align: left;
     max-width: 750px;
     margin: auto;
+  }
+
+  body {
+  background-color: rgb(241, 239, 239);
   }
   </style>

@@ -9,7 +9,6 @@ db.mongoose = mongoose;
 db.url = dbConfig.url;
 
 
-db.animals = require("./animal.model.js")(mongoose);
 db.users = require("./user.js")(mongoose);
 
 db.attendances = require("./attendance.js")(mongoose);
@@ -30,18 +29,11 @@ db.users.find(function(usersErr, Users) {
         if (Users.length == 0) {
             console.log("DATA to be added as there is none in the DB");
             let dummyData = require("../populatedummydb")(db);
+            console.log("Data added into the db :)");
         } else {
             console.log("Users exist in the DB, so all dummy data is assumed as added in.");
         }
     }
 });
-
-//dummyData();
-
-// if (db.users != undefined) {
-//     if (db.users.count() == 0) {
-//         dummyData();
-//     }
-// }
 
 module.exports = db;

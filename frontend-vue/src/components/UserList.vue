@@ -1,18 +1,6 @@
 <template>
+  <html>
   <div class="list row">
-    <div class="col-md-8">
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Search by username"
-               v-model="username"/>
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button"
-                  @click="searchUsername"
-          >
-            Search
-          </button>
-        </div>
-      </div>
-    </div>
     <div class="col-md-6">
       <h4>Users List</h4>
       <ul class="list-group">
@@ -26,28 +14,36 @@
         </li>
       </ul>
 
-      <button class="m-3 btn btn-sm btn-danger" @click="removeAllUsers">
-        Remove All
-      </button>
     </div>
     <div class="col-md-6">
       <div v-if="currentUser">
         <h4>User</h4>
         <div>
+          
           <label><strong>Id:</strong></label> {{currentUser._id }}
         </div>
         <div>
           <label><strong>Username:</strong></label> {{ currentUser.username }}
         </div>
-        <div>
-          <label><strong>Animals:</strong></label> {{currentUser.animals}}
-        </div>
-
-        <a
-            :href="'/users/' + currentUser._id"
-        >
-          Edit
-        </a>
+        <div v-if="currentUser.roleType == '0'">
+          <label><strong>Role:</strong></label>Student
+            </div>
+            <div v-else-if="currentUser.roleType == '1'">
+              <label><strong>Role:</strong></label>
+              Lecturer
+            </div>
+            <!-- <div v-else-if="currentUser.roleType == '2'">
+              <label><strong>Role:</strong>
+              Module Leader
+            </div>
+            <div v-else-if="currentUser.roleType == '3'">
+              <label><strong>Role:</strong>
+              Course leader
+            </div> -->
+            <div v-else-if="currentUser.roleType == '4'">
+              <label><strong>Role:</strong></label>
+              Admin
+            </div>
       </div>
       <div v-else>
         <br />
@@ -55,6 +51,7 @@
       </div>
     </div>
   </div>
+  </html>
 </template>
 
 <script>
@@ -75,7 +72,6 @@ export default {
       UserDataService.getAll()
           .then(response => {
             this.users = response.data;
-            console.log(response.data);
           })
           .catch(e => {
             console.log(e);
@@ -92,28 +88,6 @@ export default {
       this.currentUser = user;
       this.currentIndex = index;
     },
-
-    removeAllUsers() {
-      UserDataService.deleteAll()
-          .then(response => {
-            console.log(response.data);
-            this.refreshList();
-          })
-          .catch(e => {
-            console.log(e);
-          });
-    },
-
-    searchUsername() {
-      UserDataService.findByUsername(this.username)
-          .then(response => {
-            this.users = response.data;
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-          });
-    }
   },
   mounted() {
     this.retrieveUsers();
@@ -127,4 +101,8 @@ export default {
   max-width: 750px;
   margin: auto;
 }
+
+body {
+  background-color: rgb(241, 239, 239);
+  }
 </style>
