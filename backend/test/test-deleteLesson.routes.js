@@ -38,7 +38,7 @@ describe('Testing deleteLesson Routes', () => {
                                     loginDetails.body.should.have.property('accessToken');
                                     loginDetails.body.roleType.should.be.eql(1);
                                     chai.request(server)
-                                        .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + lessons[lessons.size - 1]._id)
+                                        .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + lessons[0]._id)
                                         .set('x-access-token', loginDetails.body.accessToken)
                                         .end((err, res) => {
                                             res.should.have.status(200);
