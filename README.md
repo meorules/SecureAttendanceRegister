@@ -13,6 +13,9 @@ Group: ``Thu 16-18 Group 1``
 3. Install Vue.js
 4. Install MongoDB on your machine (same process as outlined in ``Week 03 - Lab - NodeJS + Express + Mongoose``)
 
+NOTE: If any of the steps below fail, please find a list of all npm packages we have installed at the bottom of this README.<br />
+If a certain version is required, please find the required versions for our project in our ``package.json`` files.
+
 Suggested IDE: VSCode
 
 # Setup & Running the MongoDb.
@@ -44,3 +47,38 @@ Execute: ``npm start``<br />
 Which starts the back-end Node server.<br />
 NOTE: Slashes may be different on your machine if using Windows. (Example path obtained in Ubuntu).
 
+# List of npm packages:
+Any of these packages may be installed with ``npm install``
+```
+@vue/cli
+express-generator
+nodemon
+@fortawesome/fontawesome-svg-core
+@fortawesome/free-solid-svg-icons
+@fortawesome/vue-fontawesome
+axios
+bootstrap
+core-js
+jquery
+popper.js
+semantic-ui-css
+vee-validate
+vue
+vue-flash-message
+vue-router
+vuex
+yup
+bcryptjs
+body-parser
+cookie-parser
+cors
+debug
+express
+http-errors
+jsonwebtoken
+mongoose
+morgan
+multer
+nodemon
+pug
+```
