@@ -12,11 +12,10 @@ Group: ``Thu 16-18 Group 1``
 2. Install nodejs
 3. Install Vue.js
 4. Install MongoDB on your machine (same process as outlined in ``Week 03 - Lab - NodeJS + Express + Mongoose``)
+5. Suggested IDE: VSCode
 
 NOTE: If any of the steps below fail, please find a list of all npm packages we have installed at the bottom of this README.<br />
 If a certain version is required, please find the required versions for our project in our ``package.json`` files.
-
-Suggested IDE: VSCode
 
 # Setup & Running the MongoDb.
 Execute your MongoDB server.<br />
