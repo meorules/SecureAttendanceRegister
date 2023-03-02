@@ -36,6 +36,9 @@ describe('Testing AttendanceIndicators Routes', () => {
                                     loginDetails.body.should.have.property('roleType');
                                     loginDetails.body.should.have.property('accessToken');
                                     loginDetails.body.roleType.should.be.eql(1);
+                                    if(loginErr){
+                                        console.log(loginErr);
+                                    }
 
                                     chai.request(server)
                                         .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/attendanceIndicators')
@@ -46,6 +49,7 @@ describe('Testing AttendanceIndicators Routes', () => {
                                             res.body.length.should.be.above(3);
                                             done();
                                         });
+                                    
 
                                 })
 
@@ -74,6 +78,9 @@ describe('Testing AttendanceIndicators Routes', () => {
                             loginDetails.body.should.have.property('roleType');
                             loginDetails.body.should.have.property('accessToken');
                             loginDetails.body.roleType.should.be.eql(1);
+                            if(loginErr){
+                                console.log(loginErr);
+                            }
 
                             chai.request(server)
                                 .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + "4rfh834rfg77711" + '/attendanceIndicators')

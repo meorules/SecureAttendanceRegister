@@ -2,7 +2,6 @@ module.exports = async db => {
 
     //Currently adds two courses, 6 modules in the Computer Science Course, 15 students, 9 lecturers, 1 course leader and 18 groups
     //Assigns all students to the course and various lecturers to be both module leaders and normal lecturers in the module
-    //This 
     Users = db.users;
     Attendances = db.attendances;
     Courses = db.courses;
@@ -11,6 +10,7 @@ module.exports = async db => {
     Modules = db.modules;
     Lecturers = db.lecturers;
     Students = db.students;
+
 
     await Courses.insertMany([{
             courseName: "BSc Computer Science",
@@ -348,3 +348,4 @@ module.exports = async db => {
 
     return 1;
 };
+

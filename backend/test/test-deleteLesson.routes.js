@@ -37,6 +37,11 @@ describe('Testing deleteLesson Routes', () => {
                                     loginDetails.body.should.have.property('roleType');
                                     loginDetails.body.should.have.property('accessToken');
                                     loginDetails.body.roleType.should.be.eql(1);
+
+                                    if(loginErr){
+                                        console.log(loginErr);
+                                    }
+
                                     chai.request(server)
                                         .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + lessons[0]._id)
                                         .set('x-access-token', loginDetails.body.accessToken)
@@ -77,6 +82,11 @@ describe('Testing deleteLesson Routes', () => {
                                     loginDetails.body.should.have.property('roleType');
                                     loginDetails.body.should.have.property('accessToken');
                                     loginDetails.body.roleType.should.be.eql(1);
+
+                                    if(loginErr){
+                                        console.log(loginErr);
+                                    }
+
                                     chai.request(server)
                                         .delete('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson/' + 'efoiewrf')
                                         .set('x-access-token', loginDetails.body.accessToken)
@@ -116,6 +126,11 @@ describe('Testing deleteLesson Routes', () => {
                                     loginDetails.body.should.have.property('roleType');
                                     loginDetails.body.should.have.property('accessToken');
                                     loginDetails.body.roleType.should.be.eql(1);
+
+                                    if(loginErr){
+                                        console.log(loginErr);
+                                    }
+
 
                                     chai.request(server)
                                         .get('/Attendance/modules/' + moduleReturned[0]._id + '/' + groupReturned._id + '/deleteLesson')
