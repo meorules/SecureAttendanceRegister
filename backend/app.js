@@ -7,20 +7,7 @@ var logger = require('morgan');
 // Adding extra modules
 var cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
-
-var userRouter = require('./routes/user.routes');
-var moduleRouter = require('./routes/module.routes');
-var groupRouter = require('./routes/group.routes');
-var groupOptionsRouter = require('./routes/group.options.routes');
-var semesterRegistrationRouter = require('./routes/semesterRegistration.routes');
-var attendanceIndicatorsRouter = require('./routes/attendanceIndicators.routes');
-var editAttendanceRouter = require('./routes/editAttendance.routes');
-var createLessonRouter = require('./routes/createLesson.routes');
-var deleteLessonRouter = require('./routes/deleteLesson.routes');
-var studentAttendanceRouter = require('./routes/studentAttendance.routes');
 
 var app = express();
 
@@ -37,6 +24,20 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+
+
+var userRouter = require('./routes/user.routes');
+var moduleRouter = require('./routes/module.routes');
+var groupRouter = require('./routes/group.routes');
+var groupOptionsRouter = require('./routes/group.options.routes');
+var semesterRegistrationRouter = require('./routes/semesterRegistration.routes');
+var attendanceIndicatorsRouter = require('./routes/attendanceIndicators.routes');
+var editAttendanceRouter = require('./routes/editAttendance.routes');
+var lessonsRouter = require('./routes/lessons.routes');
+var studentAttendanceRouter = require('./routes/studentAttendance.routes');
+
 
 // What the URL already is | What you append to the URL.
 app.use('/', indexRouter);
@@ -48,8 +49,7 @@ app.use('/Attendance/modules/:id/:groupid', groupOptionsRouter);
 app.use('/Attendance/modules/:id/', attendanceIndicatorsRouter)
 app.use('/Attendance/modules/:id/', semesterRegistrationRouter);
 app.use('/Attendance/modules/:id/', editAttendanceRouter);
-app.use('/Attendance/modules/:id/', createLessonRouter);
-app.use('/Attendance/modules/:id/', deleteLessonRouter);
+app.use('/Attendance/modules/:id/', lessonsRouter);
 app.use('/Attendance/modules/:id/', studentAttendanceRouter);
 
 

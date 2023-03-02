@@ -11,15 +11,7 @@ const User = db.users
 // Find all Attendance Indicators.
 exports.findAll = async(req, res) => {
     let id = req.params.groupid;
-    let token = req.header('x-access-token')
-
-    const userid = jwt.verify(token, config.secret, (err, decoded) => {
-        if (err) {
-            return res.status(401).send({ message: "Unauthorised!" });
-        }
-        return req.userId = decoded.id;
-
-    });
+    let userid = req.userId;
 
     const user = await User.findById(userid).catch(err => {
         res.status(500).send({

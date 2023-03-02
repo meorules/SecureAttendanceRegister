@@ -5,10 +5,6 @@ const { authjwt } = require("../middlewares");
 // var groupController = require('../controllers/group.controller');
 var editAttendanceController = require('../controllers/editAttendance.controller');
 
-// GET at the root returns a welcome message in json
-router.get('/', function(req, res, next) {
-    res.json({ message: "Welcome to the Attendance api." });
-});
 
 
 router.put("/:groupid/editAttendance/:lessonid/:attendanceid/:attendanceValue", [authjwt.verifyToken], editAttendanceController.put);

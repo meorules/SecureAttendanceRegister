@@ -6,13 +6,6 @@ const { authjwt } = require("../middlewares");
 var studentAttendance = require('../controllers/studentAttendance.controller');
 var studentLessonAttendance = require('../controllers/studentLessonAttendance.controller');
 
-
-// GET at the root returns a welcome message in json
-router.get('/', function(req, res, next) {
- res.json({message: "Welcome to the Attendance api."});
-});
- 
-
 router.get("/:groupid/semesterRegistration/:studentid", [authjwt.verifyToken], studentAttendance.findAll);
 
 

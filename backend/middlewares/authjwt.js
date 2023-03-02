@@ -16,6 +16,7 @@ verifyToken = (req, res, next) => {
         req.userId = decoded.id;
         next();
     });
+
 };
 
 const authjwt = {

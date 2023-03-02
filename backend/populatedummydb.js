@@ -1,5 +1,8 @@
 module.exports = async db => {
 
+    // "C:\Users\student\Documents\MongoDB\MongoDBServer\bin\mongod.exe" --dbpath="C:\Users\student\Documents\MongoDB\MongoDBServer\data" --nojournal
+    //DB START COMMAND
+
     //Currently adds two courses, 6 modules in the Computer Science Course, 15 students, 9 lecturers, 1 course leader and 18 groups
     //Assigns all students to the course and various lecturers to be both module leaders and normal lecturers in the module
     Users = db.users;
