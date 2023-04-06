@@ -16,15 +16,7 @@ exports.findAll = async(req, res) => {
             message: err.message || "There was an error trying to find a group."
         });
     });
-    let token = req.header('x-access-token')
-
-    const userid = jwt.verify(token, config.secret, (err, decoded) => {
-        if (err) {
-            return res.status(401).send({ message: "Unauthorised!" });
-        }
-        return req.userId = decoded.id;
-
-    });
+    const userid = req.userId;
 
     const user = await User.findById(userid).catch(err => {
         res.status(500).send({

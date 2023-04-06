@@ -4,8 +4,6 @@ const { authjwt } = require("../middlewares");
  
 // Require controller.
 var groupController = require('../controllers/group.controller');
-
-
  
 // Retrieve one group.
 router.get("/:id", [authjwt.verifyToken], groupController.findOne);

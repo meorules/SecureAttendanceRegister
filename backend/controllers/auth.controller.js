@@ -4,40 +4,52 @@ const User = db.users;
 const Student = db.students;
 const Lecturer = db.lecturers;
 
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+let jwt = require("jsonwebtoken");
+let bcrypt = require("bcryptjs");
 
-exports.signup = (req, res) => {
-  const user = new User({
-    username: req.body.username,
-    password: bcrypt.hashSync(req.body.password, 8),
-    roleType: req.body.roleType
-  });
+exports.signup = async (req, res) => {
+  const userid = req.userId;
 
-console.log(req.body)
-  user
-    .save()
-    .then(data => {
-      if(req.body.roleType==0){
-        console.log("eyo")
-        Student.create({username:req.body.username,firstName:req.body.firstName,lastName:req.body.lastName}).then(result=>{
-        }).catch(err=>res.status(500).send({ 
-          message: err || "Some error during signup"})
-          )
-      }
-      else if(req.body.roleType==1){
-        Lecturer.create({username:req.body.username,firstName:req.body.firstName,lastName:req.body.lastName}).then(result=>{
-        }).catch(err=>res.status(500).send({ 
-          message: err || "Some error during signup"})
-          )
-      }
-        console.log("Signup User saved in the database");
-        res.status(200).send({ message: "User was registered successfully!" });
-    })
-    .catch(err => {
-        res.status(500).send({ 
-            message: err || "Some error during signup"});
+  const userCheck = await User.findById(userid).catch(err => {
+    res.status(500).send({
+          message: err.message || "There was an error trying to find a user."
     });
+  });
+  
+  if (userCheck.roleType == 4) {
+    const user = new User({
+      username: req.body.username,
+      password: bcrypt.hashSync(req.body.password, 8),
+      roleType: req.body.roleType
+    });
+
+    user
+      .save()
+      .then(data => {
+        if(req.body.roleType==0){
+          console.log("eyo")
+          Student.create({username:req.body.username,firstName:req.body.firstName,lastName:req.body.lastName}).then(result=>{
+          }).catch(err=>res.status(500).send({ 
+            message: err || "Some error during signup"})
+            )
+        }
+        else if(req.body.roleType==1){
+          Lecturer.create({username:req.body.username,firstName:req.body.firstName,lastName:req.body.lastName}).then(result=>{
+          }).catch(err=>res.status(500).send({ 
+            message: err || "Some error during signup"})
+            )
+        }
+          console.log("Signup User saved in the database");
+          res.status(200).send({ message: "User was registered successfully!" });
+      })
+      .catch(err => {
+          res.status(500).send({ 
+              message: err || "Some error during signup"});
+      });
+    }
+    else {
+      res.status(401).send({ message: "Unauthorised to create users!" });
+    }
 };
 
 exports.signin = (req, res) => {

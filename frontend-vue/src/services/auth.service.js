@@ -1,4 +1,5 @@
 import axios from 'axios';
+import authHeader from "../services/auth-header";
 
 const API_URL = 'http://localhost:3050/Attendance/auth/';
 
@@ -28,7 +29,7 @@ class AuthService {
       firstName: user.firstName,
       lastName: user.lastName,
       roleType: user.roleType
-    });
+    },{headers: authHeader() });
   }
 }
 

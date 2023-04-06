@@ -2,10 +2,12 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var morganMorgan = require('mongoose-morgan');
+var morgan = require('morgan')
 
 // Adding extra modules
 var cors = require('cors');
+const db = require("./models");
 
 
 
@@ -18,7 +20,11 @@ app.use(cors());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(logger('dev'));
+let logger = morganMorgan({
+    connectionString:db.url
+},{},':method === :url === :status === :response-time ms === :res[content-length] === :req[content-length]');
+app.use(logger);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -57,8 +63,11 @@ app.use('/Attendance/modules/:id/', studentAttendanceRouter);
 require('./routes/auth.routes')(app);
 require('./routes/security.routes')(app);
 
+
+
 //Database connection code
-const db = require("./models");
+
+
 db.mongoose.connect(db.url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -68,6 +77,9 @@ db.mongoose.connect(db.url, {
     console.log("Cannot connect to the database!", err);
     process.exit();
 });
+
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

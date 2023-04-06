@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
- 
+const { authjwt } = require("../middlewares");
+
 //Require controller
 var userController = require('../controllers/user.controller');
  
@@ -9,7 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 // Retrieve all users
-router.get("/users/", userController.findAll);
+router.get("/users/", [authjwt.verifyToken],userController.findAll);
 
 
 module.exports = router;
