@@ -20,6 +20,8 @@ db.modules = require("./module.js")(mongoose);
 db.lecturers = require("./UserTypes/lecturer.js")(mongoose);
 db.students = require("./UserTypes/student.js")(mongoose);
 db.userCreationlogs = require("./userCreation.js")(mongoose);
+db.attendanceChangeLogs = require("./attendanceChange.js")(mongoose);
+
 // db.academicadvisors = require("./UserTypes/academicadvisor.js")(mongoose);
 // db.courseleaders = require("./UserTypes/courseleader.js")(mongoose);
 

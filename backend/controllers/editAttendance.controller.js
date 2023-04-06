@@ -6,7 +6,7 @@ const Lesson = db.lessons;
 const Attendance = db.attendances;
 const Student = db.students
 const User = db.users
-
+const AttendanceChangeLogs = db.attendanceChangeLogs;
 // Edit a lesson
 exports.put = async(req, res) => {
     let userid = req.userId;
@@ -34,15 +34,39 @@ exports.put = async(req, res) => {
             res.status(400).send({ message: "Invalid Attendance Value" });
         }
 
-        attendance = req.params.attendanceid;
+        let attendance = req.params.attendanceid;
 
-        Attendance.findByIdAndUpdate(attendance, { $set: { attendanceValue: newAttendanceValue } }, { new: true, useFindAndModify: false })
-            .then(result => {
-                res.status(200).send({
-                    result
-                });
-            })
-            
+        let foundAttendance = await Attendance.findById(attendance).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find a user."
+            });
+        });
+
+        let foundStudent = await Student.findById(foundAttendance.student).catch(err => {
+            res.status(500).send({
+                message: err.message || "There was an error trying to find a user."
+            });
+        });
+        if(foundAttendance.attendanceValue !=newAttendanceValue){
+                await Attendance.findByIdAndUpdate(attendance, { $set: { attendanceValue: newAttendanceValue } }, { new: true, useFindAndModify: false })
+                .then(result => {
+                    AttendanceChangeLogs.create({actorUsername:user.username,student:foundStudent.username,attendanceValueBefore:foundAttendance.attendanceValue,attendanceValueAfter:newAttendanceValue,attendance:result,date:Date.now()})
+                    res.status(200).send({
+                        result
+                    });
+                })
+                .catch(err=>{
+                    res.status(500).send({
+                        message: err.message || "Some error occured while updating attendance"
+                    });
+                })
+                
+        }
+        else{
+            res.status(500).send({
+                message: "Attendance already that value"
+            });
+        }
     }
 
 };
