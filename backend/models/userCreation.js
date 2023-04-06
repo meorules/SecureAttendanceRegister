@@ -7,7 +7,6 @@ module.exports = mongoose => {
                 type: String,
                 required: true,
                 lowercase: true,
-                unique: true
             },
             usernameCreated: {
                 type: String,

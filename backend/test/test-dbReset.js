@@ -21,6 +21,8 @@ runDelete = async db=>{
     db.modules = require("../models/module.js")(mongoose);
     db.lecturers = require("../models/UserTypes/lecturer.js")(mongoose);
     db.students = require("../models/UserTypes/student.js")(mongoose);
+    db.userCreationlogs = require("./userCreation.js")(mongoose);
+    db.attendanceChangeLogs = require("./attendanceChange.js")(mongoose);
 
     Users = db.users;
     Attendances = db.attendances;
@@ -30,6 +32,8 @@ runDelete = async db=>{
     Modules = db.modules;
     Lecturers = db.lecturers;
     Students = db.students;
+    userCreationLogs = db.userCreationlogs;
+    attendanceChangeLogs =  db.attendanceChangeLogs;
 
     await Attendances.deleteMany({}).then(function(err,attendanceDelete){
         if(err){
@@ -108,6 +112,27 @@ runDelete = async db=>{
         else{
             if(courseDelete.acknowledged){
                 console.log("Courses Successfully deleted");
+            }
+        }
+    });
+    await userCreationLogs.deleteMany({}).then(function(err,creationLogDelete){
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(creationLogDelete.acknowledged){
+                console.log("User Creation Logs Successfully deleted");
+            }
+        }
+    });
+
+    await attendanceChangeLogs.deleteMany({}).then(function(err,attendanceChangesLogsDelete){
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(attendanceChangesLogsDelete.acknowledged){
+                console.log("Attendance Changes Logs Successfully deleted");
             }
         }
     });

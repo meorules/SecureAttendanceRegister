@@ -28,7 +28,6 @@ exports.signup = async (req, res) => {
       .save()
       .then(data => {
         if(req.body.roleType==0){
-          console.log("eyo")
           Student.create({username:req.body.username,firstName:req.body.firstName,lastName:req.body.lastName}).then(result=>{
           }).catch(err=>res.status(500).send({ 
             message: err || "Some error during signup"})
@@ -53,9 +52,6 @@ exports.signup = async (req, res) => {
     }
     else {
       UserCreationLogs.create({actorUsername:userCheck.username,usernameCreated:req.body.username,status:"Unauthorized",date:Date.now()})
-      .catch(err=>res.status(500).send({ 
-        message: err || "Some error during logging of signup"})
-        )
       res.status(401).send({ message: "Unauthorised to create users!" });
     }
 };

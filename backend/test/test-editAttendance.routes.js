@@ -10,6 +10,8 @@ const { lessons } = require('../models');
 Groups = db.groups;
 Modules = db.modules;
 Lessons = db.lessons;
+attendanceChangeLogs =  db.attendanceChangeLogs;
+
 
 
 chai.use(chaiHttp);
@@ -51,6 +53,9 @@ describe('Testing editAttendance Routes', () => {
                                                     res.body.should.have.property('result')
                                                     res.body.result.attendanceValue.should.be.eql(0);
                                                     done();
+                                                    attendanceChangeLogs.find({actorUsername:"cd7484758",student:"mo190201",attendanceValueBefore:1,attendanceValueAfter: 0}).then(data=>{
+                                                        console.log("Correct Attendance Change Value log was also found");
+                                                    })
                                                 });
 
                                         })

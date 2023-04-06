@@ -126,7 +126,6 @@ exports.findAttendance = async(req, res) => {
             message: err.message || "There was an error trying to find a user."
         });
     });
-    let details;
 
     if (user.roleType == 0) {
         res.status(401).send({ message: "Unauthorised!" });

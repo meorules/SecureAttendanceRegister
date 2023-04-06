@@ -140,7 +140,7 @@ describe('Testing AttendanceIndicators Routes', () => {
     })
 
     //Testing GET /Attendance/modules/:moduleid/:groupid/attendanceIndicators/:studentid 
-    //Negative Test, passing an incorrect student. Currently not working as the routing does not return the response
+    //Negative Test, passing an incorrect student
     describe('Return an array of attendances for a student', () => {
         it('it should return a 500 status with an error message', (done) => {
             Modules.find({ moduleName: "CAPS" }, function(moduleErr, moduleReturned) {

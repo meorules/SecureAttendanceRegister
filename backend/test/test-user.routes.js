@@ -6,8 +6,6 @@ let should = chai.should();
 
 let mongoose = require('mongoose');
 const db = require("../models");
-Groups = db.groups;
-Modules = db.modules;
 
 
 chai.use(chaiHttp);
