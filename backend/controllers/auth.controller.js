@@ -3,6 +3,7 @@ const db = require("../models");
 const User = db.users;
 const Student = db.students;
 const Lecturer = db.lecturers;
+const UserCreationLogs = db.userCreationlogs;
 
 let jwt = require("jsonwebtoken");
 let bcrypt = require("bcryptjs");
@@ -39,7 +40,10 @@ exports.signup = async (req, res) => {
             message: err || "Some error during signup"})
             )
         }
-          console.log("Signup User saved in the database");
+          UserCreationLogs.create({actorUsername:userCheck.username,usernameCreated:req.body.username,status:"Successful",date:Date.now()})
+          .catch(err=>res.status(500).send({ 
+            message: err || "Some error during logging of signup"})
+          )
           res.status(200).send({ message: "User was registered successfully!" });
       })
       .catch(err => {
@@ -48,6 +52,10 @@ exports.signup = async (req, res) => {
       });
     }
     else {
+      UserCreationLogs.create({actorUsername:userCheck.username,usernameCreated:req.body.username,status:"Unauthorized",date:Date.now()})
+      .catch(err=>res.status(500).send({ 
+        message: err || "Some error during logging of signup"})
+        )
       res.status(401).send({ message: "Unauthorised to create users!" });
     }
 };
