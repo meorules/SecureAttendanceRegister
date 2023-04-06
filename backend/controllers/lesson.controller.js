@@ -108,7 +108,6 @@ exports.delete = async(req, res) => {
 
 
 exports.findAll = async(req, res) => {
-    let userid = req.userId;
 
     let id = req.params.groupid;
     const group = await Group.findById(id).catch(err => {
